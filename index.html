@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,12 +25,14 @@
     <nav class="nav">
       <a href="#services">Услуги</a>
       <a href="#price">Прайс</a>
-      <a href="#portfolio">Портфолио</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#status">Статус</a>
       <a class="active" href="#order">Заказать</a>
       <a href="#faq">FAQ</a>
     </nav>
 
     <div class="top-actions">
+      <button id="themeToggle" class="theme-toggle" type="button">☾</button>
       <div class="online-pill"><span></span>24/7 онлайн</div>
       <a class="contact-btn" href="#order">Связаться <b>↗</b></a>
     </div>
@@ -48,7 +50,7 @@
 
         <div class="hero-buttons">
           <a class="btn btn-primary" href="#order"><span>▣</span> Оставить заявку</a>
-          <a class="btn btn-ghost" href="#services"><span>✦</span> Посмотреть услуги</a>
+          <a class="btn btn-ghost" href="#chat"><span>✦</span> Написать нам</a>
         </div>
 
         <div class="trust-row">
@@ -73,7 +75,7 @@
       <div class="hero-visual reveal">
         <div class="orbit orbit-1"></div>
         <div class="orbit orbit-2"></div>
-        <div class="avatar-shell">
+        <div class="avatar-shell" id="avatarShell">
           <img src="rpc-avatar.png" alt="RPC mascot" class="hero-avatar" />
           <div class="scanline"></div>
         </div>
@@ -132,7 +134,7 @@
           </article>
         </div>
 
-        <a class="wide-link" id="portfolio" href="#order">Смотреть портфолио <span>↗</span></a>
+        <a class="wide-link" href="#reviews">Смотреть отзывы <span>↗</span></a>
       </div>
 
       <aside id="price" class="panel price-panel reveal">
@@ -188,10 +190,25 @@
             </label>
           </div>
 
-          <label>
-            Дедлайн / срок
-            <input name="deadline" placeholder="Например: 3 дня / до 20 мая / не срочно" />
-          </label>
+          <div class="form-row">
+            <label>
+              Дедлайн / срок
+              <input name="deadline" placeholder="Например: до 20 мая / не срочно" />
+            </label>
+            <label>
+              Откуда узнали о нас?
+              <select name="source">
+                <option value="">Выберите источник</option>
+                <option>Discord</option>
+                <option>VRChat</option>
+                <option>Telegram</option>
+                <option>TikTok</option>
+                <option>YouTube</option>
+                <option>Друзья</option>
+                <option>Другое</option>
+              </select>
+            </label>
+          </div>
 
           <label>
             Описание
@@ -202,6 +219,44 @@
           <div id="statusBox" class="status-box"></div>
         </form>
       </section>
+    </section>
+
+    <section id="status" class="status-section reveal">
+      <div class="panel status-panel">
+        <div class="section-head">
+          <h2>Проверить статус заявки <span>●</span></h2>
+          <p>Введи номер заявки, который сайт показал после отправки.</p>
+        </div>
+
+        <form id="statusForm" class="status-form">
+          <input id="orderIdInput" placeholder="Например: 24 или RPC-00024" />
+          <button class="btn btn-primary" type="submit">Проверить</button>
+        </form>
+
+        <div id="statusResult" class="status-result"></div>
+      </div>
+    </section>
+
+    <section id="reviews" class="reviews-section reveal">
+      <div class="section-head center">
+        <h2>Отзывы клиентов <span>●</span></h2>
+        <p>Пока тут демо-отзывы. Потом заменишь на реальные.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <article class="review-card">
+          <div class="review-top"><b>VRChat Client</b><span>★★★★★</span></div>
+          <p>“Быстро оптимизировали аватар, убрали ошибки и сделали Quest-версию. Всё работает.”</p>
+        </article>
+        <article class="review-card">
+          <div class="review-top"><b>World Owner</b><span>★★★★★</span></div>
+          <p>“Сделали кнопки, телепорты и UI для мира. Выглядит стильно, как и хотел.”</p>
+        </article>
+        <article class="review-card">
+          <div class="review-top"><b>Avatar Creator</b><span>★★★★★</span></div>
+          <p>“Помогли с Unity, PhysBone и материалами. Понравилось, что всё объяснили понятно.”</p>
+        </article>
+      </div>
     </section>
 
     <section id="faq" class="faq-wrap reveal">
@@ -246,6 +301,35 @@
       </aside>
     </section>
   </main>
+
+  <div id="successModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close" type="button">×</button>
+      <img src="rpc-avatar.png" alt="RPC" />
+      <h2>Заявка отправлена!</h2>
+      <p id="successText">Номер заявки: #RPC-00000</p>
+      <div class="auto-message">
+        <label>Авто-сообщение клиенту</label>
+        <textarea id="autoMessage" readonly></textarea>
+        <button id="copyMessage" class="btn btn-ghost" type="button">Скопировать сообщение</button>
+      </div>
+      <div class="modal-actions">
+        <a id="discordModalBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Discord</a>
+        <a id="telegramModalBtn" class="btn btn-ghost" href="#" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="chat" class="chat-widget">
+    <button id="chatToggle" class="chat-toggle" type="button">💬</button>
+    <div id="chatPanel" class="chat-panel hidden">
+      <h3>Нужна помощь?</h3>
+      <p>Выбери способ связи или оставь заявку на сайте.</p>
+      <a id="discordBtn" href="#" target="_blank" rel="noopener">Discord</a>
+      <a id="telegramBtn" href="#" target="_blank" rel="noopener">Telegram</a>
+      <a href="#order">Оставить заявку</a>
+    </div>
+  </div>
 
   <footer class="footer">
     <div>© <span id="year"></span> RPC • RedPad Creator</div>
