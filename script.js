@@ -1,187 +1,22 @@
-const form = document.getElementById("orderForm");
-const statusBox = document.getElementById("statusBox");
-const year = document.getElementById("year");
-const themeToggle = document.getElementById("themeToggle");
-const statusForm = document.getElementById("statusForm");
-const statusResult = document.getElementById("statusResult");
-const orderIdInput = document.getElementById("orderIdInput");
-const chatToggle = document.getElementById("chatToggle");
-const chatPanel = document.getElementById("chatPanel");
-const discordBtn = document.getElementById("discordBtn");
-const telegramBtn = document.getElementById("telegramBtn");
-const discordModalBtn = document.getElementById("discordModalBtn");
-const telegramModalBtn = document.getElementById("telegramModalBtn");
-const successModal = document.getElementById("successModal");
-const closeModal = document.getElementById("closeModal");
-const successText = document.getElementById("successText");
-const autoMessage = document.getElementById("autoMessage");
-const copyMessage = document.getElementById("copyMessage");
-const avatarShell = document.getElementById("avatarShell");
-
-year.textContent = new Date().getFullYear();
-
-const savedTheme = localStorage.getItem("rpc-theme") || "dark";
-document.documentElement.dataset.theme = savedTheme;
-themeToggle.textContent = savedTheme === "dark" ? "☾" : "☀";
-
-const discordUrl = window.RPC_DISCORD_URL || "#";
-const telegramUrl = window.RPC_TELEGRAM_URL || "#";
-discordBtn.href = discordUrl;
-telegramBtn.href = telegramUrl;
-discordModalBtn.href = discordUrl;
-telegramModalBtn.href = telegramUrl;
-
-function setStatus(text, ok = false) {
-  statusBox.textContent = text;
-  statusBox.className = "status-box " + (ok ? "ok" : "err");
-}
-
-function getApiUrl() {
-  const apiUrl = (window.RPC_API_URL || "").replace(/\/$/, "");
-  if (!apiUrl) throw new Error("Не указан RPC_API_URL в config.js");
-  return apiUrl;
-}
-
-function normalizeOrderId(value) {
-  const match = String(value || "").match(/\d+/);
-  return match ? match[0] : "";
-}
-
-themeToggle.addEventListener("click", () => {
-  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  localStorage.setItem("rpc-theme", next);
-  themeToggle.textContent = next === "dark" ? "☾" : "☀";
-});
-
-chatToggle.addEventListener("click", () => {
-  chatPanel.classList.toggle("hidden");
-});
-
-closeModal.addEventListener("click", () => {
-  successModal.classList.add("hidden");
-});
-
-copyMessage.addEventListener("click", async () => {
-  try {
-    await navigator.clipboard.writeText(autoMessage.value);
-    copyMessage.textContent = "Скопировано ✓";
-    setTimeout(() => copyMessage.textContent = "Скопировать сообщение", 1400);
-  } catch {
-    autoMessage.select();
-    document.execCommand("copy");
-  }
-});
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const data = Object.fromEntries(new FormData(form).entries());
-  const budget = Number(data.budget || 0);
-
-  const payload = {
-    client_name: data.client_name,
-    contact: data.contact,
-    service: data.service,
-    price: budget,
-    prepaid: 0,
-    status: "new",
-    worker_id: null,
-    deadline: data.deadline || "",
-    notes:
-      "ЗАЯВКА С САЙТА RPC\n\n" +
-      "Контакт: " + data.contact + "\n" +
-      "Бюджет: " + (data.budget || "не указан") + "\n" +
-      "Срок: " + (data.deadline || "не указан") + "\n" +
-      "Источник клиента: " + (data.source || "не указан") + "\n\n" +
-      data.notes
-  };
-
-  try {
-    setStatus("Отправляю заявку в RPC CRM...", true);
-
-    const res = await fetch(getApiUrl() + "/public/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    let result = {};
-    try { result = await res.json(); } catch (_) {}
-
-    if (!res.ok) {
-      throw new Error(result.detail || "Сервер не принял заявку");
-    }
-
-    const rpcId = "RPC-" + String(result.id).padStart(5, "0");
-    const message =
-      "Привет! Я оставил заявку на сайте RPC.\n" +
-      "Номер заявки: #" + rpcId + "\n" +
-      "Услуга: " + data.service + "\n" +
-      "Контакт: " + data.contact + "\n" +
-      "Бюджет: " + (data.budget || "не указан") + "\n" +
-      "Срок: " + (data.deadline || "не указан");
-
-    form.reset();
-    setStatus("Заявка отправлена. Номер заявки: #" + rpcId, true);
-
-    successText.textContent = "Номер заявки: #" + rpcId;
-    autoMessage.value = message;
-    successModal.classList.remove("hidden");
-  } catch (err) {
-    setStatus("Не получилось отправить: " + err.message, false);
-  }
-});
-
-statusForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const id = normalizeOrderId(orderIdInput.value);
-
-  if (!id) {
-    statusResult.innerHTML = "Введите номер заявки, например <b>RPC-00024</b>.";
-    return;
-  }
-
-  try {
-    statusResult.textContent = "Проверяю заявку...";
-    const res = await fetch(getApiUrl() + "/public/orders/" + id);
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.detail || "Заявка не найдена");
-    }
-
-    statusResult.innerHTML =
-      "<b>Заявка #" + "RPC-" + String(data.id).padStart(5, "0") + "</b><br>" +
-      "Клиент: " + escapeHtml(data.client_name || "—") + "<br>" +
-      "Услуга: " + escapeHtml(data.service || "—") + "<br>" +
-      "Статус: <b>" + escapeHtml(data.status || "new") + "</b><br>" +
-      "Дедлайн: " + escapeHtml(data.deadline || "не указан") + "<br>" +
-      "Создана: " + escapeHtml(data.created_at || "—");
-  } catch (err) {
-    statusResult.textContent = "Не получилось проверить: " + err.message;
-  }
-});
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, (s) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-  }[s]));
-}
-
-// Scroll reveal animation
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) entry.target.classList.add("visible");
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-
-// Hero avatar reacts to mouse
-document.addEventListener("mousemove", (e) => {
-  if (!avatarShell) return;
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * 10;
-  avatarShell.style.transform = `translateY(-8px) rotateX(${-y}deg) rotateY(${x}deg)`;
-});
+const $=id=>document.getElementById(id);
+const i18n={ru:{nav_services:"Услуги",nav_queue:"Очередь",nav_cabinet:"Кабинет",nav_status:"Статус",nav_order:"Заказать",nav_admin:"Админ",login_btn:"Вход",hero_title:"Закажи VRChat<br />работу у <span>RPC</span>",hero_text:"Аватары, миры, шейдеры, оптимизация и дизайн любой сложности. Качество, скорость и стиль — в каждой работе.",cta_order:"Оставить заявку",cta_cabinet:"Личный кабинет",trust_1:"предоплата",trust_2:"правки бесплатно",trust_3:"приём заявок",services_title:"Услуги",services_sub:"Выбери направление, а детали допишешь в заявке.",queue_title:"Очередь",queue_sub:"Загрузка команды сейчас.",queue_new:"Новые",queue_work:"В работе",queue_review:"Проверка",queue_slots:"Свободные слоты",queue_refresh:"Обновить очередь",order_title:"Пошаговая заявка",order_sub:"Заполни 4 шага. Заявка попадёт в RPC CRM.",field_name:"Ваше имя",field_contact:"Контакт",field_service:"Услуга",field_source:"Откуда узнали?",field_budget:"Цена / бюджет",prepay_text:"Примерная предоплата 40%:",field_deadline:"Дедлайн",field_desc:"Описание",prev:"Назад",next:"Дальше",send_order:"Отправить заявку",portal_title:"Личный кабинет клиента",portal_sub:"Войди или зарегистрируйся, чтобы видеть свои заявки.",login_register:"Войти / Зарегистрироваться",logout:"Выйти",status_title:"Проверить статус заявки",status_sub:"Введи номер заявки, например RPC-00024.",check:"Проверить",admin_title:"Админ-панель сайта",admin_sub:"Только для owner аккаунта CRM.",admin_login:"Войти как owner",oauth_note:"Discord/Google кнопки подготовлены. Для настоящего входа нужны OAuth ключи.",register:"Регистрация",login:"Вход",sent_title:"Заявка отправлена!",auto_msg:"Авто-сообщение клиенту",copy:"Скопировать сообщение"},en:{nav_services:"Services",nav_queue:"Queue",nav_cabinet:"Portal",nav_status:"Status",nav_order:"Order",nav_admin:"Admin",login_btn:"Login",hero_title:"Order VRChat<br />work from <span>RPC</span>",hero_text:"Avatars, worlds, shaders, optimization and design of any complexity. Quality, speed and style in every order.",cta_order:"Send request",cta_cabinet:"Client portal",trust_1:"prepayment",trust_2:"free revisions",trust_3:"requests",services_title:"Services",services_sub:"Choose a direction and describe details.",queue_title:"Queue",queue_sub:"Current team workload.",queue_new:"New",queue_work:"In work",queue_review:"Review",queue_slots:"Free slots",queue_refresh:"Refresh queue",order_title:"Step-by-step order",order_sub:"Fill 4 steps. Request goes to RPC CRM.",field_name:"Your name",field_contact:"Contact",field_service:"Service",field_source:"Where did you find us?",field_budget:"Price / budget",prepay_text:"Estimated 40% prepayment:",field_deadline:"Deadline",field_desc:"Description",prev:"Back",next:"Next",send_order:"Send request",portal_title:"Client portal",portal_sub:"Login or register to see your requests.",login_register:"Login / Register",logout:"Logout",status_title:"Check order status",status_sub:"Enter order number, e.g. RPC-00024.",check:"Check",admin_title:"Website admin panel",admin_sub:"Only for CRM owner account.",admin_login:"Login as owner",oauth_note:"Discord/Google buttons are prepared. Real login needs OAuth keys.",register:"Register",login:"Login",sent_title:"Request sent!",auto_msg:"Auto message",copy:"Copy message"}};
+let state={lang:localStorage.getItem("rpc-lang")||"ru",theme:localStorage.getItem("rpc-theme")||"dark",currency:localStorage.getItem("rpc-currency")||"RUB",step:1,clientToken:localStorage.getItem("rpc-client-token")||"",client:JSON.parse(localStorage.getItem("rpc-client")||"null"),adminToken:localStorage.getItem("rpc-admin-token")||""};
+$("year").textContent=new Date().getFullYear();document.documentElement.dataset.theme=state.theme;$("themeToggle").textContent=state.theme==="dark"?"☾":"☀";$("currencySelect").value=state.currency;$("langToggle").textContent=state.lang==="ru"?"EN":"RU";$("discordBtn").href=window.RPC_DISCORD_URL||"#";$("telegramBtn").href=window.RPC_TELEGRAM_URL||"#";
+function apiUrl(){return(window.RPC_API_URL||"").replace(/\/$/,"")}function ci(){return(window.RPC_CURRENCY_RATES||{})[state.currency]||{symbol:"₽",rate:1}}function money(v){let c=ci();return Math.round(Number(v||0)*c.rate).toLocaleString("ru-RU")+" "+c.symbol}function h(t){return t?{"Authorization":"Bearer "+t,"Content-Type":"application/json"}:{"Content-Type":"application/json"}}function setBox(e,t,ok=false){e.textContent=t;e.className="status-box "+(ok?"ok":"err")}function esc(v){return String(v).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[s]))}function oid(v){let m=String(v||"").match(/\d+/);return m?m[0]:""}
+function applyI18n(){let d=i18n[state.lang];document.querySelectorAll("[data-i18n]").forEach(e=>{if(d[e.dataset.i18n])e.textContent=d[e.dataset.i18n]});document.querySelectorAll("[data-i18n-html]").forEach(e=>{if(d[e.dataset.i18nHtml])e.innerHTML=d[e.dataset.i18nHtml]})}applyI18n();
+$("themeToggle").onclick=()=>{state.theme=state.theme==="dark"?"light":"dark";localStorage.setItem("rpc-theme",state.theme);document.documentElement.dataset.theme=state.theme;$("themeToggle").textContent=state.theme==="dark"?"☾":"☀"};
+$("langToggle").onclick=()=>{state.lang=state.lang==="ru"?"en":"ru";localStorage.setItem("rpc-lang",state.lang);$("langToggle").textContent=state.lang==="ru"?"EN":"RU";applyI18n();showStep(state.step)};
+$("currencySelect").onchange=()=>{state.currency=$("currencySelect").value;localStorage.setItem("rpc-currency",state.currency);prepay()};
+function showStep(s){state.step=Math.max(1,Math.min(4,s));document.querySelectorAll(".wizard-screen").forEach(e=>e.classList.toggle("active",Number(e.dataset.step)===state.step));let p=state.step*25;$("stepText").textContent=(state.lang==="ru"?"Шаг ":"Step ")+state.step+" / 4";$("progressPercent").textContent=p+"%";$("progressFill").style.width=p+"%";$("prevStep").disabled=state.step===1;$("nextStep").classList.toggle("hidden",state.step===4);$("submitOrder").classList.toggle("hidden",state.step!==4)}$("nextStep").onclick=()=>showStep(state.step+1);$("prevStep").onclick=()=>showStep(state.step-1);showStep(1);
+$("orderForm").budget.addEventListener("input",prepay);function prepay(){$("prepayValue").textContent=money(Number($("orderForm").budget.value||0)*.4)}
+function openAuth(){$("authModal").classList.remove("hidden")}$("openLogin").onclick=openAuth;$("portalLoginBtn").onclick=openAuth;$("closeAuth").onclick=()=>$("authModal").classList.add("hidden");$("discordOAuth").onclick=()=>alert("Для настоящего Discord входа нужны OAuth Client ID/Secret.");$("googleOAuth").onclick=()=>alert("Для настоящего Google входа нужны OAuth Client ID/Secret.");
+function saveClient(d){state.clientToken=d.access_token;state.client=d.client;localStorage.setItem("rpc-client-token",state.clientToken);localStorage.setItem("rpc-client",JSON.stringify(state.client))}
+$("clientRegisterBtn").onclick=async()=>{try{let r=await fetch(apiUrl()+"/client/register",{method:"POST",headers:h(),body:JSON.stringify({name:$("authName").value,email:$("authEmail").value,password:$("authPassword").value})});let d=await r.json();if(!r.ok)throw new Error(d.detail||"Register error");saveClient(d);$("authModal").classList.add("hidden");renderPortal();loadClientOrders()}catch(e){setBox($("authStatus"),e.message,false)}};$("clientLoginBtn").onclick=async()=>{try{let r=await fetch(apiUrl()+"/client/login",{method:"POST",headers:h(),body:JSON.stringify({email:$("authEmail").value,password:$("authPassword").value})});let d=await r.json();if(!r.ok)throw new Error(d.detail||"Login error");saveClient(d);$("authModal").classList.add("hidden");renderPortal();loadClientOrders()}catch(e){setBox($("authStatus"),e.message,false)}};
+function renderPortal(){if(state.client){$("portalGuest").classList.add("hidden");$("portalUser").classList.remove("hidden");$("portalName").textContent=state.client.name+" • "+state.client.email}else{$("portalGuest").classList.remove("hidden");$("portalUser").classList.add("hidden")}}$("clientLogout").onclick=()=>{state.clientToken="";state.client=null;localStorage.removeItem("rpc-client-token");localStorage.removeItem("rpc-client");renderPortal()};renderPortal();
+async function loadClientOrders(){if(!state.clientToken)return;try{let r=await fetch(apiUrl()+"/client/orders",{headers:h(state.clientToken)});let d=await r.json();if(!r.ok)throw new Error(d.detail||"Orders error");$("clientOrders").innerHTML=d.length?d.map(card).join(""):"<p>Заявок пока нет.</p>"}catch(e){$("clientOrders").innerHTML="<p>Ошибка: "+esc(e.message)+"</p>"}}loadClientOrders();
+function card(o){return `<div class="order-mini"><b>#RPC-${String(o.id).padStart(5,"0")} • ${esc(o.service||"")}</b><span>${esc(o.status||"new")} • ${money(o.price||0)} • ${esc(o.deadline||"")}</span></div>`}
+$("orderForm").addEventListener("submit",async e=>{e.preventDefault();let f=$("orderForm"),d=Object.fromEntries(new FormData(f).entries()),b=Number(d.budget||0);let payload={client_name:d.client_name,contact:d.contact,service:d.service,price:b,prepaid:0,status:"new",worker_id:null,deadline:d.deadline||"",notes:"ЗАЯВКА С САЙТА RPC\\n\\nКонтакт: "+d.contact+"\\nБюджет: "+(d.budget||"не указан")+"\\nВалюта: "+state.currency+"\\nСрок: "+(d.deadline||"не указан")+"\\nИсточник: "+(d.source||"не указан")+"\\n\\n"+d.notes};try{setBox($("statusBox"),"Отправляю заявку...",true);let r=await fetch(apiUrl()+"/public/orders",{method:"POST",headers:h(state.clientToken),body:JSON.stringify(payload)});let res=await r.json();if(!r.ok)throw new Error(res.detail||"Server error");let id="RPC-"+String(res.id).padStart(5,"0");$("successText").textContent="Номер заявки: #"+id;$("autoMessage").value="Привет! Я оставил заявку на сайте RPC.\\nНомер заявки: #"+id+"\\nУслуга: "+d.service+"\\nБюджет: "+(d.budget||"не указан")+" "+state.currency+"\\nСрок: "+(d.deadline||"не указан");$("successModal").classList.remove("hidden");f.reset();prepay();showStep(1);setBox($("statusBox"),"Заявка отправлена: #"+id,true);loadQueue();loadClientOrders()}catch(err){setBox($("statusBox"),"Ошибка: "+err.message,false)}});$("closeModal").onclick=()=>$("successModal").classList.add("hidden");$("copyMessage").onclick=async()=>{await navigator.clipboard.writeText($("autoMessage").value);$("copyMessage").textContent="Скопировано ✓";setTimeout(()=>$("copyMessage").textContent=i18n[state.lang].copy,1300)};
+$("statusForm").addEventListener("submit",async e=>{e.preventDefault();let id=oid($("orderIdInput").value);if(!id){$("statusResult").textContent="Введите номер заявки";return}try{$("statusResult").textContent="Проверяю...";let r=await fetch(apiUrl()+"/public/orders/"+id),d=await r.json();if(!r.ok)throw new Error(d.detail||"Not found");$("statusResult").innerHTML=`<b>#RPC-${String(d.id).padStart(5,"0")}</b><br>Service: ${esc(d.service)}<br>Status: <b>${esc(d.status)}</b><br>Deadline: ${esc(d.deadline||"—")}`}catch(err){$("statusResult").textContent="Ошибка: "+err.message}});
+async function loadQueue(){try{let r=await fetch(apiUrl()+"/public/queue"),q=await r.json();if(!r.ok)throw new Error();$("queueNew").textContent=q.new??"0";$("queueWork").textContent=q.in_work??"0";$("queueReview").textContent=q.review??"0";$("queueSlots").textContent=q.free_slots??"0"}catch{$("queueNew").textContent=$("queueWork").textContent=$("queueReview").textContent=$("queueSlots").textContent="—"}}$("refreshQueue").onclick=loadQueue;loadQueue();
+$("adminLoginBtn").onclick=async()=>{try{let r=await fetch(apiUrl()+"/auth/login",{method:"POST",headers:h(),body:JSON.stringify({username:$("adminUsername").value,password:$("adminPassword").value})});let d=await r.json();if(!r.ok)throw new Error(d.detail||"Login error");if(d.user.role!=="owner")throw new Error("Only owner");state.adminToken=d.access_token;localStorage.setItem("rpc-admin-token",state.adminToken);$("adminLoginBox").classList.add("hidden");$("adminContent").classList.remove("hidden");loadAdmin()}catch(e){alert(e.message)}};async function loadAdmin(){if(!state.adminToken)return;try{let r=await fetch(apiUrl()+"/admin/site/summary",{headers:h(state.adminToken)}),d=await r.json();if(!r.ok)throw new Error(d.detail||"Admin error");$("adminClients").textContent=d.clients;$("adminOrders").textContent=d.orders_total;$("adminNew").textContent=d.orders_new;$("adminWork").textContent=d.orders_in_work;$("adminOrdersList").innerHTML=d.last_orders.map(card).join("")}catch(e){$("adminOrdersList").innerHTML="<p>Ошибка: "+esc(e.message)+"</p>"}}if(state.adminToken){$("adminLoginBox").classList.add("hidden");$("adminContent").classList.remove("hidden");loadAdmin()}
+$("chatToggle").onclick=()=>$("chatPanel").classList.toggle("hidden");const ob=new IntersectionObserver(en=>en.forEach(x=>{if(x.isIntersecting)x.target.classList.add("visible")}),{threshold:.12});document.querySelectorAll(".reveal").forEach(e=>ob.observe(e));document.addEventListener("mousemove",e=>{let a=$("avatarShell");if(!a)return;let x=(e.clientX/window.innerWidth-.5)*10,y=(e.clientY/window.innerHeight-.5)*10;a.style.transform=`translateY(-8px) rotateX(${-y}deg) rotateY(${x}deg)`});
