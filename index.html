@@ -183,28 +183,14 @@
               </select>
             </label>
             <label>
-              Бюджет
-              <select name="budget">
-                <option value="0">Выберите бюджет</option>
-                <option value="500">до 500 ₽</option>
-                <option value="1000">1000 ₽</option>
-                <option value="2000">2000 ₽</option>
-                <option value="5000">5000 ₽</option>
-                <option value="10000">10000 ₽+</option>
-              </select>
+              Цена / бюджет
+              <input name="budget" type="number" min="0" step="1" placeholder="Например: 5000" />
             </label>
           </div>
 
           <label>
-            Срок
-            <select name="deadline">
-              <option value="">Выберите срок</option>
-              <option>1 день</option>
-              <option>3 дня</option>
-              <option>7 дней</option>
-              <option>14 дней</option>
-              <option>Не срочно</option>
-            </select>
+            Дедлайн / срок
+            <input name="deadline" placeholder="Например: 3 дня / до 20 мая / не срочно" />
           </label>
 
           <label>
