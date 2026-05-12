@@ -1,14 +1,22 @@
-RPC ORDER WEBSITE MEGA CLIENT PORTAL
+RPC MAIN ORDER WEBSITE
+======================
 
-Добавлено:
-- RU / EN
-- выбор валюты
-- регистрация / вход клиента по email+пароль
-- заготовки кнопок Discord / Google OAuth
-- личный кабинет клиента
-- очередь заказов
-- пошаговая заявка с прогресс-баром
-- скрытая админ-панель сайта для owner CRM
+Это основной сайт для клиентов:
+- услуги;
+- очередь заказов;
+- пошаговая заявка;
+- проверка статуса;
+- кнопка перехода в отдельный личный кабинет.
 
-Сначала обнови сервер из server_update_client_portal_admin.
-Потом загрузи файлы из website_files в GitHub сайта.
+В GitHub основного сайта загрузи:
+index.html
+styles.css
+script.js
+config.js
+rpc-avatar.png
+README_RU.txt
+
+В config.js поменяй:
+window.RPC_CLIENT_PORTAL_URL = "https://rpc-client-portal.onrender.com";
+window.RPC_DISCORD_URL = "https://discord.gg/REPLACE_ME";
+window.RPC_TELEGRAM_URL = "https://t.me/REPLACE_ME";

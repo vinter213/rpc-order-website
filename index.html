@@ -3,64 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RPC • RedPad Creator — Order Portal</title>
+  <title>RPC • RedPad Creator — Заказать VRChat работу</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="bg-grid"></div><div class="bg-glow bg-glow-1"></div><div class="bg-glow bg-glow-2"></div><div class="noise"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="noise"></div>
+
   <header class="topbar">
-    <a class="brand" href="#top"><img src="rpc-avatar.png" class="brand-avatar" /><div><div class="brand-title">RPC</div><div class="brand-subtitle">REDPAD CREATOR</div></div></a>
+    <a class="brand" href="#top">
+      <img src="rpc-avatar.png" alt="RPC" class="brand-avatar" />
+      <div>
+        <div class="brand-title">RPC</div>
+        <div class="brand-subtitle">REDPAD CREATOR</div>
+      </div>
+    </a>
+
     <nav class="nav">
-      <a href="#services" data-i18n="nav_services">Услуги</a><a href="#queue" data-i18n="nav_queue">Очередь</a><a href="#portal" data-i18n="nav_cabinet">Кабинет</a><a href="#status" data-i18n="nav_status">Статус</a><a href="#order" data-i18n="nav_order">Заказать</a><a href="#admin" data-i18n="nav_admin">Админ</a>
+      <a href="#services" data-i18n="nav_services">Услуги</a>
+      <a href="#queue" data-i18n="nav_queue">Очередь</a>
+      <a href="#status" data-i18n="nav_status">Статус</a>
+      <a href="#order" data-i18n="nav_order">Заказать</a>
     </nav>
+
     <div class="top-actions">
-      <select id="currencySelect" class="mini-select"><option value="RUB">₽ RUB</option><option value="KZT">₸ KZT</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option></select>
-      <button id="langToggle" class="theme-toggle" type="button">EN</button><button id="themeToggle" class="theme-toggle" type="button">☾</button><button id="openLogin" class="contact-btn" type="button" data-i18n="login_btn">Вход</button>
+      <select id="currencySelect" class="mini-select">
+        <option value="RUB">₽ RUB</option>
+        <option value="KZT">₸ KZT</option>
+        <option value="USD">$ USD</option>
+        <option value="EUR">€ EUR</option>
+      </select>
+      <button id="langToggle" class="theme-toggle" type="button">EN</button>
+      <button id="themeToggle" class="theme-toggle" type="button">☾</button>
+      <a id="portalLinkTop" class="contact-btn" href="#" target="_blank" rel="noopener" data-i18n="portal_btn">Личный кабинет</a>
     </div>
   </header>
+
   <main id="top">
     <section class="hero">
       <div class="hero-copy reveal">
-        <div class="eyebrow">RPC • REDPAD CREATOR</div><h1 data-i18n-html="hero_title">Закажи VRChat<br />работу у <span>RPC</span></h1>
-        <p class="lead" data-i18n="hero_text">Аватары, миры, шейдеры, оптимизация и дизайн любой сложности. Качество, скорость и стиль — в каждой работе.</p>
-        <div class="hero-buttons"><a class="btn btn-primary" href="#order">▣ <b data-i18n="cta_order">Оставить заявку</b></a><a class="btn btn-ghost" href="#portal">✦ <b data-i18n="cta_cabinet">Личный кабинет</b></a></div>
-        <div class="trust-row"><div class="trust-card"><div class="trust-icon">◇</div><b>40%</b><span data-i18n="trust_1">предоплата</span></div><div class="trust-card"><div class="trust-icon">☆</div><b>2</b><span data-i18n="trust_2">правки бесплатно</span></div><div class="trust-card"><div class="trust-icon">◷</div><b>24/7</b><span data-i18n="trust_3">приём заявок</span></div></div>
-      </div>
-      <div class="hero-visual reveal"><div class="orbit orbit-1"></div><div class="orbit orbit-2"></div><div class="avatar-shell" id="avatarShell"><img src="rpc-avatar.png" class="hero-avatar" /><div class="scanline"></div></div><div class="platform"></div></div>
-    </section>
-
-    <section id="services" class="content-grid">
-      <div class="panel services-panel reveal"><div class="section-head"><h2><span data-i18n="services_title">Услуги</span> <span>●</span></h2><p data-i18n="services_sub">Выбери направление, а детали допишешь в заявке.</p></div>
-        <div class="services-grid">
-          <article class="service-card"><div class="service-icon">⇧</div><h3>Avatar Upload</h3><p>SDK check, upload, fixes.</p></article><article class="service-card"><div class="service-icon">◴</div><h3>Optimization</h3><p>PC / Quest optimization.</p></article><article class="service-card"><div class="service-icon">▰</div><h3>Quest</h3><p>Quest limits and performance.</p></article><article class="service-card"><div class="service-icon">⬡</div><h3>Worlds / Unity</h3><p>Buttons, teleports, UI, zones.</p></article><article class="service-card"><div class="service-icon">✦</div><h3>Shaders / FX</h3><p>AudioLink, neon, glitch, holo.</p></article><article class="service-card"><div class="service-icon">✎</div><h3>Design</h3><p>Banners, previews, promo.</p></article>
+        <div class="eyebrow">RPC • REDPAD CREATOR</div>
+        <h1 data-i18n-html="hero_title">Закажи VRChat<br />работу у <span>RPC</span></h1>
+        <p class="lead" data-i18n="hero_text">
+          Аватары, миры, шейдеры, оптимизация и дизайн любой сложности.
+          Качество, скорость и стиль — в каждой работе.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#order">▣ <b data-i18n="cta_order">Оставить заявку</b></a>
+          <a id="portalHeroBtn" class="btn btn-ghost" href="#" target="_blank" rel="noopener">✦ <b data-i18n="cta_portal">Открыть кабинет</b></a>
+        </div>
+        <div class="trust-row">
+          <div class="trust-card"><div class="trust-icon">◇</div><b>40%</b><span data-i18n="trust_1">предоплата</span></div>
+          <div class="trust-card"><div class="trust-icon">☆</div><b>2</b><span data-i18n="trust_2">правки бесплатно</span></div>
+          <div class="trust-card"><div class="trust-icon">◷</div><b>24/7</b><span data-i18n="trust_3">приём заявок</span></div>
         </div>
       </div>
 
-      <aside id="queue" class="panel price-panel reveal"><div class="section-head"><h2><span data-i18n="queue_title">Очередь</span> <span>●</span></h2><p data-i18n="queue_sub">Загрузка команды сейчас.</p></div>
-        <div class="queue-cards"><div><span data-i18n="queue_new">Новые</span><b id="queueNew">—</b></div><div><span data-i18n="queue_work">В работе</span><b id="queueWork">—</b></div><div><span data-i18n="queue_review">Проверка</span><b id="queueReview">—</b></div><div><span data-i18n="queue_slots">Свободные слоты</span><b id="queueSlots">—</b></div></div>
+      <div class="hero-visual reveal">
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="avatar-shell" id="avatarShell">
+          <img src="rpc-avatar.png" alt="RPC" class="hero-avatar" />
+          <div class="scanline"></div>
+        </div>
+        <div class="platform"></div>
+      </div>
+    </section>
+
+    <section id="services" class="content-grid">
+      <div class="panel services-panel reveal">
+        <div class="section-head">
+          <h2><span data-i18n="services_title">Услуги</span> <span>●</span></h2>
+          <p data-i18n="services_sub">Выбери направление, а детали допишешь в заявке.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card"><div class="service-icon">⇧</div><h3>Avatar Upload</h3><p>SDK check, upload, fixes.</p></article>
+          <article class="service-card"><div class="service-icon">◴</div><h3>Optimization</h3><p>PC / Quest optimization.</p></article>
+          <article class="service-card"><div class="service-icon">▰</div><h3>Quest</h3><p>Quest limits and performance.</p></article>
+          <article class="service-card"><div class="service-icon">⬡</div><h3>Worlds / Unity</h3><p>Buttons, teleports, UI, zones.</p></article>
+          <article class="service-card"><div class="service-icon">✦</div><h3>Shaders / FX</h3><p>AudioLink, glitch, holo, glass, neon.</p></article>
+          <article class="service-card"><div class="service-icon">✎</div><h3>Design</h3><p>Banners, previews, promo materials.</p></article>
+        </div>
+      </div>
+
+      <aside id="queue" class="panel price-panel reveal">
+        <div class="section-head">
+          <h2><span data-i18n="queue_title">Очередь</span> <span>●</span></h2>
+          <p data-i18n="queue_sub">Загрузка команды сейчас.</p>
+        </div>
+        <div class="queue-cards">
+          <div><span data-i18n="queue_new">Новые</span><b id="queueNew">—</b></div>
+          <div><span data-i18n="queue_work">В работе</span><b id="queueWork">—</b></div>
+          <div><span data-i18n="queue_review">Проверка</span><b id="queueReview">—</b></div>
+          <div><span data-i18n="queue_slots">Свободные слоты</span><b id="queueSlots">—</b></div>
+        </div>
         <button id="refreshQueue" class="wide-link button-like" type="button"><span data-i18n="queue_refresh">Обновить очередь</span> ↗</button>
       </aside>
 
-      <section id="order" class="panel order-panel reveal"><div class="section-head"><h2><span data-i18n="order_title">Пошаговая заявка</span> <span>●</span></h2><p data-i18n="order_sub">Заполни 4 шага. Заявка попадёт в RPC CRM.</p></div>
-        <div class="progress-wrap"><div class="progress-top"><span id="stepText">Шаг 1 / 4</span><span id="progressPercent">25%</span></div><div class="progress-bar"><div id="progressFill"></div></div></div>
+      <section id="order" class="panel order-panel reveal">
+        <div class="section-head">
+          <h2><span data-i18n="order_title">Пошаговая заявка</span> <span>●</span></h2>
+          <p data-i18n="order_sub">Заполни 4 шага. Заявка попадёт в RPC CRM.</p>
+        </div>
+
+        <div class="progress-wrap">
+          <div class="progress-top"><span id="stepText">Шаг 1 / 4</span><span id="progressPercent">25%</span></div>
+          <div class="progress-bar"><div id="progressFill"></div></div>
+        </div>
+
         <form id="orderForm" class="order-form wizard-form">
-          <div class="wizard-screen active" data-step="1"><label><span data-i18n="field_name">Ваше имя</span><input name="client_name" required placeholder="Daniel / Nickname" /></label><label><span data-i18n="field_contact">Контакт</span><input name="contact" required placeholder="Discord / Telegram / Email" /></label></div>
-          <div class="wizard-screen" data-step="2"><label><span data-i18n="field_service">Услуга</span><select name="service" required><option value="">Choose</option><option>Avatar Upload</option><option>Optimization</option><option>Quest адаптация</option><option>Мир / Unity</option><option>Shaders / FX</option><option>Design / Banners</option><option>Custom Request</option></select></label><label><span data-i18n="field_source">Откуда узнали?</span><select name="source"><option value="">Choose</option><option>Discord</option><option>VRChat</option><option>Telegram</option><option>TikTok</option><option>YouTube</option><option>Друзья</option><option>Другое</option></select></label></div>
-          <div class="wizard-screen" data-step="3"><label><span data-i18n="field_budget">Цена / бюджет</span><input name="budget" type="number" min="0" step="1" placeholder="5000" /></label><div class="prepay-box"><span data-i18n="prepay_text">Примерная предоплата 40%:</span> <b id="prepayValue">0 ₽</b></div><label><span data-i18n="field_deadline">Дедлайн</span><input name="deadline" placeholder="до 20 мая / не срочно" /></label></div>
-          <div class="wizard-screen" data-step="4"><label><span data-i18n="field_desc">Описание</span><textarea name="notes" required rows="5" placeholder="Опишите задачу, детали, ссылки..."></textarea></label></div>
-          <div class="wizard-actions"><button id="prevStep" class="btn btn-ghost" type="button" data-i18n="prev">Назад</button><button id="nextStep" class="btn btn-primary" type="button" data-i18n="next">Дальше</button><button id="submitOrder" class="btn btn-primary hidden" type="submit" data-i18n="send_order">Отправить заявку</button></div><div id="statusBox" class="status-box"></div>
+          <div class="wizard-screen active" data-step="1">
+            <label><span data-i18n="field_name">Ваше имя</span><input name="client_name" required placeholder="Daniel / Nickname" /></label>
+            <label><span data-i18n="field_contact">Контакт</span><input name="contact" required placeholder="Discord / Telegram / Email" /></label>
+          </div>
+
+          <div class="wizard-screen" data-step="2">
+            <label><span data-i18n="field_service">Услуга</span>
+              <select name="service" required>
+                <option value="">Choose</option>
+                <option>Avatar Upload</option>
+                <option>Optimization</option>
+                <option>Quest адаптация</option>
+                <option>Мир / Unity</option>
+                <option>Shaders / FX</option>
+                <option>Design / Banners</option>
+                <option>Custom Request</option>
+              </select>
+            </label>
+            <label><span data-i18n="field_source">Откуда узнали?</span>
+              <select name="source">
+                <option value="">Choose</option>
+                <option>Discord</option>
+                <option>VRChat</option>
+                <option>Telegram</option>
+                <option>TikTok</option>
+                <option>YouTube</option>
+                <option>Друзья</option>
+                <option>Другое</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="wizard-screen" data-step="3">
+            <label><span data-i18n="field_budget">Цена / бюджет</span><input name="budget" type="number" min="0" step="1" placeholder="5000" /></label>
+            <div class="prepay-box"><span data-i18n="prepay_text">Примерная предоплата 40%:</span> <b id="prepayValue">0 ₽</b></div>
+            <label><span data-i18n="field_deadline">Дедлайн</span><input name="deadline" placeholder="до 20 мая / не срочно" /></label>
+          </div>
+
+          <div class="wizard-screen" data-step="4">
+            <label><span data-i18n="field_desc">Описание</span><textarea name="notes" required rows="5" placeholder="Опишите задачу, детали, ссылки..."></textarea></label>
+          </div>
+
+          <div class="wizard-actions">
+            <button id="prevStep" class="btn btn-ghost" type="button" data-i18n="prev">Назад</button>
+            <button id="nextStep" class="btn btn-primary" type="button" data-i18n="next">Дальше</button>
+            <button id="submitOrder" class="btn btn-primary hidden" type="submit" data-i18n="send_order">Отправить заявку</button>
+          </div>
+          <div id="statusBox" class="status-box"></div>
         </form>
       </section>
     </section>
 
-    <section id="portal" class="status-section reveal"><div class="panel status-panel"><div class="section-head"><h2><span data-i18n="portal_title">Личный кабинет клиента</span> <span>●</span></h2><p data-i18n="portal_sub">Войди или зарегистрируйся, чтобы видеть свои заявки.</p></div><div id="portalGuest" class="portal-box"><button id="portalLoginBtn" class="btn btn-primary" type="button" data-i18n="login_register">Войти / Зарегистрироваться</button></div><div id="portalUser" class="portal-box hidden"><div class="portal-head"><b id="portalName">Client</b><button id="clientLogout" class="btn btn-ghost" type="button" data-i18n="logout">Выйти</button></div><div id="clientOrders" class="orders-list"></div></div></div></section>
-    <section id="status" class="status-section reveal"><div class="panel status-panel"><div class="section-head"><h2><span data-i18n="status_title">Проверить статус заявки</span> <span>●</span></h2><p data-i18n="status_sub">Введи номер заявки, например RPC-00024.</p></div><form id="statusForm" class="status-form"><input id="orderIdInput" placeholder="RPC-00024" /><button class="btn btn-primary" type="submit" data-i18n="check">Проверить</button></form><div id="statusResult" class="status-result"></div></div></section>
-    <section id="admin" class="status-section reveal"><div class="panel status-panel admin-panel"><div class="section-head"><h2><span data-i18n="admin_title">Админ-панель сайта</span> <span>●</span></h2><p data-i18n="admin_sub">Только для owner аккаунта CRM.</p></div><div id="adminLoginBox" class="admin-login"><input id="adminUsername" placeholder="CRM owner login" /><input id="adminPassword" type="password" placeholder="CRM owner password" /><button id="adminLoginBtn" class="btn btn-primary" type="button" data-i18n="admin_login">Войти как owner</button></div><div id="adminContent" class="hidden"><div class="admin-stats"><div><span>Clients</span><b id="adminClients">—</b></div><div><span>Orders</span><b id="adminOrders">—</b></div><div><span>New</span><b id="adminNew">—</b></div><div><span>In Work</span><b id="adminWork">—</b></div></div><h3>Последние заявки</h3><div id="adminOrdersList" class="orders-list"></div></div></div></section>
+    <section id="status" class="status-section reveal">
+      <div class="panel status-panel">
+        <div class="section-head">
+          <h2><span data-i18n="status_title">Проверить статус заявки</span> <span>●</span></h2>
+          <p data-i18n="status_sub">Введи номер заявки, например RPC-00024.</p>
+        </div>
+        <form id="statusForm" class="status-form">
+          <input id="orderIdInput" placeholder="RPC-00024" />
+          <button class="btn btn-primary" type="submit" data-i18n="check">Проверить</button>
+        </form>
+        <div id="statusResult" class="status-result"></div>
+      </div>
+    </section>
   </main>
 
-  <div id="authModal" class="modal hidden"><div class="modal-card auth-card"><button id="closeAuth" class="modal-close" type="button">×</button><img src="rpc-avatar.png" /><h2>Client Portal</h2><div class="oauth-row"><button id="discordOAuth" class="btn btn-ghost" type="button">Discord</button><button id="googleOAuth" class="btn btn-ghost" type="button">Google</button></div><p class="oauth-note" data-i18n="oauth_note">Discord/Google кнопки подготовлены. Для настоящего входа нужны OAuth ключи.</p><input id="authName" placeholder="Name / Имя" /><input id="authEmail" placeholder="Email" /><input id="authPassword" type="password" placeholder="Password / Пароль" /><div class="modal-actions"><button id="clientRegisterBtn" class="btn btn-primary" type="button" data-i18n="register">Регистрация</button><button id="clientLoginBtn" class="btn btn-ghost" type="button" data-i18n="login">Вход</button></div><div id="authStatus" class="status-box"></div></div></div>
-  <div id="successModal" class="modal hidden"><div class="modal-card"><button id="closeModal" class="modal-close" type="button">×</button><img src="rpc-avatar.png" /><h2 data-i18n="sent_title">Заявка отправлена!</h2><p id="successText">Номер заявки: #RPC-00000</p><div class="auto-message"><label data-i18n="auto_msg">Авто-сообщение клиенту</label><textarea id="autoMessage" readonly></textarea><button id="copyMessage" class="btn btn-ghost" type="button" data-i18n="copy">Скопировать сообщение</button></div></div></div>
-  <div id="chat" class="chat-widget"><button id="chatToggle" class="chat-toggle" type="button">💬</button><div id="chatPanel" class="chat-panel hidden"><h3>Нужна помощь?</h3><p>Discord / Telegram / заявка.</p><a id="discordBtn" href="#" target="_blank">Discord</a><a id="telegramBtn" href="#" target="_blank">Telegram</a><a href="#order">Оставить заявку</a></div></div>
+  <div id="successModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close" type="button">×</button>
+      <img src="rpc-avatar.png" />
+      <h2 data-i18n="sent_title">Заявка отправлена!</h2>
+      <p id="successText">Номер заявки: #RPC-00000</p>
+      <div class="auto-message">
+        <label data-i18n="auto_msg">Авто-сообщение клиенту</label>
+        <textarea id="autoMessage" readonly></textarea>
+        <button id="copyMessage" class="btn btn-ghost" type="button" data-i18n="copy">Скопировать сообщение</button>
+      </div>
+      <a id="goPortalAfterOrder" class="btn btn-primary" href="#" target="_blank" rel="noopener" data-i18n="go_portal">Открыть личный кабинет</a>
+    </div>
+  </div>
+
+  <div id="chat" class="chat-widget">
+    <button id="chatToggle" class="chat-toggle" type="button">💬</button>
+    <div id="chatPanel" class="chat-panel hidden">
+      <h3>Нужна помощь?</h3>
+      <p>Discord / Telegram / заявка.</p>
+      <a id="discordBtn" href="#" target="_blank">Discord</a>
+      <a id="telegramBtn" href="#" target="_blank">Telegram</a>
+      <a href="#order">Оставить заявку</a>
+    </div>
+  </div>
+
   <footer class="footer"><div>© <span id="year"></span> RPC • RedPad Creator</div><a href="#top">↑</a></footer>
-  <script src="config.js"></script><script src="script.js"></script>
-</body></html>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
