@@ -4,184 +4,266 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RPC • RedPad Creator — Заказать VRChat работу</title>
-  <meta name="description" content="RPC • RedPad Creator — заказы на VRChat аватары, оптимизацию, миры, Unity, Quest, шейдеры и дизайн." />
+  <meta name="description" content="RPC • RedPad Creator — заказы на VRChat аватары, миры, оптимизацию, Quest, Unity, шейдеры и дизайн." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
   <div class="noise"></div>
-  <header class="header">
-    <div class="brand">
-      <div class="logo">RPC</div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="RPC RedPad Creator">
+      <img src="assets/rpc-avatar.png" alt="RPC avatar" class="brand-avatar" />
       <div>
-        <div class="brand-title">RedPad Creator</div>
-        <div class="brand-sub">VRChat • Unity • Avatars • Worlds</div>
+        <div class="brand-title">RPC</div>
+        <div class="brand-subtitle">REDPAD CREATOR</div>
       </div>
-    </div>
+    </a>
+
     <nav class="nav">
       <a href="#services">Услуги</a>
       <a href="#price">Прайс</a>
-      <a href="#order">Заказать</a>
+      <a href="#portfolio">Портфолио</a>
+      <a class="active" href="#order">Заказать</a>
       <a href="#faq">FAQ</a>
     </nav>
+
+    <div class="top-actions">
+      <div class="online-pill"><span></span>24/7 онлайн</div>
+      <a class="contact-btn" href="#order">Связаться <b>↗</b></a>
+    </div>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
-      <div class="hero-left">
-        <div class="badge">RPC Studio Orders</div>
-        <h1>Закажи VRChat работу у <span>RPC</span></h1>
-        <p>
-          Аватары, Quest оптимизация, Unity/VRChat миры, шейдеры, баннеры и настройка проекта.
-          Заявка с сайта сразу улетает в нашу CRM.
+      <div class="hero-copy reveal">
+        <div class="eyebrow">RPC • REDPAD CREATOR</div>
+        <h1>Закажи VRChat<br />работу у <span>RPC</span></h1>
+        <p class="lead">
+          Аватары, миры, шейдеры, оптимизация и дизайн любой сложности.
+          Качество, скорость и стиль — в каждой работе.
         </p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#order">Оставить заявку</a>
-          <a class="btn ghost" href="#services">Посмотреть услуги</a>
+
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#order"><span>▣</span> Оставить заявку</a>
+          <a class="btn btn-ghost" href="#services"><span>✦</span> Посмотреть услуги</a>
         </div>
-        <div class="stats">
-          <div><b>50%</b><span>предоплата</span></div>
-          <div><b>2</b><span>правки бесплатно</span></div>
-          <div><b>24/7</b><span>приём заявок</span></div>
+
+        <div class="trust-row">
+          <div class="trust-card">
+            <div class="trust-icon">◇</div>
+            <b>40% предоплата</b>
+            <span>Безопасно и честно</span>
+          </div>
+          <div class="trust-card">
+            <div class="trust-icon">☆</div>
+            <b>2 правки бесплатно</b>
+            <span>Доведём до идеала</span>
+          </div>
+          <div class="trust-card">
+            <div class="trust-icon">◷</div>
+            <b>24/7 приём заявок</b>
+            <span>Отвечаем быстро</span>
+          </div>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="card-glow"></div>
-        <h3>RPC Work Pipeline</h3>
-        <ul>
-          <li><span>01</span> Клиент оставляет заявку</li>
-          <li><span>02</span> Менеджер уточняет ТЗ</li>
-          <li><span>03</span> Работа попадает исполнителю</li>
-          <li><span>04</span> Финальный тест и выдача</li>
-        </ul>
+
+      <div class="hero-visual reveal">
+        <div class="orbit orbit-1"></div>
+        <div class="orbit orbit-2"></div>
+        <div class="avatar-shell">
+          <img src="assets/rpc-avatar.png" alt="RPC mascot" class="hero-avatar" />
+          <div class="scanline"></div>
+        </div>
+        <div class="platform"></div>
+
+        <aside class="standard-card">
+          <h3>RPC STANDARD</h3>
+          <ul>
+            <li>✓ Качественно</li>
+            <li>◷ Быстро</li>
+            <li>◇ Надёжно</li>
+            <li>✧ Стильно</li>
+          </ul>
+          <div class="heart">Сделано с душой <span>♥</span></div>
+        </aside>
       </div>
     </section>
 
-    <section id="services" class="section">
-      <div class="section-title">
-        <span>Services</span>
-        <h2>Что можно заказать</h2>
+    <section id="services" class="content-grid">
+      <div class="panel services-panel reveal">
+        <div class="section-head">
+          <h2>Услуги <span>●</span></h2>
+          <p>Выбери направление, а детали допишешь в заявке.</p>
+        </div>
+
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-icon">⇧</div>
+            <h3>Avatar Upload</h3>
+            <p>Загрузка аватаров на ваш аккаунт, SDK-проверка и базовые фиксы.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">◴</div>
+            <h3>Optimization</h3>
+            <p>Оптимизация аватаров и миров под PC/Quest, материалы и текстуры.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">▰</div>
+            <h3>Quest</h3>
+            <p>Адаптация под VRChat Quest, снижение веса и проверка лимитов.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">⬡</div>
+            <h3>Worlds / Unity</h3>
+            <p>Создание миров, кнопки, телепорты, UI, зоны и интерактив.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">✦</div>
+            <h3>Shaders / FX</h3>
+            <p>Шейдеры, эффекты, AudioLink, glitch, holo, glass и VFX.</p>
+          </article>
+          <article class="service-card">
+            <div class="service-icon">✎</div>
+            <h3>Design / Banners</h3>
+            <p>Оформление, баннеры, превью, правила и промо-материалы.</p>
+          </article>
+        </div>
+
+        <a class="wide-link" id="portfolio" href="#order">Смотреть портфолио <span>↗</span></a>
       </div>
-      <div class="grid cards">
-        <article class="service-card">
-          <h3>Avatar Upload</h3>
-          <p>Загрузка аватара в VRChat, проверка SDK, исправление простых ошибок.</p>
-        </article>
-        <article class="service-card">
-          <h3>Avatar Optimization</h3>
-          <p>Оптимизация аватара под PC/Quest, материалы, текстуры, PhysBone, размер.</p>
-        </article>
-        <article class="service-card">
-          <h3>World / Unity</h3>
-          <p>Кнопки, телепорты, зоны, UI, зеркала, интерактив, сцены для VRChat.</p>
-        </article>
-        <article class="service-card">
-          <h3>Shaders / Visual FX</h3>
-          <p>Неон, голограммы, AudioLink, glass, glitch, анимированные материалы.</p>
-        </article>
-        <article class="service-card">
-          <h3>Design / Banners</h3>
-          <p>Discord/VRChat баннеры, прайс-листы, правила, промо-оформление.</p>
-        </article>
-        <article class="service-card">
-          <h3>Custom Request</h3>
-          <p>Если задачи нет в списке — опиши идею, мы оценим сложность.</p>
-        </article>
-      </div>
+
+      <aside id="price" class="panel price-panel reveal">
+        <div class="section-head">
+          <h2>Прайс <small>(от)</small> <span>●</span></h2>
+        </div>
+        <div class="price-list">
+          <div><span>Avatar Upload</span><b>от 500 ₽</b></div>
+          <div><span>Optimization</span><b>от 700 ₽</b></div>
+          <div><span>Quest адаптация</span><b>от 1000 ₽</b></div>
+          <div><span>Мир / Unity</span><b>от 3000 ₽</b></div>
+          <div><span>Shaders / FX</span><b>от 1500 ₽</b></div>
+          <div><span>Дизайн / Баннер</span><b>от 500 ₽</b></div>
+        </div>
+        <a class="wide-link small" href="#order">Сделать расчёт <span>↗</span></a>
+      </aside>
+
+      <section id="order" class="panel order-panel reveal">
+        <div class="section-head">
+          <h2>Оставить заявку <span>●</span></h2>
+          <p>Заявка сразу попадёт в RPC Team CRM.</p>
+        </div>
+
+        <form id="orderForm" class="order-form">
+          <div class="form-row">
+            <label>
+              Ваше имя
+              <input name="client_name" required placeholder="Как к вам обращаться?" />
+            </label>
+            <label>
+              Контакт
+              <input name="contact" required placeholder="Discord / Telegram / VK" />
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              Услуга
+              <select name="service" required>
+                <option value="">Выберите услугу</option>
+                <option>Avatar Upload</option>
+                <option>Optimization</option>
+                <option>Quest адаптация</option>
+                <option>Мир / Unity</option>
+                <option>Shaders / FX</option>
+                <option>Design / Banners</option>
+                <option>Custom Request</option>
+              </select>
+            </label>
+            <label>
+              Бюджет
+              <select name="budget">
+                <option value="0">Выберите бюджет</option>
+                <option value="500">до 500 ₽</option>
+                <option value="1000">1000 ₽</option>
+                <option value="2000">2000 ₽</option>
+                <option value="5000">5000 ₽</option>
+                <option value="10000">10000 ₽+</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Срок
+            <select name="deadline">
+              <option value="">Выберите срок</option>
+              <option>1 день</option>
+              <option>3 дня</option>
+              <option>7 дней</option>
+              <option>14 дней</option>
+              <option>Не срочно</option>
+            </select>
+          </label>
+
+          <label>
+            Описание
+            <textarea name="notes" required rows="5" placeholder="Опишите задачу, детали, пожелания, ссылки на референсы..."></textarea>
+          </label>
+
+          <button class="btn btn-primary submit" type="submit">Отправить заявку <span>↗</span></button>
+          <div id="statusBox" class="status-box"></div>
+        </form>
+      </section>
     </section>
 
-    <section id="price" class="section price-section">
-      <div class="section-title">
-        <span>Price</span>
-        <h2>Ориентировочный прайс</h2>
-      </div>
-      <div class="price-table">
-        <div><b>Upload Avatar</b><span>100₽ – 500₽</span></div>
-        <div><b>Avatar Optimization</b><span>1000₽ – 2000₽</span></div>
-        <div><b>Quest Optimization</b><span>1000₽ – 2000₽</span></div>
-        <div><b>Adding Assets</b><span>от 250₽</span></div>
-        <div><b>World Scripts / Unity</b><span>по сложности</span></div>
-        <div><b>Shaders / FX</b><span>по сложности</span></div>
-      </div>
-      <p class="note">Финальная цена зависит от сложности, сроков, файлов и количества правок.</p>
-    </section>
-
-    <section id="order" class="section order-wrap">
-      <div class="section-title">
-        <span>Order</span>
-        <h2>Оставить заявку</h2>
-      </div>
-
-      <form id="orderForm" class="order-form">
-        <div class="two">
-          <label>
-            Имя / ник
-            <input name="client_name" placeholder="Например: Daniel" required />
-          </label>
-          <label>
-            Связь
-            <input name="contact" placeholder="Discord / Telegram / VK" required />
-          </label>
+    <section id="faq" class="faq-wrap reveal">
+      <div class="panel faq-panel">
+        <div class="section-head">
+          <h2>FAQ / Правила <span>●</span></h2>
         </div>
 
-        <label>
-          Услуга
-          <select name="service" required>
-            <option value="Avatar Upload">Avatar Upload</option>
-            <option value="Avatar Optimization">Avatar Optimization</option>
-            <option value="Quest Optimization">Quest Optimization</option>
-            <option value="World / Unity">World / Unity</option>
-            <option value="Shaders / Visual FX">Shaders / Visual FX</option>
-            <option value="Design / Banners">Design / Banners</option>
-            <option value="Custom Request">Custom Request</option>
-          </select>
-        </label>
-
-        <div class="two">
-          <label>
-            Примерный бюджет
-            <input name="budget" type="number" min="0" placeholder="Например: 5000" />
-          </label>
-          <label>
-            Дедлайн
-            <input name="deadline" placeholder="Например: 3 дня / до 20 мая" />
-          </label>
-        </div>
-
-        <label>
-          Описание заказа
-          <textarea name="notes" rows="6" placeholder="Опиши задачу, ссылки, что нужно сделать, какие файлы есть..." required></textarea>
-        </label>
-
-        <button class="btn primary submit" type="submit">Отправить заявку в RPC</button>
-        <div id="statusBox" class="status-box"></div>
-      </form>
-    </section>
-
-    <section id="faq" class="section faq">
-      <div class="section-title">
-        <span>FAQ</span>
-        <h2>Правила заказа</h2>
-      </div>
-      <div class="faq-grid">
-        <div>
-          <h3>Предоплата</h3>
-          <p>Работа начинается после предоплаты. Обычно 50% от суммы заказа.</p>
-        </div>
-        <div>
-          <h3>Правки</h3>
-          <p>Две небольшие правки бесплатно. Большие переделки считаются отдельно.</p>
-        </div>
-        <div>
-          <h3>Сроки</h3>
-          <p>Срок зависит от сложности задачи и качества исходных файлов.</p>
+        <div class="faq-grid">
+          <details>
+            <summary>Как происходит работа?</summary>
+            <p>Ты оставляешь заявку, мы уточняем ТЗ, фиксируем цену/срок и начинаем после предоплаты.</p>
+          </details>
+          <details>
+            <summary>Какие требования к заказу?</summary>
+            <p>Нужны файлы, ссылки, референсы и понятное описание результата.</p>
+          </details>
+          <details>
+            <summary>Что по правкам?</summary>
+            <p>Две небольшие правки включены. Большие переделки считаются отдельно.</p>
+          </details>
+          <details>
+            <summary>Какие сроки выполнения?</summary>
+            <p>Зависит от сложности. Простые задачи — быстрее, большие Unity/VRChat проекты — дольше.</p>
+          </details>
+          <details>
+            <summary>Можно ли отменить заказ?</summary>
+            <p>Возврат обсуждается до начала работы. После старта работа оплачивается по факту выполненного объёма.</p>
+          </details>
+          <details>
+            <summary>Какие способы оплаты?</summary>
+            <p>Способ оплаты согласовывается в личной переписке после заявки.</p>
+          </details>
         </div>
       </div>
+
+      <aside class="panel guarantee-card">
+        <div class="shield">✓</div>
+        <h3>Гарантия качества</h3>
+        <p>Делаю как для себя. Стиль, чистота и рабочий результат.</p>
+        <b>RPC • RedPad Creator</b>
+      </aside>
     </section>
   </main>
 
-  <footer>
-    <b>RPC • RedPad Creator</b>
-    <span>VRChat creation studio</span>
+  <footer class="footer">
+    <div>© <span id="year"></span> RPC • RedPad Creator</div>
+    <a href="#top">Наверх ↑</a>
   </footer>
 
   <script src="config.js"></script>
