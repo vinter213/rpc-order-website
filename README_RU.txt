@@ -1,46 +1,40 @@
-RPC SITE UPDATED WORKER SYSTEM
-==============================
+RPC ORDER SITE — DARK NEON AVATAR STYLE
+======================================
 
-Это обновлённый сайт RPC в одном наборе файлов.
+Это готовые файлы сайта в стиле тёмного RPC / RedPad Creator:
+- чёрный фон
+- красный/розовый/фиолетовый неон
+- аватарка rpc-avatar.png
+- услуги
+- прайс
+- FAQ
+- форма заявки
+- адаптация под телефон
 
-Файлы:
+Файлы внутри:
 - index.html
-- worker-register.html
-- worker-status.html
-- owner-workers.html
 - style.css
 - app.js
-- BACKEND_WORKER_ENDPOINTS_PATCH.py
+- rpc-avatar.png
 - README_RU.txt
 
-Что добавлено:
-1. Основной сайт в стиле RPC.
-2. Форма заказа с нормальными полями цены и дедлайна.
-3. Регистрация рабочих на сайте.
-4. Проверка статуса заявки рабочего.
-5. Owner-страница для подтверждения рабочих.
-6. Кнопки:
-   - Одобрить
-   - Отклонить
-   - Отключить
-   - Worker
-   - Manager
+КУДА ЗАГРУЖАТЬ:
+В репозиторий ОСНОВНОГО сайта заказов, например:
+rpc-order-website
 
-Как загрузить на сайт:
-1. Распакуй ZIP.
-2. Закинь ВСЕ файлы в корень сайта рядом с index.html.
-3. Загрузи в GitHub.
-4. Render сам обновит сайт.
+НЕ ЗАГРУЖАТЬ в:
+- rpc-team-crm
+- rpc-admin-panel
 
-Ссылки:
-- /index.html
-- /worker-register.html
-- /worker-status.html
-- /owner-workers.html
+Как загрузить:
+1. Открой GitHub репозиторий сайта заказов.
+2. Удали старые index.html / style.css / app.js.
+3. Загрузи эти файлы.
+4. Нажми Commit changes.
+5. Render обновит сайт.
 
 Важно:
-Если регистрация рабочих или owner-кнопки пишут ошибку endpoint,
-добавь код из BACKEND_WORKER_ENDPOINTS_PATCH.py в main.py сервера rpc-team-crm.
-
-API в app.js:
+Форма отправляет заявки на:
 https://rpc-team-crm.onrender.com
+
+Если твой API endpoint называется иначе, поменяй API_URL или endpoints в app.js.
