@@ -1,22 +1,46 @@
-RPC MAIN ORDER WEBSITE
-======================
+RPC SITE UPDATED WORKER SYSTEM
+==============================
 
-Это основной сайт для клиентов:
-- услуги;
-- очередь заказов;
-- пошаговая заявка;
-- проверка статуса;
-- кнопка перехода в отдельный личный кабинет.
+Это обновлённый сайт RPC в одном наборе файлов.
 
-В GitHub основного сайта загрузи:
-index.html
-styles.css
-script.js
-config.js
-rpc-avatar.png
-README_RU.txt
+Файлы:
+- index.html
+- worker-register.html
+- worker-status.html
+- owner-workers.html
+- style.css
+- app.js
+- BACKEND_WORKER_ENDPOINTS_PATCH.py
+- README_RU.txt
 
-В config.js поменяй:
-window.RPC_CLIENT_PORTAL_URL = "https://rpc-client-portal.onrender.com";
-window.RPC_DISCORD_URL = "https://discord.gg/REPLACE_ME";
-window.RPC_TELEGRAM_URL = "https://t.me/REPLACE_ME";
+Что добавлено:
+1. Основной сайт в стиле RPC.
+2. Форма заказа с нормальными полями цены и дедлайна.
+3. Регистрация рабочих на сайте.
+4. Проверка статуса заявки рабочего.
+5. Owner-страница для подтверждения рабочих.
+6. Кнопки:
+   - Одобрить
+   - Отклонить
+   - Отключить
+   - Worker
+   - Manager
+
+Как загрузить на сайт:
+1. Распакуй ZIP.
+2. Закинь ВСЕ файлы в корень сайта рядом с index.html.
+3. Загрузи в GitHub.
+4. Render сам обновит сайт.
+
+Ссылки:
+- /index.html
+- /worker-register.html
+- /worker-status.html
+- /owner-workers.html
+
+Важно:
+Если регистрация рабочих или owner-кнопки пишут ошибку endpoint,
+добавь код из BACKEND_WORKER_ENDPOINTS_PATCH.py в main.py сервера rpc-team-crm.
+
+API в app.js:
+https://rpc-team-crm.onrender.com
