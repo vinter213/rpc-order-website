@@ -713,3 +713,85 @@ body.rpc-secret-mode .brand-avatar {
   color: #ff2bbf;
   text-shadow: 0 0 18px rgba(255,43,191,.85);
 }
+
+
+/* === RPC 5 CLICK LOGO EASTER UPDATE === */
+
+/* Старой видимой/невидимой кнопки больше нет */
+.secret-paw {
+  display: none !important;
+}
+
+/* Пасхалка теперь сидит прямо на маленькой аватарке RPC */
+.brand-secret-avatar {
+  cursor: pointer;
+  user-select: none;
+  transition: transform .2s ease, filter .2s ease;
+}
+
+.brand-secret-avatar:hover {
+  transform: scale(1.06) rotate(-2deg);
+  filter: drop-shadow(0 0 16px rgba(255, 43, 191, .75));
+}
+
+.brand-secret-avatar.secret-clicked {
+  animation: secretLogoTap .28s ease;
+}
+
+/* если структура сайта другая — fallback-зона в левом верхнем углу */
+.brand-secret-fallback {
+  position: fixed;
+  top: 22px;
+  left: 138px;
+  z-index: 90;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  opacity: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.rpc-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  z-index: 999;
+  width: min(560px, calc(100% - 32px));
+  transform: translateX(-50%) translateY(28px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 43, 191, .42);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,43,191,.20), transparent 42%),
+    linear-gradient(145deg, rgba(18, 5, 18, .97), rgba(5, 2, 8, .97));
+  box-shadow: 0 0 38px rgba(255,43,191,.40), 0 0 100px rgba(255,30,45,.22);
+  color: white;
+  transition: .35s ease;
+  text-align: center;
+  font-weight: 900;
+}
+
+.rpc-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.rpc-toast b {
+  color: #ff2bbf;
+  text-shadow: 0 0 18px rgba(255,43,191,.85);
+}
+
+.rpc-toast.hint {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  font-size: 14px;
+}
+
+@keyframes secretLogoTap {
+  0% { transform: scale(1) rotate(0); }
+  45% { transform: scale(1.18) rotate(-7deg); }
+  100% { transform: scale(1) rotate(0); }
+}

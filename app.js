@@ -109,9 +109,7 @@ function closeSecret() {
   secretModal.classList.remove("open");
 }
 
-if (secretPaw && secretModal) {
-  secretPaw.addEventListener("click", openSecret);
-}
+// old secretPaw removed: easter is now 5 clicks on logo
 
 if (secretClose) {
   secretClose.addEventListener("click", closeSecret);
@@ -146,3 +144,44 @@ window.addEventListener("keydown", (e) => {
 
 // маленькая пасхалка в консоли
 console.log("%cRPC: secret hidden deeper 😈", "color:#ff2bbf;font-size:18px;font-weight:900;");
+
+
+// === 5 CLICKS ON RPC LOGO EASTER ===
+const brandSecretAvatar = document.getElementById("brandSecretAvatar");
+let secretLogoClicks = 0;
+let secretLogoTimer = null;
+
+function showSmallHint(text) {
+  if (!rpcToast) return;
+  rpcToast.innerHTML = text;
+  rpcToast.classList.add("show", "hint");
+  clearTimeout(window.__rpcToastTimer);
+  window.__rpcToastTimer = setTimeout(() => {
+    rpcToast.classList.remove("show", "hint");
+    rpcToast.innerHTML = '🎁 Пасхалка найдена: код <b>SLIME20</b> даёт скидку <b>-20%</b>. Напиши @ViNter294 в Telegram.';
+  }, 1500);
+}
+
+if (brandSecretAvatar) {
+  brandSecretAvatar.addEventListener("click", () => {
+    secretLogoClicks += 1;
+
+    brandSecretAvatar.classList.remove("secret-clicked");
+    void brandSecretAvatar.offsetWidth;
+    brandSecretAvatar.classList.add("secret-clicked");
+
+    clearTimeout(secretLogoTimer);
+    secretLogoTimer = setTimeout(() => {
+      secretLogoClicks = 0;
+    }, 2500);
+
+    if (secretLogoClicks < 5) {
+      showSmallHint(`RPC secret: ${secretLogoClicks}/5`);
+    }
+
+    if (secretLogoClicks >= 5) {
+      secretLogoClicks = 0;
+      openSecret();
+    }
+  });
+}
