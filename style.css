@@ -659,3 +659,57 @@ body.rpc-secret-mode .brand-avatar {
   opacity: .055 !important;
   user-select: none;
 }
+
+
+/* === CLICKABLE EASTER MESSAGE UPDATE === */
+
+/* Секретная кнопка стала кликабельной: спрятана, но её реально можно нажать */
+.secret-paw {
+  top: 88px !important;
+  left: 82px !important;
+  width: 42px !important;
+  height: 42px !important;
+  opacity: .08 !important;
+  cursor: pointer !important;
+  border: 1px solid rgba(255, 43, 191, .08) !important;
+  background: radial-gradient(circle, rgba(255,43,191,.12), transparent 62%) !important;
+}
+
+.secret-paw:hover {
+  opacity: .28 !important;
+  border-color: rgba(255, 43, 191, .28) !important;
+  background: radial-gradient(circle, rgba(255,43,191,.36), transparent 67%) !important;
+}
+
+/* Быстрое сообщение после клика */
+.rpc-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 34px;
+  z-index: 80;
+  width: min(520px, calc(100% - 32px));
+  transform: translateX(-50%) translateY(28px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 43, 191, .38);
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,43,191,.18), transparent 42%),
+    linear-gradient(145deg, rgba(18, 5, 18, .96), rgba(5, 2, 8, .96));
+  box-shadow: 0 0 38px rgba(255,43,191,.36), 0 0 100px rgba(255,30,45,.20);
+  color: white;
+  transition: .35s ease;
+  text-align: center;
+  font-weight: 800;
+}
+
+.rpc-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.rpc-toast b {
+  color: #ff2bbf;
+  text-shadow: 0 0 18px rgba(255,43,191,.85);
+}

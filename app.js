@@ -89,10 +89,20 @@ form.addEventListener("submit", async (e) => {
 const secretPaw = document.getElementById("secretPaw");
 const secretModal = document.getElementById("secretModal");
 const secretClose = document.getElementById("secretClose");
+const rpcToast = document.getElementById("rpcToast");
 
 function openSecret() {
-  secretModal.classList.add("open");
-  document.body.classList.add("rpc-secret-mode");
+  if (rpcToast) {
+    rpcToast.classList.add("show");
+    clearTimeout(window.__rpcToastTimer);
+    window.__rpcToastTimer = setTimeout(() => rpcToast.classList.remove("show"), 4200);
+  }
+
+  // Через небольшой момент открывается полное окно с кодом скидки.
+  setTimeout(() => {
+    secretModal.classList.add("open");
+    document.body.classList.add("rpc-secret-mode");
+  }, 450);
 }
 
 function closeSecret() {
