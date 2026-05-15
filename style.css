@@ -795,3 +795,45 @@ body.rpc-secret-mode .brand-avatar {
   45% { transform: scale(1.18) rotate(-7deg); }
   100% { transform: scale(1) rotate(0); }
 }
+
+
+/* === FIX BROKEN HERO AVATAR === */
+
+/* Полностью отменяем влияние пасхалки на настоящие картинки */
+.brand-secret-avatar {
+  cursor: inherit !important;
+  transform: none !important;
+  filter: inherit !important;
+  animation: none !important;
+}
+
+/* Новая зона клика — отдельная невидимая кнопка поверх маленького логотипа в шапке.
+   Она не меняет размер картинок и не ломает hero. */
+.brand-secret-click-zone {
+  position: fixed;
+  top: 18px;
+  left: 142px;
+  width: 54px;
+  height: 54px;
+  z-index: 1000;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.brand-secret-click-zone:hover {
+  opacity: .08;
+  background: radial-gradient(circle, rgba(255,43,191,.6), transparent 70%);
+}
+
+.brand-secret-click-zone.secret-clicked {
+  animation: secretClickPulse .25s ease;
+}
+
+@keyframes secretClickPulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
