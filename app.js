@@ -116,9 +116,16 @@ if (secretModal) {
 let rpcTyped = "";
 window.addEventListener("keydown", (e) => {
   rpcTyped += e.key.toLowerCase();
-  rpcTyped = rpcTyped.slice(-8);
+  rpcTyped = rpcTyped.slice(-16);
 
-  if (rpcTyped.includes("rpc")) {
+  // Обычное "RPC" больше не открывает пасхалку.
+  // Секретные слова для своих:
+  if (
+    rpcTyped.includes("slime") ||
+    rpcTyped.includes("vinter") ||
+    rpcTyped.includes("skull294") ||
+    rpcTyped.includes("rpc294")
+  ) {
     openSecret();
   }
 
@@ -128,4 +135,4 @@ window.addEventListener("keydown", (e) => {
 });
 
 // маленькая пасхалка в консоли
-console.log("%cRPC SECRET: напиши RPC на клавиатуре 😈", "color:#ff2bbf;font-size:18px;font-weight:900;");
+console.log("%cRPC: secret hidden deeper 😈", "color:#ff2bbf;font-size:18px;font-weight:900;");

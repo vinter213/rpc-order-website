@@ -1,4 +1,4 @@
-RPC ORDER SITE — TELEGRAM BUTTON + EASTER EGGS UPDATE
+RPC ORDER SITE — HIDDEN EASTER EGG -20% UPDATE
 
 Куда загружать:
 В репозиторий rpc-order-website загрузи файлы:
@@ -8,20 +8,23 @@ RPC ORDER SITE — TELEGRAM BUTTON + EASTER EGGS UPDATE
 - rpc-avatar.png
 
 Что изменено:
-1. Кнопка "Связаться" теперь ведёт в Telegram:
+1. Пасхалка спрятана лучше.
+   Видимой кнопки справа снизу больше нет.
+
+2. Секрет теперь открывается:
+   - маленькой почти невидимой зоной возле логотипа;
+   - если набрать на клавиатуре: slime
+   - или: vinter
+   - или: skull294
+   - или: rpc294
+
+3. Скидка в пасхалке теперь:
+   -20%
+
+4. Секретный код для Telegram:
+   SLIME20
+
+5. Кнопка связи ведёт на Telegram:
    https://t.me/ViNter294
 
-2. В hero-блоке вторая кнопка тоже ведёт в Telegram.
-
-3. Добавлены пасхалки:
-   - маленькая секретная кнопка справа снизу;
-   - если на клавиатуре набрать RPC, откроется секретное окно;
-   - секретный код: SLIME294;
-   - красивый glow secret mode.
-
-4. Старое исправление бюджета сохранено:
-   форма отправляет budget, price и client_budget.
-
-ВАЖНО:
-BACKEND_TELEGRAM_BUDGET_FIX.py.txt нужен только для rpc-team-crm,
-если бюджет всё ещё не приходит в Telegram.
+6. Исправление отправки бюджета сохранено.
