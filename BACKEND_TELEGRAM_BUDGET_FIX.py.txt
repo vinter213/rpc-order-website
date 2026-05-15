@@ -1,0 +1,76 @@
+
+# ============================================================
+# RPC TELEGRAM BUDGET FIX
+# ВСТАВЬ В main.py ВМЕСТО СТАРОГО rpc_public_order_send_telegram
+# Если проще: найди строку def rpc_public_order_send_telegram(order: dict):
+# и замени всю эту функцию на код ниже.
+# ============================================================
+
+def rpc_public_order_send_telegram(order: dict):
+    try:
+        import os
+        import requests
+
+        token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+        chat_id = os.getenv("TELEGRAM_CHAT_ID", "")
+
+        if not token or not chat_id:
+            print("[RPC PUBLIC ORDER] Telegram token/chat_id missing")
+            return
+
+        budget = (
+            order.get("budget")
+            or order.get("price")
+            or order.get("client_budget")
+            or order.get("amount")
+            or order.get("sum")
+            or "-"
+        )
+
+        deadline = (
+            order.get("deadline")
+            or order.get("days")
+            or order.get("time")
+            or "-"
+        )
+
+        client_name = (
+            order.get("client_name")
+            or order.get("client")
+            or order.get("name")
+            or "Клиент с сайта"
+        )
+
+        description = (
+            order.get("description")
+            or order.get("notes")
+            or order.get("comment")
+            or "-"
+        )
+
+        text = (
+            "🆕 <b>Новая заявка с сайта RPC</b>\n\n"
+            f"👤 Клиент: <b>{client_name}</b>\n"
+            f"📞 Контакт: <code>{order.get('contact', '-')}</code>\n"
+            f"🛠 Услуга: <b>{order.get('service', 'Не указано')}</b>\n"
+            f"💰 Бюджет клиента: <b>{budget}</b>\n"
+            f"⏳ Дедлайн: <b>{deadline}</b>\n"
+            f"📌 Источник: <b>{order.get('source', 'Сайт')}</b>\n\n"
+            f"📝 <b>Описание:</b>\n{description}"
+        )
+
+        response = requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={"chat_id": chat_id, "text": text, "parse_mode": "HTML"},
+            timeout=10,
+        )
+
+        if not response.ok:
+            print("[RPC PUBLIC ORDER] Telegram response error:", response.text)
+
+    except Exception as e:
+        print("[RPC PUBLIC ORDER] Telegram error:", e)
+
+# ============================================================
+# END RPC TELEGRAM BUDGET FIX
+# ============================================================

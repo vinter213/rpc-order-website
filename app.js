@@ -1,106 +1,85 @@
-const API_URL = "https://rpc-team-crm.onrender.com";
+const SERVER_URL = "https://rpc-team-crm.onrender.com";
 
 const cursorGlow = document.getElementById("cursorGlow");
 window.addEventListener("mousemove", (e) => {
-  if (!cursorGlow) return;
-  cursorGlow.style.left = `${e.clientX}px`;
-  cursorGlow.style.top = `${e.clientY}px`;
+  cursorGlow.style.left = e.clientX + "px";
+  cursorGlow.style.top = e.clientY + "px";
 });
 
-const menuBtn = document.getElementById("menuBtn");
-const nav = document.getElementById("nav");
-if (menuBtn && nav) menuBtn.addEventListener("click", () => nav.classList.toggle("open"));
-
-const reveals = document.querySelectorAll(".reveal");
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add("show"); });
+const revealItems = document.querySelectorAll(".reveal");
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) entry.target.classList.add("visible");
+  });
 }, { threshold: 0.12 });
-reveals.forEach((el) => observer.observe(el));
 
-function setMessage(type, text) {
-  const box = document.getElementById("formMessage");
-  if (!box) return;
-  box.className = "form-message " + (type || "");
-  box.textContent = text;
-}
+revealItems.forEach((el) => revealObserver.observe(el));
 
-async function postJson(url, data) {
-  const res = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+document.querySelectorAll(".service-card, .panel").forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    card.style.setProperty("--my", `${e.clientY - r.top}px`);
   });
+});
 
-  const raw = await res.text();
-  let body = raw;
-  try { body = JSON.parse(raw); } catch {}
+const form = document.getElementById("orderForm");
+const statusBox = document.getElementById("formStatus");
 
-  if (!res.ok) {
-    const msg = typeof body === "string" ? body : JSON.stringify(body);
-    throw new Error(`${res.status} ${res.statusText}: ${msg}`);
+function setStatus(text, type) {
+  statusBox.textContent = text;
+  statusBox.className = "status " + (type || "");
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const btn = form.querySelector("button[type='submit']");
+  const oldText = btn.innerHTML;
+
+  const fd = new FormData(form);
+  const data = Object.fromEntries(fd.entries());
+
+  // ВАЖНО: серверный фикс понимает и budget, и price.
+  // Поэтому отправляем оба поля, чтобы Telegram точно показал бюджет клиента.
+  data.price = data.budget || "";
+  data.client_budget = data.budget || "";
+  data.source = data.source || "Сайт";
+  data.status = "new";
+
+  try {
+    btn.disabled = true;
+    btn.innerHTML = "<span>Отправляю...</span>";
+    setStatus("Отправляю заявку в RPC CRM...", "");
+
+    const res = await fetch(`${SERVER_URL}/public/order`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    const text = await res.text();
+    let json = {};
+    try { json = JSON.parse(text); } catch {}
+
+    if (!res.ok || json.ok === false) {
+      throw new Error(json.detail || json.message || text || `Ошибка ${res.status}`);
+    }
+
+    setStatus("Заявка отправлена. Я скоро свяжусь с тобой.", "ok");
+    form.reset();
+
+    btn.animate([
+      { transform: "scale(1)" },
+      { transform: "scale(1.04)" },
+      { transform: "scale(1)" }
+    ], { duration: 420, easing: "ease-out" });
+
+  } catch (err) {
+    console.error(err);
+    setStatus("Не получилось отправить заявку: " + err.message, "err");
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = oldText;
   }
-  return body;
-}
-
-async function sendOrder(payload) {
-  const endpoints = ["/public/order", "/public/orders", "/orders/public", "/api/public/orders"];
-  let lastError = null;
-  for (const endpoint of endpoints) {
-    try {
-      return await postJson(API_URL.replace(/\/$/, "") + endpoint, payload);
-    } catch (err) {
-      lastError = err;
-      console.warn("[RPC] endpoint failed:", endpoint, err);
-    }
-  }
-  throw lastError || new Error("No endpoint worked");
-}
-
-const orderForm = document.getElementById("orderForm");
-const submitBtn = document.getElementById("submitBtn");
-
-if (orderForm) {
-  orderForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const payload = {
-      client_name: document.getElementById("clientName")?.value?.trim() || "",
-      name: document.getElementById("clientName")?.value?.trim() || "",
-      contact: document.getElementById("clientContact")?.value?.trim() || "",
-      service: document.getElementById("service")?.value || "",
-      price: document.getElementById("price")?.value?.trim() || "",
-      budget: document.getElementById("price")?.value?.trim() || "",
-      deadline: document.getElementById("deadline")?.value?.trim() || "",
-      source: document.getElementById("source")?.value || "Сайт",
-      description: document.getElementById("description")?.value?.trim() || "",
-      notes: document.getElementById("description")?.value?.trim() || "",
-      status: "new",
-      created_from: "rpc-order-website"
-    };
-
-    if (!payload.client_name || !payload.contact || !payload.service) {
-      setMessage("err", "Заполни имя, контакт и услугу.");
-      return;
-    }
-
-    try {
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Отправляю...";
-      }
-      setMessage("", "Отправляю заявку в RPC Team CRM...");
-      await sendOrder(payload);
-      setMessage("ok", "Заявка отправлена. Проверь CRM и Telegram.");
-      orderForm.reset();
-    } catch (err) {
-      console.error("[RPC] order submit error:", err);
-      setMessage("err", "Заявка не отправилась. Нужно установить BACKEND_PUBLIC_ORDER_PATCH.py в rpc-team-crm. Ошибка: " + (err?.message || err));
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Отправить заявку ↗";
-      }
-    }
-  });
-}
+});
