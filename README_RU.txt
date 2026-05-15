@@ -1,23 +1,27 @@
-RPC ORDER SITE ANIMATED + TELEGRAM BUDGET FIX
+RPC ORDER SITE — TELEGRAM BUTTON + EASTER EGGS UPDATE
 
-1) Для сайта rpc-order-website загрузи файлы:
+Куда загружать:
+В репозиторий rpc-order-website загрузи файлы:
 - index.html
 - style.css
 - app.js
 - rpc-avatar.png
 
-Все файлы должны лежать в корне репозитория сайта, без папок.
+Что изменено:
+1. Кнопка "Связаться" теперь ведёт в Telegram:
+   https://t.me/ViNter294
 
-2) Для сервера rpc-team-crm:
-Открой main.py и найди функцию:
-def rpc_public_order_send_telegram(order: dict):
+2. В hero-блоке вторая кнопка тоже ведёт в Telegram.
 
-Замени эту функцию на код из файла:
-BACKEND_TELEGRAM_BUDGET_FIX.py.txt
+3. Добавлены пасхалки:
+   - маленькая секретная кнопка справа снизу;
+   - если на клавиатуре набрать RPC, откроется секретное окно;
+   - секретный код: SLIME294;
+   - красивый glow secret mode.
 
-Потом Commit changes и Render Deploy.
+4. Старое исправление бюджета сохранено:
+   форма отправляет budget, price и client_budget.
 
-Что исправлено:
-- Бюджет клиента теперь отправляется в Telegram как "Бюджет клиента".
-- Сайт стал живее: glow за мышкой, анимации появления, hover эффекты, плавающая аватарка, живые карточки.
-- Форма отправляет budget, price и client_budget, чтобы сервер точно увидел сумму.
+ВАЖНО:
+BACKEND_TELEGRAM_BUDGET_FIX.py.txt нужен только для rpc-team-crm,
+если бюджет всё ещё не приходит в Telegram.

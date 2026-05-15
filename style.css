@@ -478,3 +478,142 @@ footer {
   .services, .portfolio-grid, .form-grid { grid-template-columns: 1fr; }
   h1 { font-size: 42px; }
 }
+
+
+/* === RPC TELEGRAM + EASTER EGGS UPDATE === */
+
+.tg-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.tg-link::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: translateX(-120%) rotate(20deg);
+  transition: .55s;
+}
+
+.tg-link:hover::after {
+  transform: translateX(120%) rotate(20deg);
+}
+
+.secret-paw {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 30;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255, 43, 191, .38);
+  border-radius: 18px;
+  color: white;
+  cursor: pointer;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 28%),
+    linear-gradient(135deg, rgba(255, 30, 45, .9), rgba(155, 56, 255, .9));
+  box-shadow: 0 0 30px rgba(255, 43, 191, .42), 0 0 70px rgba(255, 30, 45, .22);
+  animation: secretPulse 2.2s ease-in-out infinite;
+}
+
+.secret-paw:hover {
+  transform: translateY(-4px) scale(1.04);
+}
+
+.secret-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(14px);
+}
+
+.secret-modal.open {
+  display: grid;
+}
+
+.secret-box {
+  width: min(520px, 100%);
+  text-align: center;
+  position: relative;
+  padding: 34px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 43, 191, .36);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 43, 191, .20), transparent 42%),
+    linear-gradient(145deg, rgba(23, 6, 20, .96), rgba(6, 2, 8, .96));
+  box-shadow: 0 0 40px rgba(255, 43, 191, .36), 0 0 120px rgba(255, 30, 45, .18);
+  animation: modalPop .35s ease-out;
+}
+
+.secret-box img {
+  width: 132px;
+  height: 132px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 26px rgba(255, 43, 191, .75));
+  animation: floaty 3.4s ease-in-out infinite;
+}
+
+.secret-box h2 {
+  font-size: 34px;
+  margin: 8px 0 10px;
+}
+
+.secret-box p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.secret-box b {
+  color: var(--pink);
+  text-shadow: 0 0 18px rgba(255,43,191,.75);
+}
+
+.secret-close {
+  position: absolute;
+  right: 18px;
+  top: 14px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 10px;
+  background: rgba(255,255,255,.05);
+  color: white;
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.footer-secret {
+  opacity: .22;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+body.rpc-secret-mode {
+  animation: secretBg 3s ease-in-out infinite;
+}
+
+body.rpc-secret-mode .main-avatar,
+body.rpc-secret-mode .brand-avatar {
+  filter: drop-shadow(0 0 44px rgba(255, 0, 60, .95)) drop-shadow(0 0 120px rgba(255, 43, 191, .7));
+}
+
+@keyframes secretPulse {
+  0%, 100% { box-shadow: 0 0 26px rgba(255,43,191,.35), 0 0 70px rgba(255,30,45,.18); }
+  50% { box-shadow: 0 0 44px rgba(255,43,191,.72), 0 0 110px rgba(255,30,45,.35); }
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: translateY(18px) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes secretBg {
+  0%, 100% { background-color: #030305; }
+  50% { background-color: #12000a; }
+}

@@ -83,3 +83,49 @@ form.addEventListener("submit", async (e) => {
     btn.innerHTML = oldText;
   }
 });
+
+
+// === RPC EASTER EGGS ===
+const secretPaw = document.getElementById("secretPaw");
+const secretModal = document.getElementById("secretModal");
+const secretClose = document.getElementById("secretClose");
+
+function openSecret() {
+  secretModal.classList.add("open");
+  document.body.classList.add("rpc-secret-mode");
+}
+
+function closeSecret() {
+  secretModal.classList.remove("open");
+}
+
+if (secretPaw && secretModal) {
+  secretPaw.addEventListener("click", openSecret);
+}
+
+if (secretClose) {
+  secretClose.addEventListener("click", closeSecret);
+}
+
+if (secretModal) {
+  secretModal.addEventListener("click", (e) => {
+    if (e.target === secretModal) closeSecret();
+  });
+}
+
+let rpcTyped = "";
+window.addEventListener("keydown", (e) => {
+  rpcTyped += e.key.toLowerCase();
+  rpcTyped = rpcTyped.slice(-8);
+
+  if (rpcTyped.includes("rpc")) {
+    openSecret();
+  }
+
+  if (e.key === "Escape") {
+    closeSecret();
+  }
+});
+
+// маленькая пасхалка в консоли
+console.log("%cRPC SECRET: напиши RPC на клавиатуре 😈", "color:#ff2bbf;font-size:18px;font-weight:900;");
