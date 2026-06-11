@@ -5,9 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RPC — RedPad Creator</title>
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // RPC Site Gate: открывает сайт после успешной проверки Cloudflare Turnstile.
+    // Проверка хранится только в текущей вкладке браузера.
+    window.RPC_SITE_GATE_STORAGE_KEY = "rpc_site_gate_passed_v1";
+
+    window.rpcUnlockSite = function(token) {
+      if (!token) return;
+      try { sessionStorage.setItem(window.RPC_SITE_GATE_STORAGE_KEY, "1"); } catch (e) {}
+
+      document.documentElement.classList.add("rpc-site-unlocked");
+      document.documentElement.classList.remove("rpc-site-locked");
+
+      if (document.body) {
+        document.body.classList.add("rpc-site-unlocked");
+        document.body.classList.remove("rpc-site-locked");
+      }
+
+      var status = document.getElementById("siteGateStatus");
+      if (status) status.textContent = "Проверка пройдена. Открываю сайт...";
+
+      var gate = document.getElementById("siteGate");
+      if (gate) {
+        gate.classList.add("passed");
+        setTimeout(function() { gate.setAttribute("aria-hidden", "true"); }, 420);
+      }
+    };
+
+    window.rpcLockSite = function() {
+      try { sessionStorage.removeItem(window.RPC_SITE_GATE_STORAGE_KEY); } catch (e) {}
+
+      document.documentElement.classList.add("rpc-site-locked");
+      document.documentElement.classList.remove("rpc-site-unlocked");
+
+      if (document.body) {
+        document.body.classList.add("rpc-site-locked");
+        document.body.classList.remove("rpc-site-unlocked");
+      }
+
+      var status = document.getElementById("siteGateStatus");
+      if (status) status.textContent = "Проверка истекла. Пройдите её заново.";
+    };
+
+    window.rpcGateError = function() {
+      var status = document.getElementById("siteGateStatus");
+      if (status) status.textContent = "Проверка не загрузилась. Обновите страницу или отключите блокировщик.";
+    };
+  </script>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
-<body>
+<body class="rpc-site-locked">
+  <div class="site-gate" id="siteGate" role="dialog" aria-modal="true" aria-labelledby="siteGateTitle">
+    <div class="site-gate-card">
+      <div class="site-gate-glow"></div>
+      <img src="rpc-avatar.png" alt="RPC" class="site-gate-avatar" />
+      <p class="eyebrow">RPC SECURITY CHECK</p>
+      <h1 id="siteGateTitle">Проверка перед входом</h1>
+      <p class="site-gate-text">
+        Подтверди, что ты не бот. После проверки сайт откроется автоматически.
+      </p>
+
+      <div class="site-gate-turnstile">
+        <div
+          class="cf-turnstile"
+          data-sitekey="0x4AAAAAADiq1Kno4XjHaoz2"
+          data-theme="dark"
+          data-size="normal"
+          data-callback="rpcUnlockSite"
+          data-expired-callback="rpcLockSite"
+          data-error-callback="rpcGateError">
+        </div>
+      </div>
+
+      <p class="site-gate-status" id="siteGateStatus">Ожидаю проверку Cloudflare...</p>
+    </div>
+  </div>
+
   <button class="brand-secret-click-zone" id="brandSecretAvatar" aria-label="RPC secret"></button>
   <div class="noise"></div>
   <div class="cursor-glow" id="cursorGlow"></div>

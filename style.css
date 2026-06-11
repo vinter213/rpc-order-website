@@ -858,3 +858,115 @@ body.rpc-secret-mode .brand-avatar {
   45% { transform: scale(1.15); }
   100% { transform: scale(1); }
 }
+
+
+/* === RPC SITE GATE: проверка перед входом на сайт === */
+html.rpc-site-locked,
+body.rpc-site-locked {
+  overflow: hidden;
+}
+
+.site-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 43, 191, .22), transparent 34%),
+    radial-gradient(circle at 70% 80%, rgba(255, 30, 45, .18), transparent 38%),
+    linear-gradient(145deg, rgba(4, 1, 7, .98), rgba(16, 3, 16, .98));
+  backdrop-filter: blur(22px);
+  transition: opacity .38s ease, visibility .38s ease, transform .38s ease;
+}
+
+.site-gate.passed,
+.rpc-site-unlocked .site-gate {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.02);
+}
+
+.site-gate-card {
+  position: relative;
+  width: min(520px, 100%);
+  padding: 34px 28px 30px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 43, 191, .34);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 43, 191, .20), transparent 42%),
+    linear-gradient(145deg, rgba(22, 5, 22, .92), rgba(7, 2, 10, .94));
+  box-shadow:
+    0 0 54px rgba(255, 43, 191, .28),
+    0 0 120px rgba(255, 30, 45, .16);
+  text-align: center;
+  overflow: hidden;
+}
+
+.site-gate-glow {
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 90deg, transparent, rgba(255,43,191,.14), transparent, rgba(255,30,45,.12), transparent);
+  animation: siteGateSpin 7s linear infinite;
+  opacity: .8;
+  pointer-events: none;
+}
+
+.site-gate-card > *:not(.site-gate-glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.site-gate-avatar {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 43, 191, .42);
+  box-shadow: 0 0 35px rgba(255, 43, 191, .42);
+  margin-bottom: 16px;
+}
+
+.site-gate-card h1 {
+  margin: 8px 0 10px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1;
+}
+
+.site-gate-text {
+  margin: 0 auto 22px;
+  max-width: 410px;
+  color: rgba(255,255,255,.74);
+  line-height: 1.55;
+}
+
+.site-gate-turnstile {
+  display: flex;
+  justify-content: center;
+  min-height: 76px;
+  margin: 12px 0 8px;
+}
+
+.site-gate-status {
+  min-height: 22px;
+  margin: 12px 0 0;
+  color: rgba(255,255,255,.70);
+  font-size: 14px;
+}
+
+body.rpc-site-locked .topbar,
+body.rpc-site-locked main,
+body.rpc-site-locked footer,
+body.rpc-site-locked .rpc-toast,
+body.rpc-site-locked .secret-modal,
+body.rpc-site-locked .brand-secret-click-zone {
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes siteGateSpin {
+  to { transform: rotate(360deg); }
+}

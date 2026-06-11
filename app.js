@@ -1,3 +1,18 @@
+// === RPC SITE GATE ===
+// Если пользователь уже прошёл проверку в этой вкладке, не показываем входной экран снова.
+(function () {
+  try {
+    const passed = sessionStorage.getItem(window.RPC_SITE_GATE_STORAGE_KEY || "rpc_site_gate_passed_v1") === "1";
+    if (passed && typeof window.rpcUnlockSite === "function") {
+      window.rpcUnlockSite("cached-session");
+    } else if (document.body) {
+      document.body.classList.add("rpc-site-locked");
+    }
+  } catch (e) {
+    if (document.body) document.body.classList.add("rpc-site-locked");
+  }
+})();
+
 const SERVER_URL = window.RPC_API_URL || "https://rpc-team-crm.onrender.com";
 
 const startedAtInput = document.getElementById("startedAt");
