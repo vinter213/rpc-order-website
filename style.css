@@ -397,6 +397,27 @@ input:focus, select:focus, textarea:focus {
 
 textarea { min-height: 105px; resize: vertical; margin-top: 14px; }
 
+
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.bot-check {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.bot-check iframe {
+  max-width: 100%;
+}
+
 .submit-btn { width: 100%; margin-top: 16px; }
 
 .status {

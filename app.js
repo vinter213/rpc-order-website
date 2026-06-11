@@ -1,4 +1,14 @@
-const SERVER_URL = "https://rpc-team-crm.onrender.com";
+const SERVER_URL = window.RPC_API_URL || "https://rpc-team-crm.onrender.com";
+
+const startedAtInput = document.getElementById("startedAt");
+if (startedAtInput) startedAtInput.value = String(Date.now());
+
+function resetBotCheck() {
+  if (startedAtInput) startedAtInput.value = String(Date.now());
+  if (window.turnstile && typeof window.turnstile.reset === "function") {
+    window.turnstile.reset();
+  }
+}
 
 const cursorGlow = document.getElementById("cursorGlow");
 window.addEventListener("mousemove", (e) => {
@@ -40,12 +50,35 @@ form.addEventListener("submit", async (e) => {
   const fd = new FormData(form);
   const data = Object.fromEntries(fd.entries());
 
+  // Антибот-слой 1: honeypot. Если поле заполнено — это почти точно бот.
+  if ((data.website || "").trim() !== "") {
+    setStatus("Заявка отклонена антибот-защитой.", "err");
+    return;
+  }
+
+  // Антибот-слой 2: форма не должна отправляться мгновенно.
+  const startedAt = Number(data.started_at || 0);
+  if (!startedAt || Date.now() - startedAt < 3000) {
+    setStatus("Слишком быстрая отправка. Заполните форму вручную.", "err");
+    resetBotCheck();
+    return;
+  }
+
+  // Антибот-слой 3: токен Cloudflare Turnstile.
+  const turnstileToken = data["cf-turnstile-response"] || "";
+  if (!turnstileToken) {
+    setStatus("Подтвердите проверку на бота и отправьте заявку снова.", "err");
+    resetBotCheck();
+    return;
+  }
+
   // ВАЖНО: серверный фикс понимает и budget, и price.
   // Поэтому отправляем оба поля, чтобы Telegram точно показал бюджет клиента.
   data.price = data.budget || "";
   data.client_budget = data.budget || "";
   data.source = data.source || "Сайт";
   data.status = "new";
+  data.turnstile_token = turnstileToken;
 
   try {
     btn.disabled = true;
@@ -68,6 +101,7 @@ form.addEventListener("submit", async (e) => {
 
     setStatus("Заявка отправлена. Я скоро свяжусь с тобой.", "ok");
     form.reset();
+    resetBotCheck();
 
     btn.animate([
       { transform: "scale(1)" },

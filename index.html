@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RPC — RedPad Creator</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
   <button class="brand-secret-click-zone" id="brandSecretAvatar" aria-label="RPC secret"></button>
@@ -158,6 +159,25 @@
           <textarea name="description" placeholder="Опишите задачу, детали, пожелания..." required></textarea>
         </label>
 
+        <!-- Антибот: скрытое поле. Человек его не видит, бот часто заполняет. -->
+        <label class="hp-field" aria-hidden="true">
+          Website
+          <input name="website" tabindex="-1" autocomplete="off" />
+        </label>
+
+        <!-- Антибот: время заполнения формы. -->
+        <input type="hidden" name="started_at" id="startedAt" />
+
+        <!-- Cloudflare Turnstile. Замени SITE_KEY в README_BOT_CHECK_RU.txt. -->
+        <div class="bot-check">
+          <div
+            class="cf-turnstile"
+            data-sitekey="PASTE_TURNSTILE_SITE_KEY_HERE"
+            data-theme="dark"
+            data-size="normal">
+          </div>
+        </div>
+
         <button class="btn primary submit-btn" type="submit">
           <span>Отправить заявку</span>
           <b>➤</b>
@@ -203,10 +223,10 @@
     </div>
   </div>
 
+  <script>
+    window.RPC_API_URL = "https://rpc-team-crm.onrender.com";
+  </script>
+  <script src="rpc_site_api.js"></script>
   <script src="app.js"></script>
 </body>
-  <script>
-  window.RPC_API_URL = "https://rpc-team-crm.onrender.com";
-</script>
-<script src="rpc_site_api.js"></script>
 </html>

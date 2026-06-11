@@ -1,0 +1,135 @@
+# ============================================================
+# RPC BOT CHECK / CLOUDFLARE TURNSTILE PATCH ДЛЯ FASTAPI
+# Вставь это в backend CRM main.py.
+# Цель: /public/order будет принимать заявку только после серверной проверки Turnstile.
+# ============================================================
+
+# 1) В импорты main.py добавь:
+# import os
+# import time
+# import html
+# import requests
+# from fastapi import Request, HTTPException
+
+# 2) В Render → Environment добавь переменную:
+# TURNSTILE_SECRET_KEY=твой_secret_key_из_cloudflare
+
+# 3) Вставь helper-функции где-нибудь выше route /public/order:
+
+RPC_PUBLIC_ORDER_RATE = {}
+
+
+def rpc_get_client_ip(request: Request) -> str:
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    if request.client:
+        return request.client.host
+    return "unknown"
+
+
+def rpc_rate_limit_public_order(ip: str, limit: int = 6, window_seconds: int = 60):
+    now = time.time()
+    bucket = RPC_PUBLIC_ORDER_RATE.get(ip, [])
+    bucket = [t for t in bucket if now - t < window_seconds]
+
+    if len(bucket) >= limit:
+        RPC_PUBLIC_ORDER_RATE[ip] = bucket
+        raise HTTPException(
+            status_code=429,
+            detail="Слишком много заявок. Попробуйте позже."
+        )
+
+    bucket.append(now)
+    RPC_PUBLIC_ORDER_RATE[ip] = bucket
+
+
+def rpc_verify_turnstile(token: str, request: Request):
+    secret = os.getenv("TURNSTILE_SECRET_KEY", "").strip()
+    if not secret:
+        print("[RPC BOT CHECK] TURNSTILE_SECRET_KEY missing")
+        raise HTTPException(status_code=500, detail="Антибот не настроен на сервере")
+
+    if not token:
+        raise HTTPException(status_code=403, detail="Антибот-проверка не пройдена")
+
+    try:
+        response = requests.post(
+            "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+            data={
+                "secret": secret,
+                "response": token,
+                "remoteip": rpc_get_client_ip(request),
+            },
+            timeout=10,
+        )
+        result = response.json()
+    except Exception as e:
+        print("[RPC BOT CHECK] Turnstile request error:", e)
+        raise HTTPException(status_code=502, detail="Ошибка проверки антибота")
+
+    if not result.get("success"):
+        print("[RPC BOT CHECK] Turnstile failed:", result)
+        raise HTTPException(status_code=403, detail="Антибот-проверка провалена")
+
+    return True
+
+
+def rpc_clean_public_order(order: dict) -> dict:
+    # Убираем технические антибот-поля, чтобы они не попадали в CRM/Telegram.
+    cleaned = dict(order)
+    for key in (
+        "website",
+        "started_at",
+        "cf-turnstile-response",
+        "turnstile_token",
+    ):
+        cleaned.pop(key, None)
+    return cleaned
+
+
+# 4) Найди свой route:
+# @app.post("/public/order")
+# async def ...
+#
+# И в самое начало функции добавь этот блок:
+
+"""
+@app.post("/public/order")
+async def rpc_public_order(order: dict, request: Request):
+    ip = rpc_get_client_ip(request)
+
+    # Блок 1: ограничение частоты заявок с одного IP.
+    rpc_rate_limit_public_order(ip, limit=6, window_seconds=60)
+
+    # Блок 2: honeypot. Если скрытое поле заполнено — это бот.
+    if str(order.get("website", "")).strip():
+        raise HTTPException(status_code=400, detail="Bot detected")
+
+    # Блок 3: форма не должна отправляться слишком быстро.
+    started_at_raw = order.get("started_at")
+    try:
+        started_at_ms = int(float(started_at_raw))
+    except Exception:
+        started_at_ms = 0
+
+    now_ms = int(time.time() * 1000)
+    if not started_at_ms or now_ms - started_at_ms < 3000:
+        raise HTTPException(status_code=400, detail="Слишком быстрая отправка формы")
+
+    # Блок 4: серверная проверка Cloudflare Turnstile.
+    token = order.get("turnstile_token") or order.get("cf-turnstile-response") or ""
+    rpc_verify_turnstile(token, request)
+
+    # Дальше работай уже с очищенной заявкой.
+    order = rpc_clean_public_order(order)
+
+    # Ниже оставь свой старый код: сохранение заявки в CRM + Telegram.
+    # Например:
+    # rpc_public_order_send_telegram(order)
+    # return {"ok": True}
+"""
+
+# ============================================================
+# END RPC BOT CHECK PATCH
+# ============================================================
