@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ru" data-scroll-behavior="smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070910">
+  <meta name="description" content="RPC • RedPad Creator — заказы VRChat-аватаров, миров, оптимизации и Quest-версий.">
+  <title>RPC • RedPad Creator — Заказы</title>
+  <link rel="icon" href="rpc-avatar.png">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="grid"></div>
+
+  <aside class="sidebar" aria-label="Навигация">
+    <a class="brand" href="#home" aria-label="RPC Orders">
+      <img src="rpc-avatar.png" alt="RPC" draggable="false" class="brand-logo protected-image">
+      <span><b>RPC</b><small>ORDERS</small></span>
+    </a>
+
+    <nav class="nav">
+      <a href="#home" data-route="home" class="nav-link active"><span>⌂</span>Главная</a>
+      <a href="#prices" data-route="prices" class="nav-link"><span>◫</span>Прайс-лист</a>
+      <a href="#works" data-route="works" class="nav-link"><span>▦</span>Наши работы</a>
+      <a href="#faq" data-route="faq" class="nav-link"><span>?</span>FAQ</a>
+      <a href="#order" data-route="order" class="nav-link"><span>✦</span>Создать заказ</a>
+      <a href="#" id="rulesLinkSide" class="nav-link external"><span>↗</span>Правила</a>
+    </nav>
+
+    <a class="sidebar-cta" href="#order">Создать тикет</a>
+
+    <div class="side-bottom">
+      <p><i></i> Онлайн</p>
+      <a href="https://t.me/ViNter294" target="_blank" rel="noreferrer">Telegram · @ViNter294</a>
+      <a href="https://discord.gg/25dXRyrw5a" target="_blank" rel="noreferrer">Discord · RPC</a>
+    </div>
+  </aside>
+
+  <header class="mobile-header">
+    <a class="mobile-brand" href="#home"><img src="rpc-avatar.png" alt="RPC" draggable="false" class="protected-image"><b>RPC</b></a>
+    <button id="menuButton" type="button" aria-label="Открыть меню" aria-expanded="false">☰</button>
+  </header>
+
+  <main class="main">
+    <section id="home" class="page active-page" data-page="home">
+      <div class="top-status"><span><i></i> Принимаем заказы</span><span>Ответ обычно в Telegram</span></div>
+
+      <div class="hero">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">VRCHAT · АВАТАРЫ · МИРЫ</div>
+          <h1>Создаём проекты,<br><em>которые выделяются</em></h1>
+          <p>Аватары, миры, Udon-системы, оптимизация и Quest-версии. Опишите задачу — заявка попадёт напрямую команде RPC.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#order">Создать тикет <span>→</span></a>
+            <a class="button ghost" id="rulesLinkHero" href="#">Открыть правила <span>↗</span></a>
+          </div>
+          <label class="mini-agreement"><input type="checkbox" disabled checked> Правила хранятся на отдельном сайте документации</label>
+        </div>
+
+        <div class="hero-art reveal delay-1" aria-label="Логотип RPC">
+          <div class="logo-glow"></div>
+          <img src="rpc-avatar.png" alt="RPC RedPad Creator" draggable="false" class="protected-image hero-logo">
+        </div>
+      </div>
+
+      <div class="section-title reveal"><div><span>УСЛУГИ</span><h2>Выберите категорию</h2></div><a href="#prices">Смотреть прайс →</a></div>
+      <div class="service-grid reveal delay-1">
+        <button class="service-card" data-category="avatar"><b>01</b><h3>VRChat-аватары</h3><p>Настройка, кастомизация, функции, PhysBone и визуальные эффекты.</p><span>Оформить заказ →</span></button>
+        <button class="service-card" data-category="world"><b>02</b><h3>VRChat-миры</h3><p>Локации, освещение, интерактив, Udon-системы и оптимизация.</p><span>Оформить заказ →</span></button>
+        <button class="service-card" data-category="quest"><b>03</b><h3>Quest-версия</h3><p>Подготовка аватаров и миров под ограничения Android / Quest.</p><span>Оформить заказ →</span></button>
+        <button class="service-card" data-category="optimization"><b>04</b><h3>Оптимизация</h3><p>Материалы, текстуры, полигоны, PhysBone и производительность.</p><span>Оформить заказ →</span></button>
+      </div>
+
+      <div class="home-bottom">
+        <div class="process panel reveal">
+          <div class="section-title compact"><div><span>ПРОЦЕСС</span><h2>Как всё проходит</h2></div></div>
+          <div class="steps">
+            <div><b>1</b><h3>Категория</h3><p>Выбираете нужную услугу.</p></div>
+            <div><b>2</b><h3>Правила</h3><p>Читаете условия категории.</p></div>
+            <div><b>3</b><h3>Тикет</h3><p>Описываете задачу.</p></div>
+            <div><b>4</b><h3>Связь</h3><p>Мы отвечаем в Telegram.</p></div>
+          </div>
+        </div>
+        <a class="preview panel reveal delay-1" href="#works">
+          <img src="site-preview.png" alt="Пример работы RPC" draggable="false" class="protected-image">
+          <div><span>ПОРТФОЛИО</span><h3>Посмотреть наши работы</h3></div>
+        </a>
+      </div>
+    </section>
+
+    <section id="prices" class="page" data-page="prices">
+      <div class="page-intro reveal"><span>УСЛУГИ И СТОИМОСТЬ</span><h1>Прайс-лист</h1><p>Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.</p></div>
+      <div class="price-grid reveal delay-1">
+        <article class="price-card"><div><b>AVATAR</b><span>от 5 000 ₸</span></div><h2>VRChat-аватары</h2><ul><li>Загрузка и базовая настройка</li><li>Добавление ассетов и функций</li><li>Меню, анимации и PhysBone</li><li>PC / Quest подготовка</li></ul><button data-category="avatar">Заказать →</button></article>
+        <article class="price-card accent"><div><b>WORLD</b><span>по расчёту</span></div><h2>VRChat-миры</h2><ul><li>Создание локации</li><li>Освещение и атмосфера</li><li>Udon и интерактив</li><li>Оптимизация PC / Quest</li></ul><button data-category="world">Заказать →</button></article>
+        <article class="price-card"><div><b>QUEST</b><span>от 3 000 ₸</span></div><h2>Quest-портирование</h2><ul><li>Мобильные материалы</li><li>Сжатие текстур</li><li>Оптимизация мешей</li><li>Проверка ограничений SDK</li></ul><button data-category="quest">Заказать →</button></article>
+        <article class="price-card"><div><b>FIX</b><span>от 2 000 ₸</span></div><h2>Исправления</h2><ul><li>Ошибки Unity и SDK</li><li>Оптимизация проекта</li><li>Настройка систем</li><li>Консультация по проекту</li></ul><button data-category="other">Заказать →</button></article>
+      </div>
+      <p class="price-note">Цены являются ориентировочными и редактируются в файле <code>index.html</code>.</p>
+    </section>
+
+    <section id="works" class="page" data-page="works">
+      <div class="page-intro reveal"><span>RPC PORTFOLIO</span><h1>Наши работы</h1><p>Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.</p></div>
+      <div class="works-grid reveal delay-1">
+        <article class="work-card wide"><img src="site-preview.png" alt="Интерфейс RPC" draggable="false" class="protected-image"><div><b>WEB / DESIGN</b><h2>RPC Orders</h2><p>Система заказов и документации.</p></div></article>
+        <article class="work-card"><img src="rpc-avatar.png" alt="RPC Avatar" draggable="false" class="protected-image contain"><div><b>BRANDING</b><h2>RPC Identity</h2><p>Фирменный визуальный стиль.</p></div></article>
+        <article class="work-card empty-work"><div class="plus">+</div><div><b>NEW WORK</b><h2>Добавьте проект</h2><p>Замените блок своей картинкой.</p></div></article>
+      </div>
+    </section>
+
+    <section id="faq" class="page" data-page="faq">
+      <div class="page-intro reveal"><span>ПОМОЩЬ</span><h1>Частые вопросы</h1><p>Основные юридические и рабочие условия находятся на отдельном сайте правил.</p></div>
+      <div class="faq-list reveal delay-1">
+        <details open><summary>Когда начинается работа?<span>+</span></summary><p>После обсуждения задачи, согласования стоимости и получения предоплаты.</p></details>
+        <details><summary>Сколько правок входит в заказ?<span>+</span></summary><p>Две небольшие правки. Серьёзные изменения и полная переделка считаются отдельно.</p></details>
+        <details><summary>Можно заказать Quest-версию?<span>+</span></summary><p>Да. Quest-портирование можно выбрать отдельной категорией или добавить к основному заказу.</p></details>
+        <details><summary>Куда приходит заявка?<span>+</span></summary><p>На статической версии GitHub Pages текст заявки открывается в Telegram для отправки владельцу @ViNter294. Позже можно подключить внешний API вашего бота.</p></details>
+        <details><summary>Можно получить Unity-проект?<span>+</span></summary><p>Да, когда это заранее согласовано и не нарушает лицензии используемых ассетов.</p></details>
+      </div>
+      <div class="center-actions"><a id="rulesLinkFaq" class="button ghost" href="#">Все правила ↗</a><a class="button primary" href="#order">Создать тикет →</a></div>
+    </section>
+
+    <section id="order" class="page" data-page="order">
+      <div class="page-intro reveal"><span>НОВЫЙ ЗАКАЗ</span><h1>Создать тикет</h1><p>Заполните форму. Перед отправкой необходимо ознакомиться с правилами.</p></div>
+      <div class="order-layout reveal delay-1">
+        <form id="orderForm" class="order-form panel" novalidate>
+          <div class="form-row two">
+            <label>Категория<select id="category" name="category" required><option value="">Выберите категорию</option><option value="avatar">VRChat-аватар</option><option value="world">VRChat-мир</option><option value="quest">Quest-версия</option><option value="optimization">Оптимизация</option><option value="functions">Функции / системы</option><option value="other">Другое</option></select></label>
+            <label>Бюджет<input id="budget" name="budget" placeholder="Например: 30 000 ₸"></label>
+          </div>
+          <div class="form-row two">
+            <label>Имя / никнейм<input id="clientName" name="clientName" required maxlength="80" placeholder="Как к вам обращаться"></label>
+            <label>Telegram<input id="clientTelegram" name="clientTelegram" required maxlength="80" placeholder="@username"></label>
+          </div>
+          <label>Описание заказа<textarea id="description" name="description" required minlength="20" maxlength="2000" placeholder="Опишите задачу, желаемый результат, сроки и приложите ссылки на референсы..."></textarea><small><span id="counter">0</span>/2000</small></label>
+
+          <div class="rules-box">
+            <a id="rulesLinkForm" href="#" target="_blank" rel="noreferrer">Открыть документацию с правилами ↗</a>
+            <label class="check"><input id="agreement" type="checkbox" required><span>Я ознакомился(-ась) с <a id="rulesInline" href="#" target="_blank" rel="noreferrer">правилами</a> и согласен(-на) с условиями.</span></label>
+          </div>
+
+          <input class="honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button id="submitButton" class="button primary submit" type="submit" disabled>Отправить тикет <span>→</span></button>
+          <p id="formStatus" class="form-status" aria-live="polite"></p>
+        </form>
+
+        <aside class="order-side">
+          <div class="panel"><span>КОНТАКТ</span><h2>@ViNter294</h2><p>После отправки откроется Telegram с подготовленным текстом заявки.</p><a href="https://t.me/ViNter294" target="_blank" rel="noreferrer">Открыть Telegram ↗</a></div>
+          <div class="panel"><span>ДОКУМЕНТАЦИЯ</span><h2>Единая ссылка</h2><p>На сайте правил пользователь выбирает категорию: аватары или миры.</p><a id="rulesLinkSideCard" href="#">Перейти к правилам ↗</a></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> RPC • RedPad Creator</footer>
+</body>
+</html>
