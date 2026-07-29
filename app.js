@@ -1,7 +1,7 @@
 "use strict";
 
 // Защищённый сервер, который отправляет заявки в Telegram-бота.
-const TICKET_API_URL = "https://rpc-order-bot-vinter294.onrender.com/api/tickets";
+const TICKET_API_URL = "https://rpc-telegrambot.onrender.com/api/tickets";
 const RULES_URL = "https://rpc-rules.onrender.com/";
 
 const pages = [...document.querySelectorAll("[data-page]")];
