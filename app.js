@@ -1,24 +1,17 @@
 "use strict";
 
-// Для внешнего API Telegram-бота укажите URL здесь. Пустое значение использует прямое открытие Telegram.
-const TICKET_API_URL = "";
-const TELEGRAM_USERNAME = "ViNter294";
-const RULES_REPOSITORY = "rpc-rules";
+// Защищённый сервер, который отправляет заявки в Telegram-бота.
+const TICKET_API_URL = "https://rpc-order-bot-vinter294.onrender.com/api/tickets";
+const RULES_URL = "https://rpc-rules.onrender.com/";
 
 const pages = [...document.querySelectorAll("[data-page]")];
 const navLinks = [...document.querySelectorAll("[data-route]")];
 const sidebar = document.querySelector(".sidebar");
 const menuButton = document.getElementById("menuButton");
 
-function siblingSite(repo, localPort) {
-  const host = location.hostname;
-  if (host === "localhost" || host === "127.0.0.1") return `${location.protocol}//${host}:${localPort}/`;
-  if (host.endsWith("github.io")) return `${location.origin}/${repo}/`;
-  return `${location.origin.replace(/\/$/, "")}/${repo}/`;
-}
-
-const rulesUrl = siblingSite(RULES_REPOSITORY, 3001);
-document.querySelectorAll('[id^="rulesLink"], #rulesInline').forEach(link => link.href = rulesUrl);
+document.querySelectorAll('[id^="rulesLink"], #rulesInline').forEach(link => {
+  link.href = RULES_URL;
+});
 
 function showPage(route) {
   const safe = pages.some(p => p.dataset.page === route) ? route : "home";
@@ -59,44 +52,28 @@ document.querySelectorAll("[data-category]").forEach(button => {
   button.addEventListener("click", () => openOrder(button.dataset.category));
 });
 
-// Запрещаем обычное контекстное меню только на изображениях.
+// Отключаем стандартное меню только на изображениях.
 document.addEventListener("contextmenu", event => {
   if (event.target.closest(".protected-image")) event.preventDefault();
 });
-
 document.querySelectorAll(".protected-image").forEach(image => {
   image.addEventListener("dragstart", event => event.preventDefault());
 });
 
 const description = document.getElementById("description");
 const counter = document.getElementById("counter");
-description?.addEventListener("input", () => counter.textContent = String(description.value.length));
+description?.addEventListener("input", () => {
+  counter.textContent = String(description.value.length);
+});
 
 const agreement = document.getElementById("agreement");
 const submitButton = document.getElementById("submitButton");
-agreement?.addEventListener("change", () => submitButton.disabled = !agreement.checked);
+agreement?.addEventListener("change", () => {
+  submitButton.disabled = !agreement.checked;
+});
 
 const form = document.getElementById("orderForm");
 const status = document.getElementById("formStatus");
-
-function ticketText(data) {
-  const labels = {avatar:"VRChat-аватар",world:"VRChat-мир",quest:"Quest-версия",optimization:"Оптимизация",functions:"Функции / системы",other:"Другое"};
-  const ticket = `RPC-${new Date().toISOString().slice(2,10).replaceAll("-","")}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;
-  return [
-    "🔥 Новый заказ RPC",
-    "",
-    `Номер тикета: ${ticket}`,
-    `Категория: ${labels[data.category] || data.category}`,
-    `Имя: ${data.clientName}`,
-    `Telegram: ${data.clientTelegram}`,
-    `Бюджет: ${data.budget || "не указан"}`,
-    "",
-    "Описание:",
-    data.description,
-    "",
-    "С правилами согласен(-на): Да"
-  ].join("\n");
-}
 
 form?.addEventListener("submit", async event => {
   event.preventDefault();
@@ -112,33 +89,33 @@ form?.addEventListener("submit", async event => {
   }
 
   const data = Object.fromEntries(new FormData(form).entries());
-  const text = ticketText(data);
   submitButton.disabled = true;
-  submitButton.textContent = "Подготовка...";
+  submitButton.textContent = "Отправка...";
 
   try {
-    if (TICKET_API_URL) {
-      const response = await fetch(TICKET_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, agreement: true, source: location.href })
-      });
-      if (!response.ok) throw new Error("API request failed");
-      status.className = "form-status success";
-      status.textContent = "Тикет отправлен команде RPC.";
-      form.reset();
-      counter.textContent = "0";
-    } else {
-      await navigator.clipboard?.writeText(text).catch(() => {});
-      const telegramUrl = `https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(text)}`;
-      window.open(telegramUrl, "_blank", "noopener,noreferrer");
-      status.className = "form-status success";
-      status.textContent = "Telegram открыт. Текст заявки также скопирован в буфер обмена.";
+    const response = await fetch(TICKET_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...data,
+        agreement: agreement.checked,
+        source: location.href
+      })
+    });
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || "Не удалось отправить заявку");
     }
+
+    status.className = "form-status success";
+    status.textContent = `Тикет ${result.ticketId} отправлен. Мы свяжемся с вами в Telegram.`;
+    form.reset();
+    counter.textContent = "0";
   } catch (error) {
     console.error(error);
     status.className = "form-status error";
-    status.textContent = "Не удалось отправить. Напишите напрямую @ViNter294.";
+    status.textContent = "Не удалось отправить тикет. Напишите напрямую @ViNter294.";
   } finally {
     submitButton.textContent = "Отправить тикет →";
     submitButton.disabled = !agreement.checked;
