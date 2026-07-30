@@ -1,39 +1,54 @@
-RPC Orders — обновление: файлы, отзывы, общий счётчик
+RPC ORDERS v3 — FRONTEND
+========================
 
-Файлы этого архива заменяют файлы статического сайта заказов:
+Загрузи ВСЕ файлы из этого архива в корень GitHub-репозитория статического сайта с заменой старых:
+
 index.html
 styles.css
 app.js
 rpc-avatar.png
 site-preview.png
-README.txt
 
-Как обновить:
-1. Откройте GitHub-репозиторий сайта rpc-order-website.
-2. Загрузите все файлы из архива с заменой старых.
-3. Нажмите Commit changes.
-4. Render автоматически обновит Static Site.
+Render Static Site:
+Build Command: echo "No build required"
+Publish Directory: .
 
 Что добавлено:
-- прикрепление до 5 файлов к тикету;
-- лимит 10 МБ на файл и 30 МБ суммарно;
-- файлы автоматически отправляются в Telegram вместе с заявкой;
-- отдельная страница отзывов;
-- общая база отзывов для всех посетителей;
-- общий счётчик уникальных посетителей;
-- показатель пользователей, находившихся на сайте в последние 2 минуты;
-- синхронизация статистики каждые 30 секунд;
-- лёгкие визуальные улучшения без тяжёлых эффектов;
-- сохранена полноэкранная галерея работ.
+- переключатель RU / EN;
+- сохранение языка в браузере;
+- передача выбранного языка на сайт правил;
+- Cloudflare Turnstile для тикетов и отзывов;
+- строгая проверка Telegram;
+- клиентская проверка форматов и размеров файлов;
+- готовая система декоративных PNG-аватаров без самих изображений;
+- адаптация декоративных персонажей под телефон и reduced motion.
 
-Важно:
-Для статистики и отзывов нужно обновить Web Service rpc-telegrambot файлами из отдельного архива API и подключить Supabase по инструкции в его README.txt.
+ВАЖНО: защита Turnstile настраивается на API-сервере, а не в файлах сайта.
+API должен вернуть ключ через:
+https://rpc-telegrambot.onrender.com/api/public-config
 
-Основной сайт:
-https://rpc-order-website.onrender.com
+ДЕКОРАТИВНЫЕ АВАТАРЫ
+--------------------
+Пока массив DECORATIVE_CHARACTERS в app.js пустой, поэтому на сайте ничего лишнего не показывается.
+Позже добавь PNG в GitHub и внеси записи в массив:
 
-Правила:
-https://rpc-rules.onrender.com
+const DECORATIVE_CHARACTERS = [
+  {
+    page: "home",
+    src: "decor-home-right.png",
+    side: "right",
+    top: "8%",
+    offset: "-35px",
+    width: "390px",
+    opacity: 0.86,
+    animation: "float-slow",
+    mobile: "hide",
+    depth: 1
+  }
+];
 
-API:
-https://rpc-telegrambot.onrender.com
+page: home / prices / works / reviews / faq / order
+side: left / right
+animation: float-slow / breathe / drift
+mobile: "hide" скроет крупного персонажа на телефоне.
+Изображения не нажимаются и не перекрывают интерфейс.

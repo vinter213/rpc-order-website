@@ -1,275 +1,249 @@
-<!doctype html>
-<html lang="ru" data-scroll-behavior="smooth">
+<!DOCTYPE html>
+
+<html data-scroll-behavior="smooth" lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#070910">
-  <meta name="description" content="RPC • RedPad Creator — заказы VRChat-аватаров, миров, оптимизации и Quest-версий.">
-  <title>RPC • RedPad Creator — Заказы</title>
-  <link rel="icon" href="rpc-avatar.png">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="app.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#070910" name="theme-color"/>
+<meta content="RPC • RedPad Creator — заказы VRChat-аватаров, миров, оптимизации и Quest-версий." name="description"/>
+<title>RPC • RedPad Creator — Заказы</title>
+<link href="rpc-avatar.png" rel="icon"/>
+<link href="styles.css" rel="stylesheet"/>
+<script async="" defer="" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script><script defer="" src="app.js"></script>
 </head>
 <body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
-  <div class="grid"></div>
-
-  <aside class="sidebar" aria-label="Навигация">
-    <a class="brand" href="#home" aria-label="RPC Orders">
-      <img src="rpc-avatar.png" alt="RPC" draggable="false" class="brand-logo protected-image">
-      <span><b>RPC</b><small>ORDERS</small></span>
-    </a>
-
-    <nav class="nav">
-      <a href="#home" data-route="home" class="nav-link active"><span>⌂</span>Главная</a>
-      <a href="#prices" data-route="prices" class="nav-link"><span>◫</span>Прайс-лист</a>
-      <a href="#works" data-route="works" class="nav-link"><span>▦</span>Наши работы</a>
-      <a href="#reviews" data-route="reviews" class="nav-link"><span>★</span>Отзывы</a>
-      <a href="#faq" data-route="faq" class="nav-link"><span>?</span>FAQ</a>
-      <a href="#order" data-route="order" class="nav-link"><span>✦</span>Создать заказ</a>
-      <a href="#" id="rulesLinkSide" class="nav-link external"><span>↗</span>Правила</a>
-    </nav>
-
-    <a class="sidebar-cta" href="#order">Создать тикет</a>
-
-    <div class="side-bottom">
-      <p><i></i> Онлайн</p>
-      <a href="https://t.me/ViNter294" target="_blank" rel="noreferrer">Telegram · @ViNter294</a>
-      <a href="https://discord.gg/25dXRyrw5a" target="_blank" rel="noreferrer">Discord · RPC</a>
-    </div>
-  </aside>
-
-  <header class="mobile-header">
-    <a class="mobile-brand" href="#home"><img src="rpc-avatar.png" alt="RPC" draggable="false" class="protected-image"><b>RPC</b></a>
-    <button id="menuButton" type="button" aria-label="Открыть меню" aria-expanded="false">☰</button>
-  </header>
-
-  <main class="main">
-    <section id="home" class="page active-page" data-page="home">
-      <div class="top-status"><span><i></i> Принимаем заказы</span><span>Ответ обычно в Telegram</span></div>
-
-      <div class="hero">
-        <div class="hero-copy reveal">
-          <div class="eyebrow">VRCHAT · АВАТАРЫ · МИРЫ</div>
-          <h1>Создаём проекты,<br><em>которые выделяются</em></h1>
-          <p>Аватары, миры, Udon-системы, оптимизация и Quest-версии. Опишите задачу — заявка попадёт напрямую команде RPC.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#order">Создать тикет <span>→</span></a>
-            <a class="button ghost" id="rulesLinkHero" href="#">Открыть правила <span>↗</span></a>
-          </div>
-          <label class="mini-agreement"><input type="checkbox" disabled checked> Правила хранятся на отдельном сайте документации</label>
-        </div>
-
-        <div class="hero-art reveal delay-1" aria-label="Логотип RPC">
-          <div class="logo-glow"></div>
-          <img src="rpc-avatar.png" alt="RPC RedPad Creator" draggable="false" class="protected-image hero-logo">
-        </div>
-      </div>
-
-      <div class="site-stats panel reveal delay-1" aria-label="Статистика сайта">
-        <div><span class="stats-pulse"></span><strong id="totalVisitors">—</strong><small>уникальных посетителей</small></div>
-        <div><strong id="onlineUsers">—</strong><small>сейчас на сайте</small></div>
-        <div><strong id="totalReviews">—</strong><small>опубликованных отзывов</small></div>
-        <p id="statsStatus">Синхронизация статистики…</p>
-      </div>
-
-      <div class="section-title reveal"><div><span>УСЛУГИ</span><h2>Выберите категорию</h2></div><a href="#prices">Смотреть прайс →</a></div>
-      <div class="service-grid reveal delay-1">
-        <button class="service-card" data-category="avatar"><b>01</b><h3>VRChat-аватары</h3><p>Настройка, кастомизация, функции, PhysBone и визуальные эффекты.</p><span>Оформить заказ →</span></button>
-        <button class="service-card" data-category="world"><b>02</b><h3>VRChat-миры</h3><p>Локации, освещение, интерактив, Udon-системы и оптимизация.</p><span>Оформить заказ →</span></button>
-        <button class="service-card" data-category="quest"><b>03</b><h3>Quest-версия</h3><p>Подготовка аватаров и миров под ограничения Android / Quest.</p><span>Оформить заказ →</span></button>
-        <button class="service-card" data-category="optimization"><b>04</b><h3>Оптимизация</h3><p>Материалы, текстуры, полигоны, PhysBone и производительность.</p><span>Оформить заказ →</span></button>
-      </div>
-
-      <div class="home-bottom">
-        <div class="process panel reveal">
-          <div class="section-title compact"><div><span>ПРОЦЕСС</span><h2>Как всё проходит</h2></div></div>
-          <div class="steps">
-            <div><b>1</b><h3>Категория</h3><p>Выбираете нужную услугу.</p></div>
-            <div><b>2</b><h3>Правила</h3><p>Читаете условия категории.</p></div>
-            <div><b>3</b><h3>Тикет</h3><p>Описываете задачу.</p></div>
-            <div><b>4</b><h3>Связь</h3><p>Мы отвечаем в Telegram.</p></div>
-          </div>
-        </div>
-        <a class="preview panel reveal delay-1" href="#works">
-          <img src="site-preview.png" alt="Пример работы RPC" draggable="false" class="protected-image">
-          <div><span>ПОРТФОЛИО</span><h3>Посмотреть наши работы</h3></div>
-        </a>
-      </div>
-    </section>
-
-    <section id="prices" class="page" data-page="prices">
-      <div class="page-intro reveal"><span>УСЛУГИ И СТОИМОСТЬ</span><h1>Прайс-лист</h1><p>Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.</p></div>
-      <div class="price-grid reveal delay-1">
-        <article class="price-card"><div><b>AVATAR</b><span>от 5 000 ₸</span></div><h2>VRChat-аватары</h2><ul><li>Загрузка и базовая настройка</li><li>Добавление ассетов и функций</li><li>Меню, анимации и PhysBone</li><li>PC / Quest подготовка</li></ul><button data-category="avatar">Заказать →</button></article>
-        <article class="price-card accent"><div><b>WORLD</b><span>по расчёту</span></div><h2>VRChat-миры</h2><ul><li>Создание локации</li><li>Освещение и атмосфера</li><li>Udon и интерактив</li><li>Оптимизация PC / Quest</li></ul><button data-category="world">Заказать →</button></article>
-        <article class="price-card"><div><b>QUEST</b><span>от 3 000 ₸</span></div><h2>Quest-портирование</h2><ul><li>Мобильные материалы</li><li>Сжатие текстур</li><li>Оптимизация мешей</li><li>Проверка ограничений SDK</li></ul><button data-category="quest">Заказать →</button></article>
-        <article class="price-card"><div><b>FIX</b><span>от 2 000 ₸</span></div><h2>Исправления</h2><ul><li>Ошибки Unity и SDK</li><li>Оптимизация проекта</li><li>Настройка систем</li><li>Консультация по проекту</li></ul><button data-category="other">Заказать →</button></article>
-      </div>
-      <p class="price-note">Цены являются ориентировочными и редактируются в файле <code>index.html</code>.</p>
-    </section>
-
-    <section id="works" class="page" data-page="works">
-      <div class="page-intro reveal"><span>RPC PORTFOLIO</span><h1>Наши работы</h1><p>Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.</p></div>
-      <div class="works-grid reveal delay-1">
-        <!--
+<div class="ambient ambient-one"></div>
+<div class="ambient ambient-two"></div>
+<div class="grid"></div><div aria-hidden="true" id="decorativeCharacterSystem"></div>
+<aside aria-label="Навигация" class="sidebar">
+<a aria-label="RPC Orders" class="brand" href="#home">
+<img alt="RPC" class="brand-logo protected-image" draggable="false" src="rpc-avatar.png"/>
+<span><b>RPC</b><small>ORDERS</small></span>
+</a><div aria-label="Language" class="language-switch"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div>
+<nav class="nav">
+<a class="nav-link active" data-route="home" href="#home"><span>⌂</span>Главная</a>
+<a class="nav-link" data-route="prices" href="#prices"><span>◫</span>Прайс-лист</a>
+<a class="nav-link" data-route="works" href="#works"><span>▦</span>Наши работы</a>
+<a class="nav-link" data-route="reviews" href="#reviews"><span>★</span>Отзывы</a>
+<a class="nav-link" data-route="faq" href="#faq"><span>?</span>FAQ</a>
+<a class="nav-link" data-route="order" href="#order"><span>✦</span>Создать заказ</a>
+<a class="nav-link external" href="#" id="rulesLinkSide"><span>↗</span>Правила</a>
+</nav>
+<a class="sidebar-cta" href="#order">Создать тикет</a>
+<div class="side-bottom">
+<p><i></i> Онлайн</p>
+<a href="https://t.me/ViNter294" rel="noreferrer" target="_blank">Telegram · @ViNter294</a>
+<a href="https://discord.gg/25dXRyrw5a" rel="noreferrer" target="_blank">Discord · RPC</a>
+</div>
+</aside>
+<header class="mobile-header">
+<a class="mobile-brand" href="#home"><img alt="RPC" class="protected-image" draggable="false" src="rpc-avatar.png"/><b>RPC</b></a>
+<div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
+</header>
+<main class="main">
+<section class="page active-page" data-page="home" id="home">
+<div class="top-status"><span><i></i> Принимаем заказы</span><span>Ответ обычно в Telegram</span></div>
+<div class="hero">
+<div class="hero-copy reveal">
+<div class="eyebrow">VRCHAT · АВАТАРЫ · МИРЫ</div>
+<h1>Создаём проекты,<br/><em>которые выделяются</em></h1>
+<p>Аватары, миры, Udon-системы, оптимизация и Quest-версии. Опишите задачу — заявка попадёт напрямую команде RPC.</p>
+<div class="hero-actions">
+<a class="button primary" href="#order">Создать тикет <span>→</span></a>
+<a class="button ghost" href="#" id="rulesLinkHero">Открыть правила <span>↗</span></a>
+</div>
+<label class="mini-agreement"><input checked="" disabled="" type="checkbox"/> Правила хранятся на отдельном сайте документации</label>
+</div>
+<div aria-label="Логотип RPC" class="hero-art reveal delay-1">
+<div class="logo-glow"></div>
+<img alt="RPC RedPad Creator" class="protected-image hero-logo" draggable="false" src="rpc-avatar.png"/>
+</div>
+</div>
+<div aria-label="Статистика сайта" class="site-stats panel reveal delay-1">
+<div><span class="stats-pulse"></span><strong id="totalVisitors">—</strong><small>уникальных посетителей</small></div>
+<div><strong id="onlineUsers">—</strong><small>сейчас на сайте</small></div>
+<div><strong id="totalReviews">—</strong><small>опубликованных отзывов</small></div>
+<p id="statsStatus">Синхронизация статистики…</p>
+</div>
+<div class="section-title reveal"><div><span>УСЛУГИ</span><h2>Выберите категорию</h2></div><a href="#prices">Смотреть прайс →</a></div>
+<div class="service-grid reveal delay-1">
+<button class="service-card" data-category="avatar"><b>01</b><h3>VRChat-аватары</h3><p>Настройка, кастомизация, функции, PhysBone и визуальные эффекты.</p><span>Оформить заказ →</span></button>
+<button class="service-card" data-category="world"><b>02</b><h3>VRChat-миры</h3><p>Локации, освещение, интерактив, Udon-системы и оптимизация.</p><span>Оформить заказ →</span></button>
+<button class="service-card" data-category="quest"><b>03</b><h3>Quest-версия</h3><p>Подготовка аватаров и миров под ограничения Android / Quest.</p><span>Оформить заказ →</span></button>
+<button class="service-card" data-category="optimization"><b>04</b><h3>Оптимизация</h3><p>Материалы, текстуры, полигоны, PhysBone и производительность.</p><span>Оформить заказ →</span></button>
+</div>
+<div class="home-bottom">
+<div class="process panel reveal">
+<div class="section-title compact"><div><span>ПРОЦЕСС</span><h2>Как всё проходит</h2></div></div>
+<div class="steps">
+<div><b>1</b><h3>Категория</h3><p>Выбираете нужную услугу.</p></div>
+<div><b>2</b><h3>Правила</h3><p>Читаете условия категории.</p></div>
+<div><b>3</b><h3>Тикет</h3><p>Описываете задачу.</p></div>
+<div><b>4</b><h3>Связь</h3><p>Мы отвечаем в Telegram.</p></div>
+</div>
+</div>
+<a class="preview panel reveal delay-1" href="#works">
+<img alt="Пример работы RPC" class="protected-image" draggable="false" src="site-preview.png"/>
+<div><span>ПОРТФОЛИО</span><h3>Посмотреть наши работы</h3></div>
+</a>
+</div>
+</section>
+<section class="page" data-page="prices" id="prices">
+<div class="page-intro reveal"><span>УСЛУГИ И СТОИМОСТЬ</span><h1>Прайс-лист</h1><p>Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.</p></div>
+<div class="price-grid reveal delay-1">
+<article class="price-card"><div><b>AVATAR</b><span>от 5 000 ₸</span></div><h2>VRChat-аватары</h2><ul><li>Загрузка и базовая настройка</li><li>Добавление ассетов и функций</li><li>Меню, анимации и PhysBone</li><li>PC / Quest подготовка</li></ul><button data-category="avatar">Заказать →</button></article>
+<article class="price-card accent"><div><b>WORLD</b><span>по расчёту</span></div><h2>VRChat-миры</h2><ul><li>Создание локации</li><li>Освещение и атмосфера</li><li>Udon и интерактив</li><li>Оптимизация PC / Quest</li></ul><button data-category="world">Заказать →</button></article>
+<article class="price-card"><div><b>QUEST</b><span>от 3 000 ₸</span></div><h2>Quest-портирование</h2><ul><li>Мобильные материалы</li><li>Сжатие текстур</li><li>Оптимизация мешей</li><li>Проверка ограничений SDK</li></ul><button data-category="quest">Заказать →</button></article>
+<article class="price-card"><div><b>FIX</b><span>от 2 000 ₸</span></div><h2>Исправления</h2><ul><li>Ошибки Unity и SDK</li><li>Оптимизация проекта</li><li>Настройка систем</li><li>Консультация по проекту</li></ul><button data-category="other">Заказать →</button></article>
+</div>
+<p class="price-note">Цены являются ориентировочными и редактируются в файле <code>index.html</code>.</p>
+</section>
+<section class="page" data-page="works" id="works">
+<div class="page-intro reveal"><span>RPC PORTFOLIO</span><h1>Наши работы</h1><p>Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.</p></div>
+<div class="works-grid reveal delay-1">
+<!--
           В data-images укажите все изображения одной работы через символ |.
           Первое изображение используется как обложка карточки.
           Пример: data-images="world-01.jpg|world-02.jpg|world-03.jpg"
         -->
-        <article class="work-card wide gallery-work" data-images="site-preview.png|rpc-avatar.png" data-work-title="RPC Orders">
-          <button class="work-image-button" type="button" aria-label="Открыть галерею RPC Orders">
-            <img src="site-preview.png" alt="Интерфейс RPC" draggable="false" class="protected-image">
-            <span class="gallery-badge">2 фото</span>
-          </button>
-          <div><b>WEB / DESIGN</b><h2>RPC Orders</h2><p>Система заказов и документации.</p></div>
-        </article>
-
-        <article class="work-card gallery-work" data-images="rpc-avatar.png|site-preview.png" data-work-title="RPC Identity">
-          <button class="work-image-button" type="button" aria-label="Открыть галерею RPC Identity">
-            <img src="rpc-avatar.png" alt="RPC Avatar" draggable="false" class="protected-image contain">
-            <span class="gallery-badge">2 фото</span>
-          </button>
-          <div><b>BRANDING</b><h2>RPC Identity</h2><p>Фирменный визуальный стиль.</p></div>
-        </article>
-
-        <article class="work-card empty-work">
-          <div class="plus">+</div><div><b>NEW WORK</b><h2>Добавьте проект</h2><p>Укажите несколько файлов в data-images.</p></div>
-        </article>
-      </div>
-    </section>
-
-
-    <section id="reviews" class="page" data-page="reviews">
-      <div class="page-intro reveal">
-        <span>МНЕНИЯ КЛИЕНТОВ</span>
-        <h1>Отзывы</h1>
-        <p>Отзывы загружаются с общей базы данных, поэтому все посетители видят один и тот же список.</p>
-      </div>
-
-      <div class="reviews-layout reveal delay-1">
-        <div>
-          <div class="reviews-toolbar">
-            <div><strong id="reviewAverage">—</strong><span>средняя оценка</span></div>
-            <button id="refreshReviews" class="button ghost small-button" type="button">Обновить</button>
-          </div>
-          <div id="reviewsList" class="reviews-grid" aria-live="polite">
-            <div class="review-empty">Загрузка отзывов…</div>
-          </div>
-        </div>
-
-        <form id="reviewForm" class="review-form panel">
-          <span>ОСТАВИТЬ ОТЗЫВ</span>
-          <h2>Расскажите о заказе</h2>
-          <label>Имя / никнейм
-            <input name="name" required maxlength="80" placeholder="Как вас подписать">
-          </label>
-          <label>Категория
-            <select name="projectType" required>
-              <option value="">Выберите категорию</option>
-              <option value="avatar">VRChat-аватар</option>
-              <option value="world">VRChat-мир</option>
-              <option value="quest">Quest-версия</option>
-              <option value="optimization">Оптимизация</option>
-              <option value="functions">Функции / системы</option>
-              <option value="other">Другое</option>
-            </select>
-          </label>
-          <label>Оценка
-            <select name="rating" required>
-              <option value="5">★★★★★ — отлично</option>
-              <option value="4">★★★★☆ — хорошо</option>
-              <option value="3">★★★☆☆ — нормально</option>
-              <option value="2">★★☆☆☆ — есть замечания</option>
-              <option value="1">★☆☆☆☆ — плохо</option>
-            </select>
-          </label>
-          <label>Текст отзыва
-            <textarea name="body" required minlength="20" maxlength="1200" placeholder="Что заказывали и как прошла работа?"></textarea>
-          </label>
-          <input class="honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button id="reviewSubmit" class="button primary submit" type="submit">Отправить отзыв →</button>
-          <p id="reviewStatus" class="form-status" aria-live="polite"></p>
-          <small class="review-note">Отзыв может появиться сразу или после проверки — зависит от настроек модерации.</small>
-        </form>
-      </div>
-    </section>
-
-    <section id="faq" class="page" data-page="faq">
-      <div class="page-intro reveal"><span>ПОМОЩЬ</span><h1>Частые вопросы</h1><p>Основные юридические и рабочие условия находятся на отдельном сайте правил.</p></div>
-      <div class="faq-list reveal delay-1">
-        <details open><summary>Когда начинается работа?<span>+</span></summary><p>После обсуждения задачи, согласования стоимости и получения предоплаты.</p></details>
-        <details><summary>Сколько правок входит в заказ?<span>+</span></summary><p>Две небольшие правки. Серьёзные изменения и полная переделка считаются отдельно.</p></details>
-        <details><summary>Можно заказать Quest-версию?<span>+</span></summary><p>Да. Quest-портирование можно выбрать отдельной категорией или добавить к основному заказу.</p></details>
-        <details><summary>Куда приходит заявка?<span>+</span></summary><p>После отправки форма передаёт заявку и вложения защищённому серверу, а сервер отправляет их владельцу через Telegram-бота.</p></details>
-        <details><summary>Статистика посещений общая для всех?<span>+</span></summary><p>Да. Счётчик хранится в общей базе данных, а сайт регулярно обновляет значения для всех посетителей.</p></details>
-        <details><summary>Можно получить Unity-проект?<span>+</span></summary><p>Да, когда это заранее согласовано и не нарушает лицензии используемых ассетов.</p></details>
-      </div>
-      <div class="center-actions"><a id="rulesLinkFaq" class="button ghost" href="#">Все правила ↗</a><a class="button primary" href="#order">Создать тикет →</a></div>
-    </section>
-
-    <section id="order" class="page" data-page="order">
-      <div class="page-intro reveal"><span>НОВЫЙ ЗАКАЗ</span><h1>Создать тикет</h1><p>Заполните форму. Перед отправкой необходимо ознакомиться с правилами.</p></div>
-      <div class="order-layout reveal delay-1">
-        <form id="orderForm" class="order-form panel" novalidate>
-          <div class="form-row two">
-            <label>Категория<select id="category" name="category" required><option value="">Выберите категорию</option><option value="avatar">VRChat-аватар</option><option value="world">VRChat-мир</option><option value="quest">Quest-версия</option><option value="optimization">Оптимизация</option><option value="functions">Функции / системы</option><option value="other">Другое</option></select></label>
-            <label>Бюджет<input id="budget" name="budget" placeholder="Например: 30 000 ₸"></label>
-          </div>
-          <div class="form-row two">
-            <label>Имя / никнейм<input id="clientName" name="clientName" required maxlength="80" placeholder="Как к вам обращаться"></label>
-            <label>Telegram<input id="clientTelegram" name="clientTelegram" required maxlength="80" placeholder="@username"></label>
-          </div>
-          <label>Описание заказа<textarea id="description" name="description" required minlength="20" maxlength="2000" placeholder="Опишите задачу, желаемый результат, сроки и приложите ссылки на референсы..."></textarea><small><span id="counter">0</span>/2000</small></label>
-
-          <div class="upload-box">
-            <div>
-              <span>ФАЙЛЫ К ТИКЕТУ</span>
-              <p>До 5 файлов, не более 10 МБ каждый и 30 МБ суммарно.</p>
-            </div>
-            <label class="upload-button" for="ticketFiles">Выбрать файлы</label>
-            <input id="ticketFiles" name="files" type="file" multiple accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.zip,.rar,.7z,.mp4,.mov,.unitypackage,.blend,.fbx,.obj">
-            <div id="fileList" class="file-list"><span>Файлы не выбраны</span></div>
-          </div>
-
-          <div class="rules-box">
-            <a id="rulesLinkForm" href="#" target="_blank" rel="noreferrer">Открыть документацию с правилами ↗</a>
-            <label class="check"><input id="agreement" name="agreement" type="checkbox" required><span>Я ознакомился(-ась) с <a id="rulesInline" href="#" target="_blank" rel="noreferrer">правилами</a> и согласен(-на) с условиями.</span></label>
-          </div>
-
-          <input class="honeypot" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <button id="submitButton" class="button primary submit" type="submit" disabled>Отправить тикет <span>→</span></button>
-          <p id="formStatus" class="form-status" aria-live="polite"></p>
-        </form>
-
-        <aside class="order-side">
-          <div class="panel"><span>КОНТАКТ</span><h2>@ViNter294</h2><p>После отправки заявка автоматически придёт владельцу через Telegram-бота.</p><a href="https://t.me/ViNter294" target="_blank" rel="noreferrer">Открыть Telegram ↗</a></div>
-          <div class="panel"><span>ДОКУМЕНТАЦИЯ</span><h2>Единая ссылка</h2><p>На сайте правил пользователь выбирает категорию: аватары или миры.</p><a id="rulesLinkSideCard" href="#">Перейти к правилам ↗</a></div>
-        </aside>
-      </div>
-    </section>
-  </main>
-
-
-  <div class="gallery-modal" id="galleryModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Просмотр работы">
-    <div class="gallery-backdrop" data-gallery-close></div>
-    <div class="gallery-dialog">
-      <div class="gallery-topbar">
-        <div>
-          <strong id="galleryTitle">Работа RPC</strong>
-          <span id="galleryCounter">1 / 1</span>
-        </div>
-        <button class="gallery-close" type="button" data-gallery-close aria-label="Закрыть">×</button>
-      </div>
-      <div class="gallery-stage">
-        <button class="gallery-arrow gallery-prev" type="button" aria-label="Предыдущее изображение">‹</button>
-        <img id="galleryImage" src="" alt="" draggable="false" class="protected-image">
-        <button class="gallery-arrow gallery-next" type="button" aria-label="Следующее изображение">›</button>
-      </div>
-      <div class="gallery-hint">Листайте стрелками, колёсиком или свайпом</div>
-    </div>
-  </div>
-  <footer><span>© <span id="year"></span> RPC • RedPad Creator</span><span class="footer-live">Всего посетителей: <b id="footerVisitors">—</b></span></footer>
+<article class="work-card wide gallery-work" data-images="site-preview.png|rpc-avatar.png" data-work-title="RPC Orders">
+<button aria-label="Открыть галерею RPC Orders" class="work-image-button" type="button">
+<img alt="Интерфейс RPC" class="protected-image" draggable="false" src="site-preview.png"/>
+<span class="gallery-badge">2 фото</span>
+</button>
+<div><b>WEB / DESIGN</b><h2>RPC Orders</h2><p>Система заказов и документации.</p></div>
+</article>
+<article class="work-card gallery-work" data-images="rpc-avatar.png|site-preview.png" data-work-title="RPC Identity">
+<button aria-label="Открыть галерею RPC Identity" class="work-image-button" type="button">
+<img alt="RPC Avatar" class="protected-image contain" draggable="false" src="rpc-avatar.png"/>
+<span class="gallery-badge">2 фото</span>
+</button>
+<div><b>BRANDING</b><h2>RPC Identity</h2><p>Фирменный визуальный стиль.</p></div>
+</article>
+<article class="work-card empty-work">
+<div class="plus">+</div><div><b>NEW WORK</b><h2>Добавьте проект</h2><p>Укажите несколько файлов в data-images.</p></div>
+</article>
+</div>
+</section>
+<section class="page" data-page="reviews" id="reviews">
+<div class="page-intro reveal">
+<span>МНЕНИЯ КЛИЕНТОВ</span>
+<h1>Отзывы</h1>
+<p>Отзывы загружаются с общей базы данных, поэтому все посетители видят один и тот же список.</p>
+</div>
+<div class="reviews-layout reveal delay-1">
+<div>
+<div class="reviews-toolbar">
+<div><strong id="reviewAverage">—</strong><span>средняя оценка</span></div>
+<button class="button ghost small-button" id="refreshReviews" type="button">Обновить</button>
+</div>
+<div aria-live="polite" class="reviews-grid" id="reviewsList">
+<div class="review-empty">Загрузка отзывов…</div>
+</div>
+</div>
+<form class="review-form panel" id="reviewForm">
+<span>ОСТАВИТЬ ОТЗЫВ</span>
+<h2>Расскажите о заказе</h2>
+<label>Имя / никнейм
+            <input maxlength="80" name="name" placeholder="Как вас подписать" required=""/>
+</label>
+<label>Категория
+            <select name="projectType" required="">
+<option value="">Выберите категорию</option>
+<option value="avatar">VRChat-аватар</option>
+<option value="world">VRChat-мир</option>
+<option value="quest">Quest-версия</option>
+<option value="optimization">Оптимизация</option>
+<option value="functions">Функции / системы</option>
+<option value="other">Другое</option>
+</select>
+</label>
+<label>Оценка
+            <select name="rating" required="">
+<option value="5">★★★★★ — отлично</option>
+<option value="4">★★★★☆ — хорошо</option>
+<option value="3">★★★☆☆ — нормально</option>
+<option value="2">★★☆☆☆ — есть замечания</option>
+<option value="1">★☆☆☆☆ — плохо</option>
+</select>
+</label>
+<label>Текст отзыва
+            <textarea maxlength="1200" minlength="20" name="body" placeholder="Что заказывали и как прошла работа?" required=""></textarea>
+</label>
+<input aria-hidden="true" autocomplete="off" class="honeypot" name="website" tabindex="-1"/>
+<div class="security-check"><span class="security-label">ЗАЩИТА ОТ СПАМА</span><div class="turnstile-box" id="reviewTurnstile"></div><p class="security-status" id="reviewSecurityStatus">Загрузка проверки безопасности…</p></div><button class="button primary submit" disabled="" id="reviewSubmit" type="submit">Отправить отзыв →</button>
+<p aria-live="polite" class="form-status" id="reviewStatus"></p>
+<small class="review-note">Отзыв может появиться сразу или после проверки — зависит от настроек модерации.</small>
+<input id="reviewFormStartedAt" name="formStartedAt" type="hidden"/></form>
+</div>
+</section>
+<section class="page" data-page="faq" id="faq">
+<div class="page-intro reveal"><span>ПОМОЩЬ</span><h1>Частые вопросы</h1><p>Основные юридические и рабочие условия находятся на отдельном сайте правил.</p></div>
+<div class="faq-list reveal delay-1">
+<details open=""><summary>Когда начинается работа?<span>+</span></summary><p>После обсуждения задачи, согласования стоимости и получения предоплаты.</p></details>
+<details><summary>Сколько правок входит в заказ?<span>+</span></summary><p>Две небольшие правки. Серьёзные изменения и полная переделка считаются отдельно.</p></details>
+<details><summary>Можно заказать Quest-версию?<span>+</span></summary><p>Да. Quest-портирование можно выбрать отдельной категорией или добавить к основному заказу.</p></details>
+<details><summary>Куда приходит заявка?<span>+</span></summary><p>После отправки форма передаёт заявку и вложения защищённому серверу, а сервер отправляет их владельцу через Telegram-бота.</p></details>
+<details><summary>Статистика посещений общая для всех?<span>+</span></summary><p>Да. Счётчик хранится в общей базе данных, а сайт регулярно обновляет значения для всех посетителей.</p></details>
+<details><summary>Можно получить Unity-проект?<span>+</span></summary><p>Да, когда это заранее согласовано и не нарушает лицензии используемых ассетов.</p></details>
+<details><summary>Как защищены формы?<span>+</span></summary><p>Формы защищены серверной проверкой, ограничением частоты запросов, проверкой файлов и Cloudflare Turnstile.</p></details></div>
+<div class="center-actions"><a class="button ghost" href="#" id="rulesLinkFaq">Все правила ↗</a><a class="button primary" href="#order">Создать тикет →</a></div>
+</section>
+<section class="page" data-page="order" id="order">
+<div class="page-intro reveal"><span>НОВЫЙ ЗАКАЗ</span><h1>Создать тикет</h1><p>Заполните форму. Перед отправкой необходимо ознакомиться с правилами.</p></div>
+<div class="order-layout reveal delay-1">
+<form class="order-form panel" id="orderForm" novalidate="">
+<div class="form-row two">
+<label>Категория<select id="category" name="category" required=""><option value="">Выберите категорию</option><option value="avatar">VRChat-аватар</option><option value="world">VRChat-мир</option><option value="quest">Quest-версия</option><option value="optimization">Оптимизация</option><option value="functions">Функции / системы</option><option value="other">Другое</option></select></label>
+<label>Бюджет<input id="budget" name="budget" placeholder="Например: 30 000 ₸"/></label>
+</div>
+<div class="form-row two">
+<label>Имя / никнейм<input id="clientName" maxlength="80" name="clientName" placeholder="Как к вам обращаться" required=""/></label>
+<label>Telegram<input id="clientTelegram" maxlength="80" name="clientTelegram" placeholder="@username" required=""/></label>
+</div>
+<label>Описание заказа<textarea id="description" maxlength="2000" minlength="20" name="description" placeholder="Опишите задачу, желаемый результат, сроки и приложите ссылки на референсы..." required=""></textarea><small><span id="counter">0</span>/2000</small></label>
+<div class="upload-box">
+<div>
+<span>ФАЙЛЫ К ТИКЕТУ</span>
+<p>До 5 файлов, не более 10 МБ каждый и 30 МБ суммарно.</p>
+</div>
+<label class="upload-button" for="ticketFiles">Выбрать файлы</label>
+<input accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.zip,.rar,.7z,.mp4,.mov,.unitypackage,.blend,.fbx,.obj" id="ticketFiles" multiple="" name="files" type="file"/>
+<div class="file-list" id="fileList"><span>Файлы не выбраны</span></div>
+</div>
+<div class="rules-box">
+<a href="#" id="rulesLinkForm" rel="noreferrer" target="_blank">Открыть документацию с правилами ↗</a>
+<label class="check"><input id="agreement" name="agreement" required="" type="checkbox"/><span>Я ознакомился(-ась) с <a href="#" id="rulesInline" rel="noreferrer" target="_blank">правилами</a> и согласен(-на) с условиями.</span></label>
+</div>
+<input aria-hidden="true" autocomplete="off" class="honeypot" name="website" tabindex="-1"/>
+<div class="security-check"><span class="security-label">ЗАЩИТА ОТ СПАМА</span><div class="turnstile-box" id="orderTurnstile"></div><p class="security-status" id="orderSecurityStatus">Загрузка проверки безопасности…</p></div><button class="button primary submit" disabled="" id="submitButton" type="submit">Отправить тикет <span>→</span></button>
+<p aria-live="polite" class="form-status" id="formStatus"></p>
+<input id="orderFormStartedAt" name="formStartedAt" type="hidden"/></form>
+<aside class="order-side">
+<div class="panel"><span>КОНТАКТ</span><h2>@ViNter294</h2><p>После отправки заявка автоматически придёт владельцу через Telegram-бота.</p><a href="https://t.me/ViNter294" rel="noreferrer" target="_blank">Открыть Telegram ↗</a></div>
+<div class="panel"><span>ДОКУМЕНТАЦИЯ</span><h2>Единая ссылка</h2><p>На сайте правил пользователь выбирает категорию: аватары или миры.</p><a href="#" id="rulesLinkSideCard">Перейти к правилам ↗</a></div>
+</aside>
+</div>
+</section>
+</main>
+<div aria-hidden="true" aria-label="Просмотр работы" aria-modal="true" class="gallery-modal" id="galleryModal" role="dialog">
+<div class="gallery-backdrop" data-gallery-close=""></div>
+<div class="gallery-dialog">
+<div class="gallery-topbar">
+<div>
+<strong id="galleryTitle">Работа RPC</strong>
+<span id="galleryCounter">1 / 1</span>
+</div>
+<button aria-label="Закрыть" class="gallery-close" data-gallery-close="" type="button">×</button>
+</div>
+<div class="gallery-stage">
+<button aria-label="Предыдущее изображение" class="gallery-arrow gallery-prev" type="button">‹</button>
+<img alt="" class="protected-image" draggable="false" id="galleryImage" src=""/>
+<button aria-label="Следующее изображение" class="gallery-arrow gallery-next" type="button">›</button>
+</div>
+<div class="gallery-hint">Листайте стрелками, колёсиком или свайпом</div>
+</div>
+</div>
+<footer><span>© <span id="year"></span> RPC • RedPad Creator</span><span class="footer-live">Всего посетителей: <b id="footerVisitors">—</b></span></footer>
 </body>
 </html>
