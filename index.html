@@ -20,6 +20,11 @@
 <img alt="RPC" class="brand-logo protected-image" draggable="false" src="rpc-avatar.png"/>
 <span><b>RPC</b><small>ORDERS</small></span>
 </a><div aria-label="Language" class="language-switch"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div>
+<div class="currency-control sidebar-currency">
+<label for="currencySelectSide">Валюта</label>
+<select id="currencySelectSide" data-currency-select aria-label="Выбор валюты"><option value="KZT">₸ KZT</option><option value="RUB">₽ RUB</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option></select>
+<small data-currency-hint>Определяем страну…</small>
+</div>
 <nav class="nav">
 <a class="nav-link active" data-route="home" href="#home"><span>⌂</span>Главная</a>
 <a class="nav-link" data-route="prices" href="#prices"><span>◫</span>Прайс-лист</a>
@@ -38,7 +43,7 @@
 </aside>
 <header class="mobile-header">
 <a class="mobile-brand" href="#home"><img alt="RPC" class="protected-image" draggable="false" src="rpc-avatar.png"/><b>RPC</b></a>
-<div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
+<div class="mobile-controls"><div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><select class="mobile-currency-select" data-currency-select aria-label="Выбор валюты"><option value="KZT">KZT</option><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
 </header>
 <main class="main">
 <section class="page active-page" data-page="home" id="home">
@@ -91,12 +96,13 @@
 <section class="page" data-page="prices" id="prices">
 <div class="page-intro reveal"><span>УСЛУГИ И СТОИМОСТЬ</span><h1>Прайс-лист</h1><p>Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.</p></div>
 <div class="price-grid reveal delay-1">
-<article class="price-card"><div><b>AVATAR</b><span>от 5 000 ₸</span></div><h2>VRChat-аватары</h2><ul><li>Загрузка и базовая настройка</li><li>Добавление ассетов и функций</li><li>Меню, анимации и PhysBone</li><li>PC / Quest подготовка</li></ul><button data-category="avatar">Заказать →</button></article>
-<article class="price-card accent"><div><b>WORLD</b><span>по расчёту</span></div><h2>VRChat-миры</h2><ul><li>Создание локации</li><li>Освещение и атмосфера</li><li>Udon и интерактив</li><li>Оптимизация PC / Quest</li></ul><button data-category="world">Заказать →</button></article>
-<article class="price-card"><div><b>QUEST</b><span>от 3 000 ₸</span></div><h2>Quest-портирование</h2><ul><li>Мобильные материалы</li><li>Сжатие текстур</li><li>Оптимизация мешей</li><li>Проверка ограничений SDK</li></ul><button data-category="quest">Заказать →</button></article>
-<article class="price-card"><div><b>FIX</b><span>от 2 000 ₸</span></div><h2>Исправления</h2><ul><li>Ошибки Unity и SDK</li><li>Оптимизация проекта</li><li>Настройка систем</li><li>Консультация по проекту</li></ul><button data-category="other">Заказать →</button></article>
+<article class="price-card"><div><b>AVATAR</b><span data-price-kzt="5000">от 5 000 ₸</span></div><h2>VRChat-аватары</h2><ul><li>Загрузка и базовая настройка</li><li>Добавление ассетов и функций</li><li>Меню, анимации и PhysBone</li><li>PC / Quest подготовка</li></ul><button data-category="avatar">Заказать →</button></article>
+<article class="price-card accent"><div><b>WORLD</b><span data-price-custom>по расчёту</span></div><h2>VRChat-миры</h2><ul><li>Создание локации</li><li>Освещение и атмосфера</li><li>Udon и интерактив</li><li>Оптимизация PC / Quest</li></ul><button data-category="world">Заказать →</button></article>
+<article class="price-card"><div><b>QUEST</b><span data-price-kzt="3000">от 3 000 ₸</span></div><h2>Quest-портирование</h2><ul><li>Мобильные материалы</li><li>Сжатие текстур</li><li>Оптимизация мешей</li><li>Проверка ограничений SDK</li></ul><button data-category="quest">Заказать →</button></article>
+<article class="price-card"><div><b>FIX</b><span data-price-kzt="2000">от 2 000 ₸</span></div><h2>Исправления</h2><ul><li>Ошибки Unity и SDK</li><li>Оптимизация проекта</li><li>Настройка систем</li><li>Консультация по проекту</li></ul><button data-category="other">Заказать →</button></article>
 </div>
-<p class="price-note">Цены являются ориентировочными и редактируются в файле <code>index.html</code>.</p>
+<p class="price-note" id="currencyRateNote">Цены являются ориентировочными. Основная валюта — KZT; пересчёт выполняется автоматически.</p>
+<p class="rate-attribution">Курсы: <a href="https://nationalbank.kz/ru/page/RSS" rel="noreferrer" target="_blank">НБК</a> · <a href="https://www.exchangerate-api.com" rel="noreferrer" target="_blank">ExchangeRate-API</a></p>
 </section>
 <section class="page" data-page="works" id="works">
 <div class="page-intro reveal"><span>RPC PORTFOLIO</span><h1>Наши работы</h1><p>Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.</p></div>

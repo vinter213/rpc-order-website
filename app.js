@@ -4,6 +4,9 @@ const API_BASE = "https://rpc-telegrambot.onrender.com";
 const TICKET_API_URL = `${API_BASE}/api/tickets`;
 const RULES_BASE_URL = "https://rpc-rules.onrender.com/";
 const LANGUAGE_KEY = "rpc_language_v1";
+const CURRENCY_KEY = "rpc_currency_v1";
+const SUPPORTED_CURRENCIES = ["KZT", "RUB", "USD", "EUR", "GBP"];
+const FALLBACK_CURRENCY_RATES = { KZT: 1, RUB: 0.1695, USD: 0.00209, EUR: 0.00182, GBP: 0.00157 };
 
 const uiText = {
   ru: {
@@ -40,6 +43,16 @@ const uiText = {
     galleryWork: "Работа RPC",
     removeFile: "Удалить {name}",
     configured: "Защита активна",
+    currencyDetecting: "Определяем страну и валюту…",
+    currencyAuto: "Автовыбор: {currency} · {country}",
+    currencyManual: "Выбрано вручную: {currency}",
+    currencyFallback: "Валюта по умолчанию: {currency}",
+    currencyPriceFrom: "от",
+    currencyCustomQuote: "по расчёту",
+    currencyRateNote: "Цены пересчитаны ориентировочно по курсу на {date}. Итоговая стоимость фиксируется после обсуждения.",
+    currencyRateFallback: "Показан резервный ориентировочный курс. Итоговая стоимость фиксируется после обсуждения.",
+    currencyCountryUnknown: "не определено",
+    budgetPlaceholder: "Например: {example}",
     onlineLocale: "ru-RU"
   },
   en: {
@@ -76,18 +89,28 @@ const uiText = {
     galleryWork: "RPC project",
     removeFile: "Remove {name}",
     configured: "Protection is active",
+    currencyDetecting: "Detecting country and currency…",
+    currencyAuto: "Auto-selected: {currency} · {country}",
+    currencyManual: "Selected manually: {currency}",
+    currencyFallback: "Default currency: {currency}",
+    currencyPriceFrom: "from",
+    currencyCustomQuote: "custom quote",
+    currencyRateNote: "Prices are approximate and converted using rates updated on {date}. The final price is agreed after discussion.",
+    currencyRateFallback: "Fallback approximate rates are shown. The final price is agreed after discussion.",
+    currencyCountryUnknown: "not detected",
+    budgetPlaceholder: "For example: {example}",
     onlineLocale: "en-US"
   }
 };
 
 const staticEnglish = {
-  "Главная":"Home","Прайс-лист":"Pricing","Наши работы":"Our work","Отзывы":"Reviews","Создать заказ":"Create order","Правила":"Rules","Создать тикет":"Create ticket","Онлайн":"Online",
+  "Главная":"Home","Прайс-лист":"Pricing","Валюта":"Currency","Определяем страну…":"Detecting country…","Наши работы":"Our work","Отзывы":"Reviews","Создать заказ":"Create order","Правила":"Rules","Создать тикет":"Create ticket","Онлайн":"Online",
   "Принимаем заказы":"Commissions open","Ответ обычно в Telegram":"We usually reply on Telegram","VRCHAT · АВАТАРЫ · МИРЫ":"VRCHAT · AVATARS · WORLDS","Создаём проекты,":"We create projects","которые выделяются":"that stand out",
   "Аватары, миры, Udon-системы, оптимизация и Quest-версии. Опишите задачу — заявка попадёт напрямую команде RPC.":"Avatars, worlds, Udon systems, optimization, and Quest versions. Describe your task and the request will go directly to the RPC team.",
   "Открыть правила":"Open rules","Правила хранятся на отдельном сайте документации":"The rules are stored on a separate documentation website","уникальных посетителей":"unique visitors","сейчас на сайте":"online now","опубликованных отзывов":"published reviews","Синхронизация статистики…":"Synchronizing statistics…",
   "УСЛУГИ":"SERVICES","Выберите категорию":"Choose a category","Смотреть прайс →":"View pricing →","VRChat-аватар":"VRChat avatar","VRChat-мир":"VRChat world","VRChat-аватары":"VRChat avatars","Настройка, кастомизация, функции, PhysBone и визуальные эффекты.":"Setup, customization, features, PhysBone, and visual effects.","Оформить заказ →":"Create order →","VRChat-миры":"VRChat worlds","Локации, освещение, интерактив, Udon-системы и оптимизация.":"Locations, lighting, interactions, Udon systems, and optimization.","Quest-версия":"Quest version","Подготовка аватаров и миров под ограничения Android / Quest.":"Preparing avatars and worlds for Android / Quest limits.","Оптимизация":"Optimization","Материалы, текстуры, полигоны, PhysBone и производительность.":"Materials, textures, polygons, PhysBone, and performance.",
   "ПРОЦЕСС":"PROCESS","Как всё проходит":"How it works","Категория":"Category","Выбираете нужную услугу.":"Choose the required service.","Читаете условия категории.":"Read the category rules.","Тикет":"Ticket","Описываете задачу.":"Describe your task.","Связь":"Contact","Мы отвечаем в Telegram.":"We reply on Telegram.","ПОРТФОЛИО":"PORTFOLIO","Посмотреть наши работы":"View our work",
-  "УСЛУГИ И СТОИМОСТЬ":"SERVICES AND PRICING","Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.":"The final price depends on complexity, source materials, and deadlines. The exact cost is determined after discussion.","от 5 000 ₸":"from 5,000 ₸","Загрузка и базовая настройка":"Upload and basic setup","Добавление ассетов и функций":"Adding assets and features","Меню, анимации и PhysBone":"Menus, animations, and PhysBone","PC / Quest подготовка":"PC / Quest preparation","Заказать →":"Order →","по расчёту":"custom quote","Создание локации":"Location creation","Освещение и атмосфера":"Lighting and atmosphere","Udon и интерактив":"Udon and interactions","Оптимизация PC / Quest":"PC / Quest optimization","от 3 000 ₸":"from 3,000 ₸","Quest-портирование":"Quest porting","Мобильные материалы":"Mobile materials","Сжатие текстур":"Texture compression","Оптимизация мешей":"Mesh optimization","Проверка ограничений SDK":"SDK limit checks","от 2 000 ₸":"from 2,000 ₸","Исправления":"Fixes","Ошибки Unity и SDK":"Unity and SDK errors","Оптимизация проекта":"Project optimization","Настройка систем":"System setup","Консультация по проекту":"Project consultation","Цены являются ориентировочными и редактируются в файле":"Prices are approximate and can be edited in",
+  "УСЛУГИ И СТОИМОСТЬ":"SERVICES AND PRICING","Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.":"The final price depends on complexity, source materials, and deadlines. The exact cost is determined after discussion.","от 5 000 ₸":"from 5,000 ₸","Загрузка и базовая настройка":"Upload and basic setup","Добавление ассетов и функций":"Adding assets and features","Меню, анимации и PhysBone":"Menus, animations, and PhysBone","PC / Quest подготовка":"PC / Quest preparation","Заказать →":"Order →","по расчёту":"custom quote","Создание локации":"Location creation","Освещение и атмосфера":"Lighting and atmosphere","Udon и интерактив":"Udon and interactions","Оптимизация PC / Quest":"PC / Quest optimization","от 3 000 ₸":"from 3,000 ₸","Quest-портирование":"Quest porting","Мобильные материалы":"Mobile materials","Сжатие текстур":"Texture compression","Оптимизация мешей":"Mesh optimization","Проверка ограничений SDK":"SDK limit checks","от 2 000 ₸":"from 2,000 ₸","Исправления":"Fixes","Ошибки Unity и SDK":"Unity and SDK errors","Оптимизация проекта":"Project optimization","Настройка систем":"System setup","Консультация по проекту":"Project consultation","Цены являются ориентировочными и редактируются в файле":"Prices are approximate and can be edited in","Цены являются ориентировочными. Основная валюта — KZT; пересчёт выполняется автоматически.":"Prices are approximate. KZT is the base currency; conversion is automatic.","Курсы:":"Rates:",
   "Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.":"Examples of presentation and visual direction. Replace these images with your own projects.","2 фото":"2 images","Система заказов и документации.":"Commission and documentation system.","Фирменный визуальный стиль.":"Brand visual identity.","Добавьте проект":"Add a project","Укажите несколько файлов в data-images.":"Add multiple files in data-images.",
   "Загрузка отзывов…":"Loading reviews…","МНЕНИЯ КЛИЕНТОВ":"CLIENT FEEDBACK","Отзывы загружаются с общей базы данных, поэтому все посетители видят один и тот же список.":"Reviews are loaded from a shared database, so every visitor sees the same list.","средняя оценка":"average rating","Обновить":"Refresh","ОСТАВИТЬ ОТЗЫВ":"LEAVE A REVIEW","Расскажите о заказе":"Tell us about your commission","Имя / никнейм":"Name / nickname","Функции / системы":"Features / systems","Другое":"Other","Оценка":"Rating","★★★★★ — отлично":"★★★★★ — excellent","★★★★☆ — хорошо":"★★★★☆ — good","★★★☆☆ — нормально":"★★★☆☆ — average","★★☆☆☆ — есть замечания":"★★☆☆☆ — needs improvement","★☆☆☆☆ — плохо":"★☆☆☆☆ — poor","Текст отзыва":"Review text","ЗАЩИТА ОТ СПАМА":"SPAM PROTECTION","Загрузка проверки безопасности…":"Loading security verification…","Отправить отзыв →":"Submit review →","Отзыв может появиться сразу или после проверки — зависит от настроек модерации.":"The review may appear immediately or after moderation, depending on the current settings.",
   "ПОМОЩЬ":"HELP","Частые вопросы":"Frequently asked questions","Основные юридические и рабочие условия находятся на отдельном сайте правил.":"The main legal and working terms are available on the separate rules website.","Когда начинается работа?":"When does work begin?","После обсуждения задачи, согласования стоимости и получения предоплаты.":"After the task, price, and advance payment are agreed.","Сколько правок входит в заказ?":"How many revisions are included?","Две небольшие правки. Серьёзные изменения и полная переделка считаются отдельно.":"Two minor revisions are included. Major changes and complete reworks are priced separately.","Можно заказать Quest-версию?":"Can I order a Quest version?","Да. Quest-портирование можно выбрать отдельной категорией или добавить к основному заказу.":"Yes. Quest porting can be selected as a separate category or added to the main commission.","Куда приходит заявка?":"Where is the request sent?","После отправки форма передаёт заявку и вложения защищённому серверу, а сервер отправляет их владельцу через Telegram-бота.":"The form sends the request and attachments to a protected server, which forwards them through a Telegram bot.","Статистика посещений общая для всех?":"Are visitor statistics shared?","Да. Счётчик хранится в общей базе данных, а сайт регулярно обновляет значения для всех посетителей.":"Yes. The counter is stored in a shared database and updated for all visitors.","Можно получить Unity-проект?":"Can I receive the Unity project?","Да, когда это заранее согласовано и не нарушает лицензии используемых ассетов.":"Yes, when agreed in advance and when it does not violate asset licenses.","Как защищены формы?":"How are forms protected?","Формы защищены серверной проверкой, ограничением частоты запросов, проверкой файлов и Cloudflare Turnstile.":"Forms are protected by server-side validation, rate limits, file checks, and Cloudflare Turnstile.","Все правила ↗":"All rules ↗","Создать тикет →":"Create ticket →",
@@ -171,6 +194,143 @@ const categoryLabels = {
   ru: { avatar:"VRChat-аватар", world:"VRChat-мир", quest:"Quest-версия", optimization:"Оптимизация", functions:"Функции / системы", other:"Другое" },
   en: { avatar:"VRChat avatar", world:"VRChat world", quest:"Quest version", optimization:"Optimization", functions:"Features / systems", other:"Other" }
 };
+
+
+const currencySelects = [...document.querySelectorAll("[data-currency-select]")];
+const currencyHints = [...document.querySelectorAll("[data-currency-hint]")];
+const currencyRateNote = document.getElementById("currencyRateNote");
+const budgetInput = document.getElementById("budget");
+let currentCurrency = "KZT";
+let currencyRates = { ...FALLBACK_CURRENCY_RATES };
+let currencyState = {
+  countryCode: null,
+  autoDetected: false,
+  manual: false,
+  source: "fallback",
+  updatedAt: null
+};
+
+function validCurrency(value) {
+  const code = String(value || "").toUpperCase();
+  return SUPPORTED_CURRENCIES.includes(code) ? code : null;
+}
+
+function currencyLocale(currency) {
+  if (currentLanguage === "en") return currency === "GBP" ? "en-GB" : "en-US";
+  if (currency === "KZT") return "ru-KZ";
+  if (currency === "RUB") return "ru-RU";
+  return "ru-RU";
+}
+
+function formatCurrencyValue(value, currency = currentCurrency) {
+  const safeValue = Number.isFinite(Number(value)) ? Number(value) : 0;
+  const maximumFractionDigits = ["KZT", "RUB"].includes(currency) || safeValue >= 100 ? 0 : 2;
+  return new Intl.NumberFormat(currencyLocale(currency), {
+    style: "currency",
+    currency,
+    currencyDisplay: "symbol",
+    minimumFractionDigits: 0,
+    maximumFractionDigits
+  }).format(safeValue);
+}
+
+function convertedPrice(kztAmount, currency = currentCurrency) {
+  const rate = Number(currencyRates[currency]);
+  return Number(kztAmount) * (Number.isFinite(rate) && rate > 0 ? rate : 1);
+}
+
+function rateDateLabel(value) {
+  const parsed = value ? new Date(value) : null;
+  if (!parsed || Number.isNaN(parsed.getTime())) return "—";
+  return parsed.toLocaleDateString(uiText[currentLanguage].onlineLocale, {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+}
+
+function budgetExample(currency = currentCurrency) {
+  const examples = { KZT: 30000, RUB: 5000, USD: 100, EUR: 100, GBP: 100 };
+  return formatCurrencyValue(examples[currency] || 100, currency);
+}
+
+function renderCurrencyUI() {
+  currencySelects.forEach(select => { select.value = currentCurrency; });
+
+  document.querySelectorAll("[data-price-kzt]").forEach(element => {
+    const amount = Number(element.dataset.priceKzt || 0);
+    element.textContent = `${t("currencyPriceFrom")} ${formatCurrencyValue(convertedPrice(amount))}`;
+  });
+  document.querySelectorAll("[data-price-custom]").forEach(element => {
+    element.textContent = t("currencyCustomQuote");
+  });
+
+  const country = currencyState.countryCode || t("currencyCountryUnknown");
+  const hint = currencyState.manual
+    ? t("currencyManual", { currency: currentCurrency })
+    : currencyState.autoDetected
+      ? t("currencyAuto", { currency: currentCurrency, country })
+      : t("currencyFallback", { currency: currentCurrency });
+  currencyHints.forEach(element => { element.textContent = hint; });
+
+  if (currencyRateNote) {
+    currencyRateNote.textContent = currencyState.source === "fallback"
+      ? t("currencyRateFallback")
+      : t("currencyRateNote", { date: rateDateLabel(currencyState.updatedAt) });
+  }
+  if (budgetInput) budgetInput.placeholder = t("budgetPlaceholder", { example: budgetExample() });
+}
+
+function selectCurrency(currency, { persist = true, manual = true } = {}) {
+  const safeCurrency = validCurrency(currency) || "KZT";
+  currentCurrency = safeCurrency;
+  currencyState.manual = manual;
+  if (persist) localStorage.setItem(CURRENCY_KEY, safeCurrency);
+  renderCurrencyUI();
+}
+
+currencySelects.forEach(select => {
+  select.addEventListener("change", () => selectCurrency(select.value, { persist: true, manual: true }));
+});
+
+async function loadCurrencyConfiguration() {
+  currencyHints.forEach(element => { element.textContent = t("currencyDetecting"); });
+  const savedCurrency = validCurrency(localStorage.getItem(CURRENCY_KEY));
+  try {
+    const query = new URLSearchParams({
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+      locale: navigator.language || ""
+    });
+    const response = await fetch(`${API_BASE}/api/currency?${query}`, { cache: "no-store" });
+    const result = await readJsonResponse(response);
+    const receivedRates = result.rates && typeof result.rates === "object" ? result.rates : {};
+    currencyRates = { ...FALLBACK_CURRENCY_RATES };
+    SUPPORTED_CURRENCIES.forEach(code => {
+      const rate = Number(receivedRates[code]);
+      if (Number.isFinite(rate) && rate > 0) currencyRates[code] = rate;
+    });
+    currencyState = {
+      countryCode: String(result.countryCode || "").toUpperCase() || null,
+      autoDetected: !savedCurrency && Boolean(result.autoDetected),
+      manual: Boolean(savedCurrency),
+      source: String(result.source || "fallback"),
+      updatedAt: result.updatedAt || null
+    };
+    currentCurrency = savedCurrency || validCurrency(result.currency) || "KZT";
+  } catch (error) {
+    console.warn("Currency:", error);
+    currentCurrency = savedCurrency || "KZT";
+    currencyRates = { ...FALLBACK_CURRENCY_RATES };
+    currencyState = {
+      countryCode: null,
+      autoDetected: false,
+      manual: Boolean(savedCurrency),
+      source: "fallback",
+      updatedAt: null
+    };
+  }
+  renderCurrencyUI();
+}
 
 const pages = [...document.querySelectorAll("[data-page]")];
 const navLinks = [...document.querySelectorAll("[data-route]")];
@@ -396,7 +556,7 @@ orderForm?.addEventListener("submit", async event => {
   if (!orderForm.checkValidity()) { orderForm.reportValidity(); formStatus.className="form-status error"; formStatus.textContent=t("fillRequired"); return; }
   if (!validTelegram(orderForm.elements.clientTelegram.value)) { formStatus.className="form-status error"; formStatus.textContent=t("telegramInvalid"); orderForm.elements.clientTelegram.focus(); return; }
   if (!orderTurnstileToken) { formStatus.className="form-status error"; formStatus.textContent=t("securityRequired"); return; }
-  const payload=new FormData(orderForm); payload.set("agreement",String(Boolean(agreement?.checked))); payload.set("source",location.href); payload.set("turnstileToken",orderTurnstileToken); payload.set("language",currentLanguage);
+  const payload=new FormData(orderForm); payload.set("agreement",String(Boolean(agreement?.checked))); payload.set("source",location.href); payload.set("turnstileToken",orderTurnstileToken); payload.set("language",currentLanguage); payload.set("displayCurrency",currentCurrency); payload.set("currencyCountry",currencyState.countryCode||""); payload.set("currencySelection",currencyState.manual?"manual":(currencyState.autoDetected?"auto":"default")); payload.set("currencyRateUpdatedAt",currencyState.updatedAt||"");
   submitButton.disabled=true; submitButton.textContent=selectedFiles.length?t("sendingFiles"):t("sending");
   try {
     const response=await fetch(TICKET_API_URL,{method:"POST",body:payload}); const result=await response.json().catch(()=>({})); if(!response.ok||!result.ok) throw new Error(result.error||t("ticketFallbackError"));
@@ -435,6 +595,7 @@ document.querySelectorAll(".gallery-work").forEach(card=>card.querySelector(".wo
 
 function updateDynamicLanguage(){
   renderFiles();
+  renderCurrencyUI();
   if (statsStatus && !statsStatus.textContent.includes("—")) loadStats();
   if (reviewsLoaded) renderReviewsFromCache();
   if (orderSecurityStatus) orderSecurityStatus.textContent = orderTurnstileToken ? t("securityReady") : (turnstileConfig?.turnstileConfigured ? t("securityRequired") : t("orderSecurityLoading"));
@@ -446,4 +607,5 @@ function updateDynamicLanguage(){
 document.getElementById("year").textContent=String(new Date().getFullYear());
 const initialLanguage=getQueryLanguage()||localStorage.getItem(LANGUAGE_KEY)||((navigator.language||"").toLowerCase().startsWith("en")?"en":"ru");
 applyLanguage(initialLanguage,false);
+loadCurrencyConfiguration();
 renderTurnstileWidgets();
