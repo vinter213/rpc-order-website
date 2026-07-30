@@ -9,9 +9,71 @@
 <title>RPC • RedPad Creator — Заказы</title>
 <link href="rpc-avatar.png" rel="icon"/>
 <link href="styles.css" rel="stylesheet"/>
-<script async="" defer="" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script><script defer="" src="app.js"></script>
+<script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
+<script defer src="loader.js"></script>
+<script defer src="app.js"></script>
 </head>
-<body>
+<body class="cinematic-site is-loading">
+<div class="rpc-loader" id="rpcLoader" role="status" aria-live="polite" aria-label="Загрузка сайта">
+  <canvas class="rpc-loader__particles" id="rpcLoaderParticles" aria-hidden="true"></canvas>
+  <div class="rpc-loader__background" aria-hidden="true"></div>
+  <div class="rpc-loader__bloom" aria-hidden="true"></div>
+  <div class="rpc-loader__fog" aria-hidden="true"></div>
+  <div class="rpc-loader__vignette" aria-hidden="true"></div>
+  <div class="rpc-loader__scanlines" aria-hidden="true"></div>
+  <div class="rpc-loader__scanner" aria-hidden="true"></div>
+  <div class="rpc-loader__glitches" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <div class="rpc-loader__topbar" aria-hidden="true">
+    <span><b></b> RPC NETWORK</span>
+    <span>RPC ORDERS · V4.0</span>
+  </div>
+
+  <div class="rpc-loader__stage">
+    <div class="rpc-loader__reactor" aria-hidden="true">
+      <span class="rpc-loader__ring rpc-loader__ring--outer"></span>
+      <span class="rpc-loader__ring rpc-loader__ring--middle"></span>
+      <span class="rpc-loader__ring rpc-loader__ring--inner"></span>
+      <span class="rpc-loader__orbit rpc-loader__orbit--one"><i></i></span>
+      <span class="rpc-loader__orbit rpc-loader__orbit--two"><i></i></span>
+      <span class="rpc-loader__core"></span>
+      <div class="rpc-loader__emblem">
+        <img class="rpc-loader__logo rpc-loader__logo--cyan protected-image" src="rpc-avatar.png" alt="" draggable="false"/>
+        <img class="rpc-loader__logo rpc-loader__logo--pink protected-image" src="rpc-avatar.png" alt="" draggable="false"/>
+        <img class="rpc-loader__logo rpc-loader__logo--main protected-image" src="rpc-avatar.png" alt="" draggable="false"/>
+      </div>
+    </div>
+
+    <div class="rpc-loader__brand" data-text="RPC">RPC</div>
+    <div class="rpc-loader__subtitle">REDPAD CREATOR <span>／</span> ORDERS</div>
+
+    <div class="rpc-loader__status">
+      <span class="rpc-loader__status-dot"></span>
+      <h1>ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ</h1>
+    </div>
+    <p id="rpcLoaderMessage">Подготовка интерфейса</p>
+
+    <div class="rpc-loader__progress-wrap">
+      <div class="rpc-loader__progress" aria-hidden="true">
+        <i id="rpcLoaderBar"><b></b></i>
+      </div>
+      <div class="rpc-loader__meta">
+        <span id="rpcLoaderPercent">0%</span>
+        <span id="rpcLoaderModule">CORE 01/05</span>
+        <button type="button" id="rpcLoaderSkip">ПРОПУСТИТЬ</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="rpc-loader__footer" aria-hidden="true">
+    <span>AVATARS · WORLDS · QUEST</span>
+    <span><b></b> SECURE CONNECTION</span>
+  </div>
+  <div class="rpc-loader__flash" aria-hidden="true"></div>
+</div>
+<div class="rpc-global-bg" aria-hidden="true"></div>
+<div class="rpc-global-overlay" aria-hidden="true"></div>
+
 <div class="ambient ambient-one"></div>
 <div class="ambient ambient-two"></div>
 <div class="grid"></div><div aria-hidden="true" id="decorativeCharacterSystem"></div>
