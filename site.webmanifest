@@ -1,0 +1,19 @@
+{
+  "name": "RPC • RedPad Creator Orders",
+  "short_name": "RPC Orders",
+  "description": "VRChat avatar and world commissions, optimization, and Quest versions.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070910",
+  "theme_color": "#070910",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "/rpc-avatar.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

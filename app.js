@@ -178,10 +178,7 @@ function applyLanguage(language, persist = true) {
   captureTranslatableContent();
   originalTextNodes.forEach(item => { item.node.nodeValue = translateTextValue(item.value, currentLanguage); });
   originalAttributes.forEach(item => { item.element.setAttribute(item.attribute, translateAttributeValue(item.value, currentLanguage)); });
-  document.title = currentLanguage === "en" ? "RPC • RedPad Creator — Commissions" : "RPC • RedPad Creator — Заказы";
-  document.querySelector('meta[name="description"]')?.setAttribute("content", currentLanguage === "en"
-    ? "RPC • RedPad Creator — VRChat avatar and world commissions, optimization, and Quest versions."
-    : "RPC • RedPad Creator — заказы VRChat-аватаров, миров, оптимизации и Quest-версий.");
+  window.RPC_SEO?.update({ language: currentLanguage });
   document.querySelectorAll("[data-language]").forEach(button => button.classList.toggle("active", button.dataset.language === currentLanguage));
   updateRulesLinks();
   updateDynamicLanguage();
@@ -344,6 +341,7 @@ function showPage(route) {
   sidebar?.classList.remove("open");
   menuButton?.setAttribute("aria-expanded", "false");
   window.scrollTo({ top: 0, behavior: "smooth" });
+  window.RPC_SEO?.update({ route: safe, language: currentLanguage });
   if (safe === "reviews") loadReviews();
 }
 function routeFromHash() {
