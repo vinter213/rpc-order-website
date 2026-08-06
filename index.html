@@ -42,6 +42,9 @@
 <script defer src="loader.js"></script>
 <script defer charset="utf-8" data-rpc-seo="v9" src="./seo.js?v=9"></script>
 <script defer src="app.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="auth-config.js"></script>
+<script defer src="auth.js"></script>
 </head>
 <body class="cinematic-site is-loading">
 <div class="rpc-loader" id="rpcLoader" role="status" aria-live="polite" aria-label="Загрузка сайта">
@@ -117,6 +120,11 @@
 <select id="currencySelectSide" data-currency-select aria-label="Выбор валюты"><option value="KZT">₸ KZT</option><option value="RUB">₽ RUB</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option></select>
 <small data-currency-hint>Определяем страну…</small>
 </div>
+<button class="account-entry sidebar-account" data-rpc-auth-open type="button" aria-label="Открыть аккаунт RPC">
+<span class="account-entry__avatar" aria-hidden="true">◎</span>
+<span class="account-entry__copy"><b data-rpc-auth-label>Войти</b><small data-rpc-auth-subtitle>Регистрация по почте</small></span>
+<span class="account-entry__arrow" aria-hidden="true">›</span>
+</button>
 <nav class="nav">
 <a class="nav-link active" data-route="home" href="#home"><span>⌂</span>Главная</a>
 <a class="nav-link" data-route="prices" href="#prices"><span>◫</span>Прайс-лист</a>
@@ -135,7 +143,7 @@
 </aside>
 <header class="mobile-header">
 <a class="mobile-brand" href="#home"><img alt="RPC" class="protected-image" draggable="false" src="rpc-avatar.png"/><b>RPC</b></a>
-<div class="mobile-controls"><div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><select class="mobile-currency-select" data-currency-select aria-label="Выбор валюты"><option value="KZT">KZT</option><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
+<div class="mobile-controls"><button class="mobile-account-button" data-rpc-auth-open type="button" aria-label="Открыть аккаунт RPC"><span aria-hidden="true">◎</span><b data-rpc-auth-label>Войти</b></button><div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><select class="mobile-currency-select" data-currency-select aria-label="Выбор валюты"><option value="KZT">KZT</option><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
 </header>
 <main class="main">
 <section class="page active-page" data-page="home" id="home">
@@ -360,6 +368,82 @@
 <div class="gallery-hint">Листайте стрелками, колёсиком или свайпом</div>
 </div>
 </div>
+
+<div aria-hidden="true" aria-label="Аккаунт RPC" aria-modal="true" class="rpc-auth-modal" id="rpcAuthModal" role="dialog">
+  <div class="rpc-auth-backdrop" data-rpc-auth-close></div>
+  <div class="rpc-auth-dialog" id="rpcAuthDialog" tabindex="-1">
+    <button class="rpc-auth-close" data-auth-aria="close" data-rpc-auth-close type="button" aria-label="Закрыть">×</button>
+    <div class="rpc-auth-brand">
+      <img src="rpc-avatar.png" alt="" class="protected-image" draggable="false"/>
+      <div><span>RPC SECURE ID</span><h2 data-auth-i18n="title">Аккаунт RPC</h2></div>
+    </div>
+
+    <div class="rpc-auth-config-warning" id="rpcAuthConfigWarning" hidden>
+      <strong>AUTH SETUP</strong>
+      <p data-auth-i18n="setup">Регистрация ещё не подключена. Укажите Supabase URL и Publishable Key в auth-config.js.</p>
+    </div>
+
+    <div id="rpcAuthLoggedOut">
+      <div id="rpcAuthEmailStep">
+        <p class="rpc-auth-intro" data-auth-i18n="intro">Введите почту — мы отправим одноразовый код из 6 цифр.</p>
+        <form id="rpcAuthEmailForm" novalidate>
+          <label class="rpc-auth-label"><span data-auth-i18n="name">Имя / никнейм</span>
+            <input id="rpcAuthName" maxlength="80" autocomplete="nickname" data-auth-placeholder="namePlaceholder" placeholder="Как к вам обращаться"/>
+          </label>
+          <label class="rpc-auth-label"><span data-auth-i18n="email">Электронная почта</span>
+            <input id="rpcAuthEmail" type="email" inputmode="email" autocomplete="email" required data-auth-placeholder="emailPlaceholder" placeholder="name@example.com"/>
+          </label>
+          <label class="rpc-auth-remember">
+            <input id="rpcAuthRemember" type="checkbox" checked/>
+            <span class="rpc-auth-check" aria-hidden="true">✓</span>
+            <span data-auth-i18n="remember">Оставаться в аккаунте на этом устройстве</span>
+          </label>
+          <button class="button primary rpc-auth-primary" id="rpcAuthSendCode" type="submit" data-auth-i18n="send">Получить код</button>
+          <p class="rpc-auth-status" id="rpcAuthEmailStatus" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div id="rpcAuthCodeStep" hidden>
+        <div class="rpc-auth-code-head">
+          <span data-auth-i18n="codeTitle">Введите код</span>
+          <p><span data-auth-i18n="codeIntro">Код отправлен на</span> <strong id="rpcAuthCodeEmail"></strong></p>
+        </div>
+        <form id="rpcAuthCodeForm" novalidate>
+          <div class="rpc-auth-otp" aria-label="Шестизначный код">
+            <input data-rpc-otp inputmode="numeric" autocomplete="one-time-code" maxlength="1" pattern="[0-9]" aria-label="Цифра 1"/>
+            <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 2"/>
+            <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 3"/>
+            <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 4"/>
+            <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 5"/>
+            <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 6"/>
+          </div>
+          <button class="button primary rpc-auth-primary" id="rpcAuthVerifyCode" type="submit" data-auth-i18n="verify">Подтвердить и войти</button>
+          <div class="rpc-auth-secondary-actions">
+            <button id="rpcAuthBack" type="button" data-auth-i18n="back">Изменить почту</button>
+            <button id="rpcAuthResend" type="button" data-auth-i18n="resend">Отправить код ещё раз</button>
+          </div>
+          <p class="rpc-auth-status" id="rpcAuthCodeStatus" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <div id="rpcAuthLoggedIn" hidden>
+      <div class="rpc-auth-profile">
+        <div class="rpc-auth-profile-avatar" id="rpcAuthInitials">RP</div>
+        <div><span data-auth-i18n="verified">Почта подтверждена</span><h3 id="rpcAuthAccountName">RPC User</h3><p id="rpcAuthAccountEmail"></p></div>
+      </div>
+      <div class="rpc-auth-session-card">
+        <i aria-hidden="true"></i>
+        <div><strong data-auth-i18n="accountSince">Аккаунт сохранён в RPC</strong><small data-auth-i18n="accountSubtitle">Почта подтверждена</small></div>
+      </div>
+      <button class="button ghost rpc-auth-logout" id="rpcAuthLogout" type="button" data-auth-i18n="logout">Выйти из аккаунта</button>
+      <p class="rpc-auth-status" id="rpcAuthAccountStatus" aria-live="polite"></p>
+    </div>
+
+    <div class="rpc-auth-security-note"><span>◆</span> SUPABASE AUTH · OTP · SECURE SESSION</div>
+  </div>
+</div>
+
 <footer><span>© <span id="year"></span> RPC • RedPad Creator</span><span class="footer-live">Всего посетителей: <b id="footerVisitors">—</b></span></footer>
 </body>
 </html>

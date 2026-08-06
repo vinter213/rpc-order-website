@@ -1,0 +1,95 @@
+RPC ACCOUNTS — НАСТРОЙКА SUPABASE EMAIL OTP
+===========================================
+
+Что уже добавлено в сайт:
+- регистрация и вход по электронной почте;
+- письмо с одноразовым 6-значным кодом;
+- проверка правильности кода;
+- автоматическое создание аккаунта при первом входе;
+- сохранение имени/никнейма в аккаунте;
+- «Оставаться в аккаунте» через постоянную сессию;
+- автоматическое обновление токена;
+- выход из аккаунта;
+- автозаполнение имени в тикете и отзыве;
+- добавление accountId/accountEmail/accountVerified в отправляемые данные.
+
+ВАЖНО: сайт нельзя подключить к Supabase без двух публичных значений проекта.
+Service Role Key НИКОГДА не вставляйте в сайт.
+
+1. Откройте Supabase Dashboard и выберите проект RPC.
+
+2. Откройте Project Settings -> API.
+   Скопируйте:
+   - Project URL;
+   - Publishable key (или legacy anon public key).
+
+3. Откройте файл auth-config.js и замените:
+
+   PASTE_SUPABASE_PROJECT_URL_HERE
+   PASTE_SUPABASE_PUBLISHABLE_KEY_HERE
+
+   Пример:
+
+   window.RPC_AUTH_CONFIG = Object.freeze({
+     supabaseUrl: "https://abcdefgh.supabase.co",
+     supabasePublishableKey: "sb_publishable_...",
+     otpCooldownSeconds: 60,
+     siteName: "RPC • RedPad Creator"
+   });
+
+4. В Supabase откройте Authentication -> Providers -> Email.
+   Включите Email provider и разрешите регистрацию новых пользователей.
+
+5. Откройте Authentication -> Email Templates.
+   В шаблонах Confirm signup и Magic Link используйте {{ .Token }},
+   а не только {{ .ConfirmationURL }}.
+
+   Минимальный шаблон письма:
+
+   <h2>Код входа RPC</h2>
+   <p>Ваш одноразовый код:</p>
+   <p style="font-size:32px;font-weight:700;letter-spacing:8px">{{ .Token }}</p>
+   <p>Никому не сообщайте этот код.</p>
+
+6. Откройте Authentication -> URL Configuration.
+   Site URL:
+   https://rpc-order-website.onrender.com
+
+   Redirect URLs:
+   https://rpc-order-website.onrender.com/**
+   http://127.0.0.1:8080/**
+   http://localhost:8080/**
+
+7. Для реального сайта подключите собственный SMTP в Supabase.
+   Тестовая отправка Supabase имеет ограничения и не рассчитана на большой поток писем.
+
+8. Загрузите все файлы из архива в корень GitHub-репозитория.
+   Папок внутри архива нет.
+
+ПРОВЕРКА
+--------
+
+После публикации откройте сайт и нажмите «Войти».
+Введите почту, получите письмо, введите 6 цифр.
+
+В Console должно быть:
+[RPC Auth] loaded v1.0.0
+
+Проверка авторизации:
+window.RPC_AUTH
+window.RPC_AUTH.user
+window.RPC_AUTH.configured
+
+При успешном входе window.RPC_AUTH.user содержит пользователя.
+
+КАК РАБОТАЕТ «ОСТАВАТЬСЯ В АККАУНТЕ»
+------------------------------------
+
+Включено:
+- сессия хранится в localStorage;
+- пользователь остаётся в аккаунте после закрытия браузера;
+- Supabase автоматически обновляет токен.
+
+Выключено:
+- сессия хранится в sessionStorage;
+- после полного закрытия вкладок/браузера потребуется новый код.
