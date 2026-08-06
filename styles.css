@@ -1421,3 +1421,78 @@ body.rpc-auth-open{overflow:hidden}
 @media(max-width:760px){.mobile-account-button{display:flex}.mobile-account-button b{display:none}.rpc-auth-modal{padding:10px}.rpc-auth-dialog{max-height:calc(100vh - 20px);padding:20px 16px;border-radius:16px}.rpc-auth-otp{gap:5px}.rpc-auth-otp input{font-size:20px;border-radius:9px}.rpc-auth-secondary-actions{align-items:flex-start;flex-direction:column}.rpc-auth-brand h2{font-size:21px}}
 @media(max-width:410px){.mobile-currency-select{display:none}.rpc-auth-otp input{font-size:18px}.rpc-auth-dialog{padding-left:13px;padding-right:13px}}
 @media(prefers-reduced-motion:reduce){.rpc-auth-modal,.rpc-auth-dialog,.account-entry,.rpc-auth-otp input{transition:none!important}}
+
+/* RPC Account v2: separate sign-in/register, profile cabinet, OAuth linking */
+.account-entry__avatar{overflow:hidden}
+.account-entry__avatar img,.mobile-account-avatar img{width:100%;height:100%;display:block;object-fit:cover}
+.account-entry__avatar [data-rpc-auth-mini-fallback]{display:grid;width:100%;height:100%;place-items:center;font-size:12px;font-weight:900}
+.mobile-account-avatar{width:24px;height:24px;display:grid;place-items:center;overflow:hidden;border-radius:7px;border:1px solid rgba(199,106,255,.32);color:#c45fff;background:#b34dff12;font-size:11px;font-weight:900}
+.mobile-account-avatar [data-rpc-auth-mini-fallback]{display:grid;width:100%;height:100%;place-items:center}
+.rpc-auth-dialog{width:min(100%,560px);max-height:min(860px,calc(100vh - 40px))}
+.rpc-auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:0 0 17px;padding:4px;border:1px solid rgba(184,92,255,.2);border-radius:13px;background:#070a12}
+.rpc-auth-tabs button{min-height:40px;border:0;border-radius:9px;background:transparent;color:#7f8798;font-size:12px;font-weight:800;cursor:pointer;transition:.18s}
+.rpc-auth-tabs button:hover:not(:disabled){color:#e8eaf0;background:rgba(255,255,255,.035)}
+.rpc-auth-tabs button.active{color:#fff;background:linear-gradient(135deg,rgba(213,34,79,.88),rgba(126,42,255,.9));box-shadow:0 9px 24px rgba(126,42,255,.2)}
+.rpc-auth-tabs button:disabled{cursor:default;opacity:.65}
+.rpc-auth-divider{display:flex;align-items:center;gap:10px;margin:17px 0 12px;color:#687184;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.rpc-auth-divider:before,.rpc-auth-divider:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.07)}
+.rpc-auth-social-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.rpc-auth-social{min-height:44px;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:#090d16;color:#e8eaf0;cursor:pointer;transition:.18s}
+.rpc-auth-social:hover:not(:disabled){transform:translateY(-1px);border-color:rgba(191,91,255,.42);background:#0d1220}
+.rpc-auth-social:disabled{opacity:.55;cursor:wait}
+.rpc-auth-social span{width:24px;height:24px;display:grid;place-items:center;border-radius:7px;background:#fff;color:#171923;font-size:12px;font-weight:950}
+.rpc-auth-social--discord span{background:#5865f2;color:#fff}
+.rpc-auth-social b{font-size:11px}
+.rpc-auth-mode-hint{margin:12px 0 0;text-align:center;color:#737c8f;font-size:10px;line-height:1.45}
+.rpc-cabinet-heading{display:flex;align-items:flex-end;justify-content:space-between;margin:-2px 0 13px}
+.rpc-cabinet-heading span{display:block;color:#c35dff;font-size:9px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.rpc-cabinet-heading p{margin:5px 0 0;color:#8d96a8;font-size:11px}
+.rpc-auth-profile--cabinet{align-items:center}
+.rpc-auth-profile-avatar{position:relative;overflow:hidden}
+.rpc-auth-profile-avatar img{width:100%;height:100%;display:block;object-fit:cover}
+.rpc-auth-profile-avatar span{width:100%;height:100%;display:grid;place-items:center;color:#fff;font-size:18px;letter-spacing:0}
+.rpc-auth-profile-main{min-width:0;flex:1}
+.rpc-auth-profile-main h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rpc-auth-avatar-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.rpc-auth-avatar-actions .button{min-height:34px;padding:0 13px;font-size:10px}
+.rpc-auth-avatar-actions small{flex:1 0 100%;color:#697286;font-size:9px}
+.rpc-auth-danger-link{border:0;background:transparent;color:#ff6e86;font-size:10px;cursor:pointer}
+.rpc-auth-danger-link:hover{color:#ff9daf}
+.rpc-auth-profile-form{padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:13px;background:#080c15}
+.rpc-auth-profile-form .rpc-auth-label{margin-bottom:10px}
+.rpc-auth-profile-form .rpc-auth-label input{height:44px}
+.rpc-auth-profile-form .rpc-auth-primary{min-height:40px;font-size:11px}
+.rpc-auth-account-meta{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.8fr);gap:9px;margin:11px 0}
+.rpc-auth-account-meta>div{min-width:0;padding:11px;border:1px solid rgba(255,255,255,.075);border-radius:11px;background:#080c15;display:grid;gap:5px}
+.rpc-auth-account-meta span{color:#697286;font-size:8px;font-weight:850;letter-spacing:.1em;text-transform:uppercase}
+.rpc-auth-account-meta code,.rpc-auth-account-meta strong{min-width:0;color:#c9ced8;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rpc-auth-providers{margin:12px 0}
+.rpc-auth-section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.rpc-auth-section-title h3{margin:0;font-size:13px}
+.rpc-auth-section-title p{margin:4px 0 0;color:#727b8e;font-size:9px}
+.rpc-auth-provider-row{display:grid;grid-template-columns:36px minmax(0,1fr) auto;align-items:center;gap:10px;margin-top:7px;padding:10px 11px;border:1px solid rgba(255,255,255,.075);border-radius:11px;background:#080c15}
+.rpc-auth-provider-row.connected{border-color:rgba(40,223,140,.18);background:linear-gradient(110deg,rgba(40,223,140,.055),rgba(126,42,255,.035))}
+.rpc-auth-provider-icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid rgba(181,91,255,.24);border-radius:10px;background:#111626;color:#d1a2ff;font-size:13px;font-weight:950}
+.rpc-auth-provider-row>div{display:grid;gap:2px;min-width:0}
+.rpc-auth-provider-row b{font-size:11px}
+.rpc-auth-provider-row small{color:#747d90;font-size:9px}
+.rpc-auth-provider-row.connected small{color:#43df99}
+.rpc-auth-provider-row button{min-width:76px;height:30px;border:1px solid rgba(181,91,255,.28);border-radius:8px;background:#121725;color:#d7b1ff;font-size:9px;font-weight:800;cursor:pointer}
+.rpc-auth-provider-row button:hover:not(:disabled){border-color:#bc60ff80;color:#fff}
+.rpc-auth-provider-row button:disabled{border-color:rgba(40,223,140,.18);background:rgba(40,223,140,.06);color:#43df99;cursor:default}
+.rpc-auth-provider-check{display:none;color:#43df99;font-weight:900}
+.rpc-auth-provider-row[data-rpc-provider-row="email"] .rpc-auth-provider-check{display:block}
+.rpc-auth-logout{margin-top:8px}
+@media(max-width:760px){
+  .rpc-auth-dialog{max-height:calc(100vh - 20px)}
+  .rpc-auth-social-grid{grid-template-columns:1fr}
+  .rpc-auth-account-meta{grid-template-columns:1fr}
+  .rpc-auth-provider-row{grid-template-columns:34px minmax(0,1fr) auto}
+  .rpc-auth-provider-row button{min-width:68px}
+}
+@media(max-width:410px){
+  .rpc-auth-tabs button{font-size:10px}
+  .rpc-auth-avatar-actions{align-items:flex-start}
+  .rpc-auth-provider-row{gap:7px;padding:9px}
+  .rpc-auth-provider-icon{width:31px;height:31px}
+}

@@ -1,95 +1,184 @@
-RPC ACCOUNTS — НАСТРОЙКА SUPABASE EMAIL OTP
-===========================================
+RPC ORDERS v12 — ACCOUNT CABINET SETUP
+=======================================
 
-Что уже добавлено в сайт:
-- регистрация и вход по электронной почте;
-- письмо с одноразовым 6-значным кодом;
-- проверка правильности кода;
-- автоматическое создание аккаунта при первом входе;
-- сохранение имени/никнейма в аккаунте;
-- «Оставаться в аккаунте» через постоянную сессию;
-- автоматическое обновление токена;
-- выход из аккаунта;
-- автозаполнение имени в тикете и отзыве;
-- добавление accountId/accountEmail/accountVerified в отправляемые данные.
+WHAT IS ALREADY IN THE SITE
+---------------------------
+- Separate “Вход” and “Регистрация” tabs.
+- Email OTP code verification.
+- “Оставаться в аккаунте” session persistence.
+- Personal account cabinet.
+- Nickname editing.
+- Avatar upload/removal.
+- Google and Discord sign-in buttons.
+- Google and Discord identity linking from the cabinet.
+- Account ID, email, nickname, and avatar are attached to ticket/review payloads.
 
-ВАЖНО: сайт нельзя подключить к Supabase без двух публичных значений проекта.
-Service Role Key НИКОГДА не вставляйте в сайт.
+IMPORTANT BEFORE UPLOADING v12
+------------------------------
+The archive contains a safe auth-config.js template without your Publishable key.
+Copy the already configured values from your current auth-config.js into the new one:
 
-1. Откройте Supabase Dashboard и выберите проект RPC.
+window.RPC_AUTH_CONFIG = Object.freeze({
+  supabaseUrl: "https://YOUR_PROJECT.supabase.co",
+  supabasePublishableKey: "sb_publishable_YOUR_PUBLIC_KEY",
+  avatarBucket: "avatars",
+  oauthRedirectUrl: "",
+  otpCooldownSeconds: 60,
+  siteName: "RPC • RedPad Creator"
+});
 
-2. Откройте Project Settings -> API.
-   Скопируйте:
-   - Project URL;
-   - Publishable key (или legacy anon public key).
+Never put these into the website or GitHub:
+- sb_secret_...
+- service_role key
+- Resend re_... key
+- Google Client Secret
+- Discord Client Secret
 
-3. Откройте файл auth-config.js и замените:
+1. CREATE THE AVATAR STORAGE
+----------------------------
+Supabase Dashboard -> SQL Editor -> New query.
+Open SUPABASE_ACCOUNT_SETUP.sql, paste the entire file, and press Run.
 
-   PASTE_SUPABASE_PROJECT_URL_HERE
-   PASTE_SUPABASE_PUBLISHABLE_KEY_HERE
+It creates:
+- public bucket “avatars”;
+- 2 MB avatar limit;
+- PNG/JPG/WEBP restrictions;
+- RLS policies so a user can only change files inside their own user-ID folder.
 
-   Пример:
+2. SITE URL AND REDIRECT URLS
+-----------------------------
+Supabase -> Authentication -> URL Configuration.
 
-   window.RPC_AUTH_CONFIG = Object.freeze({
-     supabaseUrl: "https://abcdefgh.supabase.co",
-     supabasePublishableKey: "sb_publishable_...",
-     otpCooldownSeconds: 60,
-     siteName: "RPC • RedPad Creator"
-   });
+Site URL:
+https://rpc-order-website.onrender.com/
 
-4. В Supabase откройте Authentication -> Providers -> Email.
-   Включите Email provider и разрешите регистрацию новых пользователей.
+Redirect URLs — add both:
+https://rpc-order-website.onrender.com/
+http://127.0.0.1:8080/
 
-5. Откройте Authentication -> Email Templates.
-   В шаблонах Confirm signup и Magic Link используйте {{ .Token }},
-   а не только {{ .ConfirmationURL }}.
+Optional local alternative:
+http://localhost:8080/
 
-   Минимальный шаблон письма:
+The site automatically uses its current origin as OAuth redirect URL.
 
-   <h2>Код входа RPC</h2>
-   <p>Ваш одноразовый код:</p>
-   <p style="font-size:32px;font-weight:700;letter-spacing:8px">{{ .Token }}</p>
-   <p>Никому не сообщайте этот код.</p>
+3. ENABLE MANUAL IDENTITY LINKING
+---------------------------------
+Supabase -> Authentication -> Configuration / Providers.
+Enable “Manual identity linking”.
 
-6. Откройте Authentication -> URL Configuration.
-   Site URL:
-   https://rpc-order-website.onrender.com
+This is required for the “Привязать Google” and “Привязать Discord” buttons in an already logged-in account.
 
-   Redirect URLs:
-   https://rpc-order-website.onrender.com/**
-   http://127.0.0.1:8080/**
-   http://localhost:8080/**
+4. GOOGLE PROVIDER
+------------------
+A. Google Cloud Console:
+- Create/select a project.
+- APIs & Services -> OAuth consent screen: configure the app.
+- Credentials -> Create Credentials -> OAuth client ID -> Web application.
+- Authorized redirect URI:
+  https://kltlmugbsyavyauexxyv.supabase.co/auth/v1/callback
 
-7. Для реального сайта подключите собственный SMTP в Supabase.
-   Тестовая отправка Supabase имеет ограничения и не рассчитана на большой поток писем.
+For another Supabase project, use:
+https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback
 
-8. Загрузите все файлы из архива в корень GitHub-репозитория.
-   Папок внутри архива нет.
+B. Supabase:
+Authentication -> Providers -> Google.
+- Enable Google.
+- Paste Google Client ID.
+- Paste Google Client Secret.
+- Save.
 
-ПРОВЕРКА
---------
+Google Client Secret stays only inside Supabase. Never put it in auth-config.js.
 
-После публикации откройте сайт и нажмите «Войти».
-Введите почту, получите письмо, введите 6 цифр.
+5. DISCORD PROVIDER
+-------------------
+A. Discord Developer Portal:
+- Applications -> New Application.
+- OAuth2 -> General.
+- Add Redirect URI:
+  https://kltlmugbsyavyauexxyv.supabase.co/auth/v1/callback
+- Copy Client ID.
+- Reset/copy Client Secret.
 
-В Console должно быть:
-[RPC Auth] loaded v1.0.0
+B. Supabase:
+Authentication -> Providers -> Discord.
+- Enable Discord.
+- Paste Discord Client ID.
+- Paste Discord Client Secret.
+- Save.
 
-Проверка авторизации:
-window.RPC_AUTH
+Discord Client Secret stays only inside Supabase.
+
+6. EMAIL LOGIN AND REGISTRATION BEHAVIOR
+----------------------------------------
+“Вход” calls email OTP with shouldCreateUser=false.
+An email without an existing account should not be silently registered.
+
+“Регистрация” calls email OTP with shouldCreateUser=true and saves the nickname.
+
+Both use the same secure email code verification.
+
+7. TESTING
+----------
+A. Registration:
+- Open “Регистрация”.
+- Enter nickname and a new email.
+- Enter the 6-digit code.
+- The personal cabinet should open.
+
+B. Sign in:
+- Sign out.
+- Open “Вход”.
+- Enter the registered email.
+- Enter the code.
+
+C. Nickname:
+- Open the cabinet.
+- Change nickname.
+- Reload the page — the new nickname must remain.
+
+D. Avatar:
+- Upload PNG/JPG/WEBP under 2 MB.
+- Reload the page — the avatar must remain.
+- If it fails, run SUPABASE_ACCOUNT_SETUP.sql and check Storage policies.
+
+E. Google/Discord linking:
+- Log in by email first.
+- Press “Привязать” next to Google or Discord.
+- Complete provider authorization.
+- Return to the site and open the cabinet.
+- The provider must show “Привязан”.
+
+F. Console:
+window.RPC_AUTH.version
+Expected: "2.0.0"
+
 window.RPC_AUTH.user
-window.RPC_AUTH.configured
+Expected: the logged-in Supabase user object.
 
-При успешном входе window.RPC_AUTH.user содержит пользователя.
+window.RPC_AUTH.client.auth.getUserIdentities()
+Expected: email plus linked Google/Discord identities.
 
-КАК РАБОТАЕТ «ОСТАВАТЬСЯ В АККАУНТЕ»
-------------------------------------
+8. COMMON ERRORS
+----------------
+“Bucket not found” / RLS error:
+- Run SUPABASE_ACCOUNT_SETUP.sql.
 
-Включено:
-- сессия хранится в localStorage;
-- пользователь остаётся в аккаунте после закрытия браузера;
-- Supabase автоматически обновляет токен.
+“Unsupported provider” / provider not enabled:
+- Enable Google/Discord in Supabase Providers.
 
-Выключено:
-- сессия хранится в sessionStorage;
-- после полного закрытия вкладок/браузера потребуется новый код.
+OAuth returns to the wrong page:
+- Set Site URL and Redirect URLs from step 2.
+
+“Manual linking is disabled”:
+- Enable Manual identity linking in Supabase Auth configuration.
+
+Google/Discord callback mismatch:
+- The provider callback must be the Supabase callback URL, not the Render website URL.
+
+The website itself returns to Render/local through Supabase Redirect URLs.
+
+9. SECURITY NOTE FOR FUTURE ORDER HISTORY
+-----------------------------------------
+The browser fields accountId/accountEmail/accountName are only convenient metadata and can be changed by a malicious client.
+Do not use them alone for permissions, payments, private order history, or admin access.
+For protected backend features, send the Supabase access token and verify it on the server before trusting the user ID.

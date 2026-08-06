@@ -1,41 +1,34 @@
-RPC ORDERS — ГОТОВАЯ СБОРКА ДЛЯ GITHUB / RENDER
+RPC ORDERS v12 — GITHUB UPLOAD
+==============================
 
-ВАЖНО:
-В архиве нет папок. Все файлы лежат на одном уровне и должны быть загружены
-прямо в корень репозитория GitHub.
+This package is flat: there are no folders inside the ZIP.
 
-КАК ЗАГРУЗИТЬ:
-1. Распакуйте архив.
-2. Откройте репозиторий сайта на GitHub.
-3. Нажмите Add file -> Upload files.
-4. Выделите ВСЕ распакованные файлы и перетащите их в окно GitHub.
-5. Подтвердите замену файлов с одинаковыми именами.
-6. Нажмите Commit changes.
-7. Дождитесь завершения деплоя Render.
+Before upload:
+1. Extract the ZIP into a new folder.
+2. Copy your currently working Supabase URL and sb_publishable key into the new auth-config.js.
+3. Do not copy any sb_secret, service_role, Resend, Google, or Discord secret into website files.
+4. Run SUPABASE_ACCOUNT_SETUP.sql in Supabase SQL Editor.
+5. Configure Google/Discord using AUTH_SETUP.txt.
 
-НЕ ЗАГРУЖАЙТЕ САМ ZIP-АРХИВ В РЕПОЗИТОРИЙ.
-Нужно загрузить именно файлы из архива.
+GitHub:
+1. Repository -> Add file -> Upload files.
+2. Select all extracted files, not the ZIP itself.
+3. Upload them to the repository root.
+4. Commit changes.
+5. Wait for Render deployment.
 
-ПРОВЕРКА ПОСЛЕ ДЕПЛОЯ:
-- https://rpc-order-website.onrender.com/
-- https://rpc-order-website.onrender.com/og-image.png
-- https://rpc-order-website.onrender.com/robots.txt
-- https://rpc-order-website.onrender.com/sitemap.xml
+Main new files/features:
+- auth.js v2.0.0
+- separate Sign in / Register interface
+- personal account cabinet
+- nickname editor
+- avatar upload through Supabase Storage
+- Google and Discord OAuth sign-in/linking
+- SUPABASE_ACCOUNT_SETUP.sql
+- AUTH_SETUP.txt
 
-ПРОВЕРКА КАРТОЧКИ DISCORD:
-Отправьте новую ссылку с параметром для обхода кеша, например:
-https://rpc-order-website.onrender.com/?preview=10
-
-SEO v9.0.0 уже подключён в index.html. Open Graph-теги находятся прямо
-в исходном HTML, поэтому Discord, Telegram и другие сервисы смогут прочитать
-название, описание и изображение без выполнения JavaScript.
-
-АККАУНТЫ / РЕГИСТРАЦИЯ:
-Перед публикацией откройте AUTH_SETUP.txt и заполните auth-config.js.
-Без Project URL и Publishable Key от Supabase окно аккаунта будет показано,
-но отправка кода будет отключена.
-
-ПРОВЕРКА АККАУНТОВ ПОСЛЕ НАСТРОЙКИ:
-- нажмите «Войти»;
-- введите почту и получите 6-значный код;
-- после проверки в Console команда window.RPC_AUTH.user должна вернуть пользователя.
+Production verification:
+1. Open https://rpc-order-website.onrender.com/
+2. Ctrl+F5.
+3. Console: window.RPC_AUTH.version
+4. Expected: "2.0.0"

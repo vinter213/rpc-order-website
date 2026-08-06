@@ -1,0 +1,16 @@
+RPC Orders v12
+==============
+
+- Split email authentication into separate “Вход” and “Регистрация” tabs.
+- Existing-account login uses shouldCreateUser=false.
+- Registration stores the nickname and verifies email by OTP.
+- Added personal account cabinet.
+- Added nickname editing.
+- Added avatar upload/removal with file type and 2 MB validation.
+- Added Supabase Storage setup SQL with per-user RLS.
+- Added Google and Discord OAuth buttons.
+- Added Google and Discord identity linking status/buttons.
+- Added account ID and creation date.
+- Added profile avatar to sidebar/mobile account buttons.
+- Added account nickname/avatar fields to ticket and review payloads.
+- Kept persistent/temporary session choice.

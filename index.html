@@ -37,14 +37,14 @@
 <meta content="RPC • RedPad Creator — VRChat-проекты на заказ" name="twitter:image:alt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://rpc-order-website.onrender.com/#organization","name":"RPC • RedPad Creator","alternateName":"RPC","url":"https://rpc-order-website.onrender.com/","description":"Команда по созданию VRChat-аватаров, миров, Udon-систем, оптимизации и Quest-версий.","logo":{"@type":"ImageObject","@id":"https://rpc-order-website.onrender.com/#logo","url":"https://rpc-order-website.onrender.com/rpc-avatar.png","contentUrl":"https://rpc-order-website.onrender.com/rpc-avatar.png","width":1024,"height":1024},"image":{"@id":"https://rpc-order-website.onrender.com/#logo"},"sameAs":["https://t.me/ViNter294","https://discord.gg/25dXRyrw5a"]},{"@type":"WebSite","@id":"https://rpc-order-website.onrender.com/#website","url":"https://rpc-order-website.onrender.com/","name":"RPC • RedPad Creator","alternateName":"RPC Orders","publisher":{"@id":"https://rpc-order-website.onrender.com/#organization"},"inLanguage":["ru","en"]},{"@type":"ImageObject","@id":"https://rpc-order-website.onrender.com/#primaryimage","url":"https://rpc-order-website.onrender.com/og-image.png","contentUrl":"https://rpc-order-website.onrender.com/og-image.png","width":1200,"height":630},{"@type":"ItemList","@id":"https://rpc-order-website.onrender.com/#services","name":"Услуги RPC","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Service","name":"VRChat-аватары","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":2,"item":{"@type":"Service","name":"VRChat-миры","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":3,"item":{"@type":"Service","name":"Quest-портирование","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":4,"item":{"@type":"Service","name":"Оптимизация VRChat-проектов","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}}]}]}</script>
 <script id="rpc-page-schema" type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://rpc-order-website.onrender.com/#webpage","url":"https://rpc-order-website.onrender.com/","name":"RPC • RedPad Creator — VRChat-аватары и миры на заказ","description":"Заказ VRChat-аватаров и миров, Udon-систем, оптимизации и Quest-версий от команды RPC • RedPad Creator.","isPartOf":{"@id":"https://rpc-order-website.onrender.com/#website"},"about":{"@id":"https://rpc-order-website.onrender.com/#organization"},"primaryImageOfPage":{"@id":"https://rpc-order-website.onrender.com/#primaryimage"},"inLanguage":"ru"}</script>
-<link href="styles.css" rel="stylesheet"/>
+<link href="styles.css?v=12" rel="stylesheet"/>
 <script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
 <script defer src="loader.js"></script>
 <script defer charset="utf-8" data-rpc-seo="v9" src="./seo.js?v=9"></script>
-<script defer src="app.js"></script>
+<script defer src="app.js?v=12"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="auth-config.js"></script>
-<script defer src="auth.js"></script>
+<script defer src="auth-config.js?v=12"></script>
+<script defer src="auth.js?v=12"></script>
 </head>
 <body class="cinematic-site is-loading">
 <div class="rpc-loader" id="rpcLoader" role="status" aria-live="polite" aria-label="Загрузка сайта">
@@ -121,7 +121,7 @@
 <small data-currency-hint>Определяем страну…</small>
 </div>
 <button class="account-entry sidebar-account" data-rpc-auth-open type="button" aria-label="Открыть аккаунт RPC">
-<span class="account-entry__avatar" aria-hidden="true">◎</span>
+<span class="account-entry__avatar" aria-hidden="true"><img data-rpc-auth-mini-avatar hidden alt=""/><span data-rpc-auth-mini-fallback>◎</span></span>
 <span class="account-entry__copy"><b data-rpc-auth-label>Войти</b><small data-rpc-auth-subtitle>Регистрация по почте</small></span>
 <span class="account-entry__arrow" aria-hidden="true">›</span>
 </button>
@@ -143,7 +143,7 @@
 </aside>
 <header class="mobile-header">
 <a class="mobile-brand" href="#home"><img alt="RPC" class="protected-image" draggable="false" src="rpc-avatar.png"/><b>RPC</b></a>
-<div class="mobile-controls"><button class="mobile-account-button" data-rpc-auth-open type="button" aria-label="Открыть аккаунт RPC"><span aria-hidden="true">◎</span><b data-rpc-auth-label>Войти</b></button><div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><select class="mobile-currency-select" data-currency-select aria-label="Выбор валюты"><option value="KZT">KZT</option><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
+<div class="mobile-controls"><button class="mobile-account-button" data-rpc-auth-open type="button" aria-label="Открыть аккаунт RPC"><span class="mobile-account-avatar" aria-hidden="true"><img data-rpc-auth-mini-avatar hidden alt=""/><span data-rpc-auth-mini-fallback>◎</span></span><b data-rpc-auth-label>Войти</b></button><div aria-label="Language" class="language-switch mobile-language"><button class="active" data-language="ru" type="button">RU</button><button data-language="en" type="button">EN</button></div><select class="mobile-currency-select" data-currency-select aria-label="Выбор валюты"><option value="KZT">KZT</option><option value="RUB">RUB</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><button aria-expanded="false" aria-label="Открыть меню" id="menuButton" type="button">☰</button>
 </header>
 <main class="main">
 <section class="page active-page" data-page="home" id="home">
@@ -380,15 +380,19 @@
 
     <div class="rpc-auth-config-warning" id="rpcAuthConfigWarning" hidden>
       <strong>AUTH SETUP</strong>
-      <p data-auth-i18n="setup">Регистрация ещё не подключена. Укажите Supabase URL и Publishable Key в auth-config.js.</p>
+      <p data-auth-i18n="setup">Регистрация не подключена. Укажите Supabase URL и Publishable Key в auth-config.js.</p>
     </div>
 
     <div id="rpcAuthLoggedOut">
       <div id="rpcAuthEmailStep">
-        <p class="rpc-auth-intro" data-auth-i18n="intro">Введите почту — мы отправим одноразовый код из 6 цифр.</p>
+        <div class="rpc-auth-tabs" role="tablist" aria-label="Вход или регистрация">
+          <button class="active" data-rpc-auth-mode="login" role="tab" aria-selected="true" type="button" data-auth-i18n="loginTab">Вход</button>
+          <button data-rpc-auth-mode="register" role="tab" aria-selected="false" type="button" data-auth-i18n="registerTab">Регистрация</button>
+        </div>
+        <p class="rpc-auth-intro" id="rpcAuthIntro">Введите почту от существующего аккаунта — мы отправим код для входа.</p>
         <form id="rpcAuthEmailForm" novalidate>
-          <label class="rpc-auth-label"><span data-auth-i18n="name">Имя / никнейм</span>
-            <input id="rpcAuthName" maxlength="80" autocomplete="nickname" data-auth-placeholder="namePlaceholder" placeholder="Как к вам обращаться"/>
+          <label class="rpc-auth-label" id="rpcAuthNameField" hidden><span data-auth-i18n="name">Имя / никнейм</span>
+            <input id="rpcAuthName" maxlength="32" autocomplete="nickname" data-auth-placeholder="namePlaceholder" placeholder="Как к вам обращаться"/>
           </label>
           <label class="rpc-auth-label"><span data-auth-i18n="email">Электронная почта</span>
             <input id="rpcAuthEmail" type="email" inputmode="email" autocomplete="email" required data-auth-placeholder="emailPlaceholder" placeholder="name@example.com"/>
@@ -398,14 +402,21 @@
             <span class="rpc-auth-check" aria-hidden="true">✓</span>
             <span data-auth-i18n="remember">Оставаться в аккаунте на этом устройстве</span>
           </label>
-          <button class="button primary rpc-auth-primary" id="rpcAuthSendCode" type="submit" data-auth-i18n="send">Получить код</button>
+          <button class="button primary rpc-auth-primary" id="rpcAuthSendCode" type="submit">Получить код для входа</button>
           <p class="rpc-auth-status" id="rpcAuthEmailStatus" aria-live="polite"></p>
         </form>
+
+        <div class="rpc-auth-divider"><span id="rpcAuthSocialTitle">Или войдите через</span></div>
+        <div class="rpc-auth-social-grid">
+          <button class="rpc-auth-social rpc-auth-social--google" data-rpc-social-login="google" type="button"><span>G</span><b>Google</b></button>
+          <button class="rpc-auth-social rpc-auth-social--discord" data-rpc-social-login="discord" type="button"><span>◉</span><b>Discord</b></button>
+        </div>
+        <p class="rpc-auth-mode-hint" id="rpcAuthModeHint">Нет аккаунта? Перейдите во вкладку «Регистрация».</p>
       </div>
 
       <div id="rpcAuthCodeStep" hidden>
         <div class="rpc-auth-code-head">
-          <span data-auth-i18n="codeTitle">Введите код</span>
+          <span id="rpcAuthCodeTitle">Код для входа</span>
           <p><span data-auth-i18n="codeIntro">Код отправлен на</span> <strong id="rpcAuthCodeEmail"></strong></p>
         </div>
         <form id="rpcAuthCodeForm" novalidate>
@@ -417,9 +428,9 @@
             <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 5"/>
             <input data-rpc-otp inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Цифра 6"/>
           </div>
-          <button class="button primary rpc-auth-primary" id="rpcAuthVerifyCode" type="submit" data-auth-i18n="verify">Подтвердить и войти</button>
+          <button class="button primary rpc-auth-primary" id="rpcAuthVerifyCode" type="submit">Подтвердить и войти</button>
           <div class="rpc-auth-secondary-actions">
-            <button id="rpcAuthBack" type="button" data-auth-i18n="back">Изменить почту</button>
+            <button id="rpcAuthBack" type="button" data-auth-i18n="back">Назад</button>
             <button id="rpcAuthResend" type="button" data-auth-i18n="resend">Отправить код ещё раз</button>
           </div>
           <p class="rpc-auth-status" id="rpcAuthCodeStatus" aria-live="polite"></p>
@@ -428,19 +439,59 @@
     </div>
 
     <div id="rpcAuthLoggedIn" hidden>
-      <div class="rpc-auth-profile">
-        <div class="rpc-auth-profile-avatar" id="rpcAuthInitials">RP</div>
-        <div><span data-auth-i18n="verified">Почта подтверждена</span><h3 id="rpcAuthAccountName">RPC User</h3><p id="rpcAuthAccountEmail"></p></div>
+      <div class="rpc-cabinet-heading">
+        <div><span data-auth-i18n="profileTitle">Личный кабинет</span><p data-auth-i18n="profileSubtitle">Настройте имя, аватар и способы входа.</p></div>
       </div>
+
+      <div class="rpc-auth-profile rpc-auth-profile--cabinet">
+        <div class="rpc-auth-profile-avatar">
+          <img id="rpcAuthAvatarImage" alt="Аватар пользователя" hidden/>
+          <span id="rpcAuthInitials">RP</span>
+        </div>
+        <div class="rpc-auth-profile-main"><span data-auth-i18n="verified">Подтверждённый аккаунт</span><h3 id="rpcAuthAccountName">RPC User</h3><p id="rpcAuthAccountEmail"></p></div>
+      </div>
+
+      <div class="rpc-auth-avatar-actions">
+        <input id="rpcAuthAvatarInput" type="file" accept="image/png,image/jpeg,image/webp" hidden/>
+        <button class="button ghost" id="rpcAuthAvatarChoose" type="button" data-auth-i18n="chooseAvatar">Загрузить аватар</button>
+        <button class="rpc-auth-danger-link" id="rpcAuthAvatarRemove" type="button" data-auth-i18n="removeAvatar" hidden>Удалить</button>
+        <small data-auth-i18n="avatarHelp">PNG, JPG или WEBP до 2 МБ.</small>
+      </div>
+
+      <form class="rpc-auth-profile-form" id="rpcAuthProfileForm">
+        <label class="rpc-auth-label"><span data-auth-i18n="nickname">Никнейм</span>
+          <input id="rpcAuthProfileName" maxlength="32" autocomplete="nickname" data-auth-placeholder="namePlaceholder" placeholder="Как к вам обращаться" required/>
+        </label>
+        <button class="button primary rpc-auth-primary" id="rpcAuthProfileSave" type="submit" data-auth-i18n="saveNickname">Сохранить никнейм</button>
+      </form>
+
+      <div class="rpc-auth-account-meta">
+        <div><span data-auth-i18n="accountId">ID аккаунта</span><code id="rpcAuthAccountId">—</code></div>
+        <div><span data-auth-i18n="createdAt">Создан</span><strong id="rpcAuthAccountCreated">—</strong></div>
+      </div>
+
+      <section class="rpc-auth-providers" aria-label="Способы входа">
+        <div class="rpc-auth-section-title"><div><h3 data-auth-i18n="linkedAccounts">Способы входа</h3><p data-auth-i18n="linkedAccountsHint">После привязки можно входить через Google или Discord.</p></div></div>
+        <div class="rpc-auth-provider-row connected" data-rpc-provider-row="email">
+          <span class="rpc-auth-provider-icon">@</span><div><b data-auth-i18n="emailProvider">Почта</b><small data-rpc-provider-status data-auth-i18n="connected">Привязан</small></div><span class="rpc-auth-provider-check">✓</span>
+        </div>
+        <div class="rpc-auth-provider-row" data-rpc-provider-row="google">
+          <span class="rpc-auth-provider-icon">G</span><div><b>Google</b><small data-rpc-provider-status data-auth-i18n="connect">Привязать</small></div><button data-rpc-link-provider="google" type="button" data-auth-i18n="connect">Привязать</button>
+        </div>
+        <div class="rpc-auth-provider-row" data-rpc-provider-row="discord">
+          <span class="rpc-auth-provider-icon">◉</span><div><b>Discord</b><small data-rpc-provider-status data-auth-i18n="connect">Привязать</small></div><button data-rpc-link-provider="discord" type="button" data-auth-i18n="connect">Привязать</button>
+        </div>
+      </section>
+
       <div class="rpc-auth-session-card">
         <i aria-hidden="true"></i>
-        <div><strong data-auth-i18n="accountSince">Аккаунт сохранён в RPC</strong><small data-auth-i18n="accountSubtitle">Почта подтверждена</small></div>
+        <div><strong data-auth-i18n="accountSince">Аккаунт сохранён в RPC</strong><small data-auth-i18n="accountSubtitle">Аккаунт подтверждён</small></div>
       </div>
       <button class="button ghost rpc-auth-logout" id="rpcAuthLogout" type="button" data-auth-i18n="logout">Выйти из аккаунта</button>
       <p class="rpc-auth-status" id="rpcAuthAccountStatus" aria-live="polite"></p>
     </div>
 
-    <div class="rpc-auth-security-note"><span>◆</span> SUPABASE AUTH · OTP · SECURE SESSION</div>
+    <div class="rpc-auth-security-note"><span>◆</span> SUPABASE AUTH · OTP · OAUTH · STORAGE</div>
   </div>
 </div>
 
