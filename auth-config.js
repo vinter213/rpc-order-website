@@ -7,8 +7,8 @@
  * Never put a service_role key into a website file.
  */
 window.RPC_AUTH_CONFIG = Object.freeze({
-  supabaseUrl: "PASTE_SUPABASE_PROJECT_URL_HERE",
-  supabasePublishableKey: "PASTE_SUPABASE_PUBLISHABLE_KEY_HERE",
+  supabaseUrl: "https://kltlmugbsyavyauexxyv.supabase.co",
+  supabasePublishableKey: "sb_publishable_NCCF2witA7aP2Ln7y4MT8A_KnDMIZsD",
   otpCooldownSeconds: 60,
-  siteName: "RPC • RedPad Creator"
+  siteName: "RedPad Creator"
 });
