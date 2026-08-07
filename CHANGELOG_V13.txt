@@ -1,0 +1,8 @@
+RPC Orders v13
+===============
+- Removed Google sign-in button.
+- Removed Google linking row from the personal cabinet.
+- Kept Discord sign-in and Discord linking.
+- Updated account text and provider errors for Discord only.
+- Updated setup guide for Discord OAuth.
+- Bumped RPC Auth version to 2.1.0.

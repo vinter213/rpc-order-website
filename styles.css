@@ -1436,7 +1436,7 @@ body.rpc-auth-open{overflow:hidden}
 .rpc-auth-tabs button:disabled{cursor:default;opacity:.65}
 .rpc-auth-divider{display:flex;align-items:center;gap:10px;margin:17px 0 12px;color:#687184;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
 .rpc-auth-divider:before,.rpc-auth-divider:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.07)}
-.rpc-auth-social-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.rpc-auth-social-grid{display:grid;grid-template-columns:1fr;gap:9px}
 .rpc-auth-social{min-height:44px;display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid rgba(255,255,255,.1);border-radius:11px;background:#090d16;color:#e8eaf0;cursor:pointer;transition:.18s}
 .rpc-auth-social:hover:not(:disabled){transform:translateY(-1px);border-color:rgba(191,91,255,.42);background:#0d1220}
 .rpc-auth-social:disabled{opacity:.55;cursor:wait}

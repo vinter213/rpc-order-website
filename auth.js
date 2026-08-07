@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "2.0.0";
+  const VERSION = "2.1.0";
   const REMEMBER_KEY = "rpc_auth_remember_v2";
   const PENDING_EMAIL_KEY = "rpc_auth_pending_email_v2";
   const PENDING_NAME_KEY = "rpc_auth_pending_name_v2";
@@ -118,7 +118,7 @@
       discord: "Discord",
       oauthStarting: "Открываем {provider}…",
       oauthFailed: "Не удалось открыть авторизацию через {provider}.",
-      providerSetup: "Провайдер не настроен в Supabase. Проверьте Google/Discord и Redirect URLs.",
+      providerSetup: "Discord не настроен в Supabase. Проверьте Discord Provider и Redirect URLs.",
       profileTitle: "Личный кабинет",
       profileSubtitle: "Настройте имя, аватар и способы входа.",
       nickname: "Никнейм",
@@ -137,7 +137,7 @@
       avatarFailed: "Не удалось загрузить аватар. Проверьте Storage и RLS.",
       avatarSetup: "Хранилище avatars не настроено. Выполните SUPABASE_ACCOUNT_SETUP.sql.",
       linkedAccounts: "Способы входа",
-      linkedAccountsHint: "После привязки можно входить через Google или Discord.",
+      linkedAccountsHint: "После привязки можно входить через Discord.",
       emailProvider: "Почта",
       connected: "Привязан",
       connect: "Привязать",
@@ -200,7 +200,7 @@
       discord: "Discord",
       oauthStarting: "Opening {provider}…",
       oauthFailed: "Could not start {provider} authorization.",
-      providerSetup: "The provider is not configured in Supabase. Check Google/Discord and Redirect URLs.",
+      providerSetup: "Discord is not configured in Supabase. Check the Discord provider and Redirect URLs.",
       profileTitle: "Account dashboard",
       profileSubtitle: "Manage your nickname, avatar, and sign-in methods.",
       nickname: "Nickname",
@@ -219,7 +219,7 @@
       avatarFailed: "Could not upload the avatar. Check Storage and RLS.",
       avatarSetup: "The avatars bucket is not configured. Run SUPABASE_ACCOUNT_SETUP.sql.",
       linkedAccounts: "Sign-in methods",
-      linkedAccountsHint: "After linking, you can sign in with Google or Discord.",
+      linkedAccountsHint: "After linking, you can sign in with Discord.",
       emailProvider: "Email",
       connected: "Linked",
       connect: "Link",

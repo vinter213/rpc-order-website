@@ -4,7 +4,7 @@
  * RPC account configuration.
  *
  * Keep only the PUBLIC Supabase Project URL and Publishable/anon key here.
- * Never place sb_secret, service_role, Resend API keys, Google secrets,
+ * Never place sb_secret, service_role, Resend API keys,
  * or Discord secrets in this browser file or in GitHub.
  */
 window.RPC_AUTH_CONFIG = Object.freeze({

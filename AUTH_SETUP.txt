@@ -1,22 +1,19 @@
-RPC ORDERS v12 — ACCOUNT CABINET SETUP
-=======================================
+RPC ORDERS v13 — DISCORD ACCOUNT SETUP
+======================================
 
-WHAT IS ALREADY IN THE SITE
----------------------------
+WHAT IS INCLUDED
+----------------
 - Separate “Вход” and “Регистрация” tabs.
-- Email OTP code verification.
+- Email OTP verification.
 - “Оставаться в аккаунте” session persistence.
-- Personal account cabinet.
-- Nickname editing.
-- Avatar upload/removal.
-- Google and Discord sign-in buttons.
-- Google and Discord identity linking from the cabinet.
-- Account ID, email, nickname, and avatar are attached to ticket/review payloads.
+- Personal cabinet with nickname editing.
+- Avatar upload/removal through Supabase Storage.
+- Discord sign-in and Discord account linking.
+- Google controls are removed from the website for now.
 
-IMPORTANT BEFORE UPLOADING v12
-------------------------------
-The archive contains a safe auth-config.js template without your Publishable key.
-Copy the already configured values from your current auth-config.js into the new one:
+IMPORTANT BEFORE UPLOAD
+-----------------------
+Copy your PUBLIC values into auth-config.js:
 
 window.RPC_AUTH_CONFIG = Object.freeze({
   supabaseUrl: "https://YOUR_PROJECT.supabase.co",
@@ -27,158 +24,109 @@ window.RPC_AUTH_CONFIG = Object.freeze({
   siteName: "RPC • RedPad Creator"
 });
 
-Never put these into the website or GitHub:
+Never upload these to GitHub:
 - sb_secret_...
 - service_role key
 - Resend re_... key
-- Google Client Secret
 - Discord Client Secret
 
-1. CREATE THE AVATAR STORAGE
-----------------------------
+1. AVATAR STORAGE
+-----------------
 Supabase Dashboard -> SQL Editor -> New query.
-Open SUPABASE_ACCOUNT_SETUP.sql, paste the entire file, and press Run.
+Paste the entire SUPABASE_ACCOUNT_SETUP.sql file and press Run.
 
-It creates:
-- public bucket “avatars”;
-- 2 MB avatar limit;
-- PNG/JPG/WEBP restrictions;
-- RLS policies so a user can only change files inside their own user-ID folder.
-
-2. SITE URL AND REDIRECT URLS
------------------------------
+2. SUPABASE SITE URL
+--------------------
 Supabase -> Authentication -> URL Configuration.
 
 Site URL:
 https://rpc-order-website.onrender.com/
 
-Redirect URLs — add both:
+Redirect URLs:
 https://rpc-order-website.onrender.com/
 http://127.0.0.1:8080/
-
-Optional local alternative:
 http://localhost:8080/
 
-The site automatically uses its current origin as OAuth redirect URL.
+3. ENABLE DISCORD IN SUPABASE
+-----------------------------
+Supabase -> Authentication -> Providers -> Discord.
+Enable Discord, then keep this page open for Client ID and Client Secret.
 
-3. ENABLE MANUAL IDENTITY LINKING
----------------------------------
-Supabase -> Authentication -> Configuration / Providers.
-Enable “Manual identity linking”.
+4. CREATE A DISCORD APPLICATION
+-------------------------------
+Open Discord Developer Portal:
+https://discord.com/developers/applications
 
-This is required for the “Привязать Google” and “Привязать Discord” buttons in an already logged-in account.
-
-4. GOOGLE PROVIDER
-------------------
-A. Google Cloud Console:
-- Create/select a project.
-- APIs & Services -> OAuth consent screen: configure the app.
-- Credentials -> Create Credentials -> OAuth client ID -> Web application.
-- Authorized redirect URI:
+- Press New Application.
+- Enter a name such as RPC Website.
+- Open OAuth2.
+- Add this Redirect URI exactly:
   https://kltlmugbsyavyauexxyv.supabase.co/auth/v1/callback
 
-For another Supabase project, use:
+For another Supabase project use:
 https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback
 
-B. Supabase:
-Authentication -> Providers -> Google.
-- Enable Google.
-- Paste Google Client ID.
-- Paste Google Client Secret.
+- Copy Application ID / Client ID.
+- Reset or copy Client Secret.
+
+5. PASTE DISCORD KEYS INTO SUPABASE
+------------------------------------
+Supabase -> Authentication -> Providers -> Discord.
+
+- Client ID: Discord Application ID.
+- Client Secret: Discord Client Secret.
 - Save.
 
-Google Client Secret stays only inside Supabase. Never put it in auth-config.js.
+The Client Secret stays only in Supabase. Never put it in auth-config.js.
 
-5. DISCORD PROVIDER
--------------------
-A. Discord Developer Portal:
-- Applications -> New Application.
-- OAuth2 -> General.
-- Add Redirect URI:
-  https://kltlmugbsyavyauexxyv.supabase.co/auth/v1/callback
-- Copy Client ID.
-- Reset/copy Client Secret.
+6. ACCOUNT LINKING
+------------------
+Supabase -> Authentication -> Configuration / Providers.
+Enable Manual identity linking.
 
-B. Supabase:
-Authentication -> Providers -> Discord.
-- Enable Discord.
-- Paste Discord Client ID.
-- Paste Discord Client Secret.
-- Save.
+This lets an email-authenticated user open the cabinet and press
+“Привязать” next to Discord without creating a separate account.
 
-Discord Client Secret stays only inside Supabase.
+7. TEST
+-------
+A. Sign in through Discord:
+- Open the site.
+- Press “Вход”.
+- Press Discord.
+- Approve authorization.
+- The site should return to the cabinet.
 
-6. EMAIL LOGIN AND REGISTRATION BEHAVIOR
-----------------------------------------
-“Вход” calls email OTP with shouldCreateUser=false.
-An email without an existing account should not be silently registered.
-
-“Регистрация” calls email OTP with shouldCreateUser=true and saves the nickname.
-
-Both use the same secure email code verification.
-
-7. TESTING
-----------
-A. Registration:
-- Open “Регистрация”.
-- Enter nickname and a new email.
-- Enter the 6-digit code.
-- The personal cabinet should open.
-
-B. Sign in:
-- Sign out.
-- Open “Вход”.
-- Enter the registered email.
-- Enter the code.
-
-C. Nickname:
+B. Link Discord to an email account:
+- Sign in using email OTP.
 - Open the cabinet.
-- Change nickname.
-- Reload the page — the new nickname must remain.
+- Press “Привязать” next to Discord.
+- Approve authorization.
+- Discord should show “Привязан”.
 
-D. Avatar:
-- Upload PNG/JPG/WEBP under 2 MB.
-- Reload the page — the avatar must remain.
-- If it fails, run SUPABASE_ACCOUNT_SETUP.sql and check Storage policies.
-
-E. Google/Discord linking:
-- Log in by email first.
-- Press “Привязать” next to Google or Discord.
-- Complete provider authorization.
-- Return to the site and open the cabinet.
-- The provider must show “Привязан”.
-
-F. Console:
+C. Console checks:
 window.RPC_AUTH.version
-Expected: "2.0.0"
-
-window.RPC_AUTH.user
-Expected: the logged-in Supabase user object.
+Expected: "2.1.0"
 
 window.RPC_AUTH.client.auth.getUserIdentities()
-Expected: email plus linked Google/Discord identities.
+Expected: email and/or Discord identity.
 
-8. COMMON ERRORS
-----------------
-“Bucket not found” / RLS error:
-- Run SUPABASE_ACCOUNT_SETUP.sql.
+COMMON ERRORS
+-------------
+“Unsupported provider”:
+- Enable Discord under Supabase Authentication -> Providers.
 
-“Unsupported provider” / provider not enabled:
-- Enable Google/Discord in Supabase Providers.
+“Redirect URI mismatch”:
+- Discord Developer Portal must contain the Supabase callback URL,
+  not the Render website URL.
 
 OAuth returns to the wrong page:
-- Set Site URL and Redirect URLs from step 2.
+- Check Site URL and Redirect URLs in Supabase.
 
 “Manual linking is disabled”:
 - Enable Manual identity linking in Supabase Auth configuration.
 
-Google/Discord callback mismatch:
-- The provider callback must be the Supabase callback URL, not the Render website URL.
-
-The website itself returns to Render/local through Supabase Redirect URLs.
-
-9. SECURITY NOTE FOR FUTURE ORDER HISTORY
------------------------------------------
-The browser fields accountId/accountEmail/accountName are only convenient metadata and can be changed by a malicious client.
-Do not use them alone for permissions, payments, private order history, or admin access.
-For protected backend features, send the Supabase access token and verify it on the server before trusting the user ID.
+SECURITY
+--------
+Do not trust accountId/accountEmail values sent by the browser for payments,
+private order history, or permissions. A protected backend must verify the
+Supabase access token before trusting the user ID.
