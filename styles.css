@@ -788,23 +788,6 @@ body.cinematic-site .hero-art { display: none; }
 .decor-page-layer { display:block !important; visibility:visible !important; }
 .decor-character { z-index:1; }
 .decor-character img { opacity:1 !important; }
-body::after {
-  content:"AVATAR PREVIEW V2";
-  position:fixed;
-  right:14px;
-  bottom:14px;
-  z-index:99999;
-  padding:7px 10px;
-  border:1px solid rgba(190,90,255,.45);
-  border-radius:8px;
-  background:rgba(8,8,15,.76);
-  color:#dca7ff;
-  font:700 10px/1 system-ui;
-  letter-spacing:.12em;
-  pointer-events:none;
-}
-
-
 /* =========================================================
    RPC AVATARS V3 — hardcoded and guaranteed visible
    ========================================================= */
@@ -895,23 +878,6 @@ body::after {
 }
 
 /* Visible build marker */
-body::after {
-  content: "RPC AVATARS V3";
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  z-index: 999999;
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(205,110,255,.65);
-  background: rgba(8,8,16,.92);
-  color: #e1b4ff;
-  font: 800 11px/1 system-ui;
-  letter-spacing: .14em;
-  box-shadow: 0 0 25px rgba(170,70,255,.25);
-  pointer-events: none;
-}
-
 @media (max-width: 1100px) {
   .site-avatar-home,
   .site-avatar-prices,
@@ -976,11 +942,6 @@ body::after {
 .site-avatar-faq {
   left: -10px !important;
 }
-body::after {
-  content: "RPC AVATARS V4";
-}
-
-
 /* =========================================================
    V5 FORCE VISIBLE
    Uses viewport-fixed avatar layers to bypass page stacking contexts.
@@ -1075,10 +1036,6 @@ body::after {
 .hero-art {
   opacity: 0 !important;
   pointer-events: none !important;
-}
-
-body::after {
-  content: "RPC AVATARS V5";
 }
 
 @media (max-width: 1050px) {
@@ -1222,10 +1179,6 @@ main,
   filter: blur(18px);
 }
 
-body::after {
-  content: "RPC AVATARS V6";
-}
-
 @media (max-width: 1100px) {
   .site-avatar {
     opacity: 0.5 !important;
@@ -1251,10 +1204,6 @@ body::after {
 /* =========================================================
    V7 — per-page avatar tuning from user feedback
    ========================================================= */
-
-body::after {
-  content: "RPC AVATARS V7" !important;
-}
 
 /* 2) Price list — make the seated girl sit on the widgets */
 .page[data-page="prices"] .avatar-stage {
