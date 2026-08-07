@@ -9,7 +9,7 @@
  */
 window.RPC_AUTH_CONFIG = Object.freeze({
   supabaseUrl: "https://kltlmugbsyavyauexxyv.supabase.co",
-  supabasePublishableKey: "PASTE_SUPABASE_PUBLISHABLE_KEY_HERE",
+  supabasePublishableKey: "sb_publishable_NCCF2witA7aP2Ln7y4MT8A_KnDMIZsD",
 
   // Public Storage bucket created by SUPABASE_ACCOUNT_SETUP.sql.
   avatarBucket: "avatars",
