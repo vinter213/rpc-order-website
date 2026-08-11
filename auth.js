@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "2.1.0";
+  const VERSION = "2.1.1";
   const REMEMBER_KEY = "rpc_auth_remember_v2";
   const PENDING_EMAIL_KEY = "rpc_auth_pending_email_v2";
   const PENDING_NAME_KEY = "rpc_auth_pending_name_v2";
@@ -101,6 +101,9 @@
       codeSent: "Код отправлен. Проверьте папку «Спам», если письма нет.",
       loginSendFailed: "Не удалось отправить код. Проверьте, что аккаунт существует, либо откройте регистрацию.",
       registerSendFailed: "Не удалось создать аккаунт. Подождите и попробуйте ещё раз.",
+      emailNotAuthorized: "Эта почта пока не может получить код: для проекта не подключён публичный SMTP. Администратору RPC нужно подключить Custom SMTP в Supabase.",
+      emailRateLimit: "Слишком много писем отправлено. Подождите немного и запросите новый код позже.",
+      requestRateLimit: "Слишком много запросов с этого устройства или сети. Подождите несколько минут и попробуйте снова.",
       invalidCode: "Неверный или истёкший код. Проверьте цифры и попробуйте ещё раз.",
       sixDigits: "Введите все 6 цифр кода.",
       signedIn: "Вход выполнен.",
@@ -183,6 +186,9 @@
       codeSent: "Code sent. Check Spam if the email is missing.",
       loginSendFailed: "Could not send a code. Check that the account exists or open registration.",
       registerSendFailed: "Could not create the account. Wait and try again.",
+      emailNotAuthorized: "This email cannot receive a code yet because public SMTP is not configured for this project. The RPC administrator must enable Custom SMTP in Supabase.",
+      emailRateLimit: "Too many emails were sent. Wait a little and request a new code later.",
+      requestRateLimit: "Too many requests were sent from this device or network. Wait a few minutes and try again.",
       invalidCode: "The code is invalid or expired. Check the digits and try again.",
       sixDigits: "Enter all 6 digits.",
       signedIn: "Signed in successfully.",
@@ -614,10 +620,17 @@
       return true;
     } catch (error) {
       console.error("[RPC Auth] send OTP:", error);
-      const isRateLimit = /rate|seconds|limit/i.test(String(error?.message || ""));
-      const message = isRateLimit
-        ? String(error.message)
-        : text(currentMode === "register" ? "registerSendFailed" : "loginSendFailed");
+      const errorCode = String(error?.code || "").toLowerCase();
+      let message;
+      if (errorCode === "email_address_not_authorized") {
+        message = text("emailNotAuthorized");
+      } else if (errorCode === "over_email_send_rate_limit") {
+        message = text("emailRateLimit");
+      } else if (errorCode === "over_request_rate_limit") {
+        message = text("requestRateLimit");
+      } else {
+        message = text(currentMode === "register" ? "registerSendFailed" : "loginSendFailed");
+      }
       setStatus(resend ? codeStatus : emailStatus, message, "error");
       return false;
     } finally {

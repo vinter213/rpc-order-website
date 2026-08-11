@@ -30,6 +30,14 @@ Never upload these to GitHub:
 - Resend re_... key
 - Discord Client Secret
 
+
+0. IMPORTANT: PUBLIC EMAIL REGISTRATION
+--------------------------------------
+Supabase default SMTP is only for testing and may send Auth emails only to
+project/organization member addresses. For real users, configure Custom SMTP:
+Supabase -> Authentication -> Email / Notifications -> SMTP Settings.
+Recommended providers include Resend, Postmark, SendGrid, Brevo, or AWS SES.
+
 1. AVATAR STORAGE
 -----------------
 Supabase Dashboard -> SQL Editor -> New query.
