@@ -103,6 +103,33 @@ const uiText = {
   }
 };
 
+Object.assign(uiText.ru, {
+  reviewMediaTooMany: "К отзыву можно прикрепить не более 5 фотографий.",
+  reviewMediaTooLarge: "Файл «{name}» больше 8 МБ.",
+  reviewMediaInvalid: "Файл «{name}» не является допустимым PNG, JPG или WEBP.",
+  reviewMediaLogin: "Для прикрепления фотографий войдите в аккаунт RPC.",
+  reviewMediaUploadFailed: "Не удалось загрузить фотографии отзыва.",
+  reviewMediaEmpty: "Фотографии не выбраны",
+  portfolioLoading: "Загрузка портфолио…",
+  portfolioEmpty: "Пока нет опубликованных работ.",
+  portfolioUnavailable: "Портфолио Supabase временно недоступно — показаны сохранённые работы.",
+  mediaCount: "{count} медиа",
+  videoBadge: "видео"
+});
+Object.assign(uiText.en, {
+  reviewMediaTooMany: "You can attach up to 5 review photos.",
+  reviewMediaTooLarge: "The file “{name}” is larger than 8 MB.",
+  reviewMediaInvalid: "The file “{name}” is not a valid PNG, JPG, or WEBP image.",
+  reviewMediaLogin: "Sign in to your RPC account to attach photos.",
+  reviewMediaUploadFailed: "Could not upload review photos.",
+  reviewMediaEmpty: "No photos selected",
+  portfolioLoading: "Loading portfolio…",
+  portfolioEmpty: "There are no published works yet.",
+  portfolioUnavailable: "Supabase portfolio is temporarily unavailable — saved works are shown.",
+  mediaCount: "{count} media",
+  videoBadge: "video"
+});
+
 const staticEnglish = {
   "Главная":"Home","Прайс-лист":"Pricing","Валюта":"Currency","Определяем страну…":"Detecting country…","Наши работы":"Our work","Отзывы":"Reviews","Создать заказ":"Create order","Правила":"Rules","Создать тикет":"Create ticket","Онлайн":"Online",
   "Принимаем заказы":"Commissions open","Ответ обычно в Telegram":"We usually reply on Telegram","VRCHAT · АВАТАРЫ · МИРЫ":"VRCHAT · AVATARS · WORLDS","Создаём проекты,":"We create projects","которые выделяются":"that stand out",
@@ -111,11 +138,21 @@ const staticEnglish = {
   "УСЛУГИ":"SERVICES","Выберите категорию":"Choose a category","Смотреть прайс →":"View pricing →","VRChat-аватар":"VRChat avatar","VRChat-мир":"VRChat world","VRChat-аватары":"VRChat avatars","Настройка, кастомизация, функции, PhysBone и визуальные эффекты.":"Setup, customization, features, PhysBone, and visual effects.","Оформить заказ →":"Create order →","VRChat-миры":"VRChat worlds","Локации, освещение, интерактив, Udon-системы и оптимизация.":"Locations, lighting, interactions, Udon systems, and optimization.","Quest-версия":"Quest version","Подготовка аватаров и миров под ограничения Android / Quest.":"Preparing avatars and worlds for Android / Quest limits.","Оптимизация":"Optimization","Материалы, текстуры, полигоны, PhysBone и производительность.":"Materials, textures, polygons, PhysBone, and performance.",
   "ПРОЦЕСС":"PROCESS","Как всё проходит":"How it works","Категория":"Category","Выбираете нужную услугу.":"Choose the required service.","Читаете условия категории.":"Read the category rules.","Тикет":"Ticket","Описываете задачу.":"Describe your task.","Связь":"Contact","Мы отвечаем в Telegram.":"We reply on Telegram.","ПОРТФОЛИО":"PORTFOLIO","Посмотреть наши работы":"View our work",
   "УСЛУГИ И СТОИМОСТЬ":"SERVICES AND PRICING","Финальная стоимость зависит от сложности, исходных материалов и сроков. Точная цена определяется после обсуждения.":"The final price depends on complexity, source materials, and deadlines. The exact cost is determined after discussion.","от 5 000 ₸":"from 5,000 ₸","Загрузка и базовая настройка":"Upload and basic setup","Добавление ассетов и функций":"Adding assets and features","Меню, анимации и PhysBone":"Menus, animations, and PhysBone","PC / Quest подготовка":"PC / Quest preparation","Заказать →":"Order →","по расчёту":"custom quote","Создание локации":"Location creation","Освещение и атмосфера":"Lighting and atmosphere","Udon и интерактив":"Udon and interactions","Оптимизация PC / Quest":"PC / Quest optimization","от 3 000 ₸":"from 3,000 ₸","Quest-портирование":"Quest porting","Мобильные материалы":"Mobile materials","Сжатие текстур":"Texture compression","Оптимизация мешей":"Mesh optimization","Проверка ограничений SDK":"SDK limit checks","от 2 000 ₸":"from 2,000 ₸","Исправления":"Fixes","Ошибки Unity и SDK":"Unity and SDK errors","Оптимизация проекта":"Project optimization","Настройка систем":"System setup","Консультация по проекту":"Project consultation","Цены являются ориентировочными и редактируются в файле":"Prices are approximate and can be edited in","Цены являются ориентировочными. Основная валюта — KZT; пересчёт выполняется автоматически.":"Prices are approximate. KZT is the base currency; conversion is automatic.","Курсы:":"Rates:",
-  "Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.":"Examples of presentation and visual direction. Replace these images with your own projects.","2 фото":"2 images","Система заказов и документации.":"Commission and documentation system.","Фирменный визуальный стиль.":"Brand visual identity.","Добавьте проект":"Add a project","Укажите несколько файлов в data-images.":"Add multiple files in data-images.",
+  "2 фото":"2 images","Система заказов и документации.":"Commission and documentation system.","Фирменный визуальный стиль.":"Brand visual identity.",
   "Загрузка отзывов…":"Loading reviews…","МНЕНИЯ КЛИЕНТОВ":"CLIENT FEEDBACK","Отзывы загружаются с общей базы данных, поэтому все посетители видят один и тот же список.":"Reviews are loaded from a shared database, so every visitor sees the same list.","средняя оценка":"average rating","Обновить":"Refresh","ОСТАВИТЬ ОТЗЫВ":"LEAVE A REVIEW","Расскажите о заказе":"Tell us about your commission","Имя / никнейм":"Name / nickname","Функции / системы":"Features / systems","Другое":"Other","Оценка":"Rating","★★★★★ — отлично":"★★★★★ — excellent","★★★★☆ — хорошо":"★★★★☆ — good","★★★☆☆ — нормально":"★★★☆☆ — average","★★☆☆☆ — есть замечания":"★★☆☆☆ — needs improvement","★☆☆☆☆ — плохо":"★☆☆☆☆ — poor","Текст отзыва":"Review text","ЗАЩИТА ОТ СПАМА":"SPAM PROTECTION","Загрузка проверки безопасности…":"Loading security verification…","Отправить отзыв →":"Submit review →","Отзыв может появиться сразу или после проверки — зависит от настроек модерации.":"The review may appear immediately or after moderation, depending on the current settings.",
   "ПОМОЩЬ":"HELP","Частые вопросы":"Frequently asked questions","Основные юридические и рабочие условия находятся на отдельном сайте правил.":"The main legal and working terms are available on the separate rules website.","Когда начинается работа?":"When does work begin?","После обсуждения задачи, согласования стоимости и получения предоплаты.":"After the task, price, and advance payment are agreed.","Сколько правок входит в заказ?":"How many revisions are included?","Две небольшие правки. Серьёзные изменения и полная переделка считаются отдельно.":"Two minor revisions are included. Major changes and complete reworks are priced separately.","Можно заказать Quest-версию?":"Can I order a Quest version?","Да. Quest-портирование можно выбрать отдельной категорией или добавить к основному заказу.":"Yes. Quest porting can be selected as a separate category or added to the main commission.","Куда приходит заявка?":"Where is the request sent?","После отправки форма передаёт заявку и вложения защищённому серверу, а сервер отправляет их владельцу через Telegram-бота.":"The form sends the request and attachments to a protected server, which forwards them through a Telegram bot.","Статистика посещений общая для всех?":"Are visitor statistics shared?","Да. Счётчик хранится в общей базе данных, а сайт регулярно обновляет значения для всех посетителей.":"Yes. The counter is stored in a shared database and updated for all visitors.","Можно получить Unity-проект?":"Can I receive the Unity project?","Да, когда это заранее согласовано и не нарушает лицензии используемых ассетов.":"Yes, when agreed in advance and when it does not violate asset licenses.","Как защищены формы?":"How are forms protected?","Формы защищены серверной проверкой, ограничением частоты запросов, проверкой файлов и Cloudflare Turnstile.":"Forms are protected by server-side validation, rate limits, file checks, and Cloudflare Turnstile.","Все правила ↗":"All rules ↗","Создать тикет →":"Create ticket →",
   "НОВЫЙ ЗАКАЗ":"NEW COMMISSION","Заполните форму. Перед отправкой необходимо ознакомиться с правилами.":"Complete the form. You must read the rules before submitting.","Бюджет":"Budget","Описание заказа":"Commission description","ФАЙЛЫ К ТИКЕТУ":"TICKET ATTACHMENTS","До 5 файлов, не более 10 МБ каждый и 30 МБ суммарно.":"Up to 5 files, no more than 10 MB each and 30 MB total.","Выбрать файлы":"Select files","Файлы не выбраны":"No files selected","Открыть документацию с правилами ↗":"Open rules documentation ↗","Я ознакомился(-ась) с":"I have read the","правилами":"rules","и согласен(-на) с условиями.":"and agree to the terms.","Отправить тикет":"Send ticket","КОНТАКТ":"CONTACT","После отправки заявка автоматически придёт владельцу через Telegram-бота.":"After submission, the request is automatically delivered to the owner through the Telegram bot.","Открыть Telegram ↗":"Open Telegram ↗","ДОКУМЕНТАЦИЯ":"DOCUMENTATION","Единая ссылка":"Single rules hub","На сайте правил пользователь выбирает категорию: аватары или миры.":"On the rules website, the user chooses the avatar or world category.","Перейти к правилам ↗":"Open rules ↗","Работа RPC":"RPC project","Листайте стрелками, колёсиком или свайпом":"Use arrows, mouse wheel, or swipe","Всего посетителей:":"Total visitors:"
 };
+
+Object.assign(staticEnglish, {
+  "Аватары, миры, интерфейсы и другие проекты RPC.": "Avatars, worlds, interfaces, and other RPC projects.",
+  "ФОТО К ОТЗЫВУ": "REVIEW PHOTOS",
+  "До 5 изображений PNG, JPG или WEBP. До 8 МБ каждое.": "Up to 5 PNG, JPG, or WEBP images. Up to 8 MB each.",
+  "Выбрать фото": "Select photos",
+  "Фотографии не выбраны": "No photos selected",
+  "Для прикрепления фотографий требуется вход в аккаунт RPC.": "Sign in to your RPC account to attach photos.",
+  "Стрелки ← → · Esc — закрыть · свайп на телефоне": "Arrow keys ← → · Esc to close · swipe on mobile"
+});
 
 const placeholderEnglish = {
   "Как вас подписать":"How should we display your name?",
@@ -342,7 +379,8 @@ function showPage(route) {
   menuButton?.setAttribute("aria-expanded", "false");
   window.scrollTo({ top: 0, behavior: "smooth" });
   window.RPC_SEO?.update({ route: safe, language: currentLanguage });
-  if (safe === "reviews") loadReviews();
+  if (safe === "reviews") queueMicrotask(() => loadReviews());
+  if (safe === "works") queueMicrotask(() => loadPortfolio());
 }
 function routeFromHash() {
   const hash = location.hash.replace("#", "").split("?")[0] || "home";
@@ -576,26 +614,171 @@ async function sendPresence(){if(document.visibilityState!=="visible")return;try
 registerVisit(); setInterval(loadStats,30000); setInterval(sendPresence,55000); document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")sendPresence();});
 
 const reviewsList=document.getElementById("reviewsList"),reviewAverage=document.getElementById("reviewAverage"),reviewForm=document.getElementById("reviewForm"),reviewStatus=document.getElementById("reviewStatus"),refreshReviews=document.getElementById("refreshReviews");
-let reviewsLoaded=false; let latestReviews=[];
-function makeReviewCard(review){const card=document.createElement("article");card.className="review-card";const top=document.createElement("div");top.className="review-card-top";const identity=document.createElement("div");const avatar=document.createElement("span");avatar.className="review-avatar";avatar.textContent=(review.name||"R").trim().charAt(0).toUpperCase();const person=document.createElement("div");const name=document.createElement("strong");name.textContent=review.name;const type=document.createElement("small");type.textContent=categoryLabels[currentLanguage][review.project_type]||t("categoryFallback");person.append(name,type);identity.append(avatar,person);const stars=document.createElement("span");stars.className="review-stars";stars.setAttribute("aria-label",`${review.rating} / 5`);stars.textContent="★".repeat(review.rating)+"☆".repeat(5-review.rating);const text=document.createElement("p");text.textContent=review.body;const date=document.createElement("time");const parsed=new Date(review.created_at);date.dateTime=parsed.toISOString();date.textContent=parsed.toLocaleDateString(uiText[currentLanguage].onlineLocale,{day:"2-digit",month:"long",year:"numeric"});top.append(identity,stars);card.append(top,text,date);return card;}
-function renderReviewsFromCache(){if(!reviewsList)return;reviewsList.replaceChildren();if(!latestReviews.length){const empty=document.createElement("div");empty.className="review-empty";empty.textContent=t("noReviews");reviewsList.append(empty);if(reviewAverage)reviewAverage.textContent="—";}else{latestReviews.forEach(review=>reviewsList.append(makeReviewCard(review)));const average=latestReviews.reduce((sum,review)=>sum+Number(review.rating||0),0)/latestReviews.length;if(reviewAverage)reviewAverage.textContent=`${average.toFixed(1)} / 5`;}}
-async function loadReviews(force=false){if(reviewsLoaded&&!force)return;if(!reviewsList)return;reviewsList.innerHTML=`<div class="review-empty">${t("reviewsLoading")}</div>`;try{const response=await fetch(`${API_BASE}/api/reviews`,{cache:"no-store"});const result=await readJsonResponse(response);latestReviews=Array.isArray(result.reviews)?result.reviews:[];renderReviewsFromCache();reviewsLoaded=true;if(totalReviews)totalReviews.textContent=Number(result.count||latestReviews.length).toLocaleString(uiText[currentLanguage].onlineLocale);}catch(error){console.error(error);reviewsList.innerHTML=`<div class="review-empty error">${t("reviewsLoadError")}</div>`;}}
-refreshReviews?.addEventListener("click",()=>{reviewsLoaded=false;loadReviews(true);loadStats();});
-reviewForm?.addEventListener("submit",async event=>{event.preventDefault();reviewStatus.className="form-status";reviewStatus.textContent="";if(reviewForm.elements.website.value)return;if(!reviewForm.checkValidity())return reviewForm.reportValidity();if(!reviewTurnstileToken){reviewStatus.className="form-status error";reviewStatus.textContent=t("securityRequired");return;}reviewSubmit.disabled=true;reviewSubmit.textContent=t("sending");const data=Object.fromEntries(new FormData(reviewForm).entries());data.turnstileToken=reviewTurnstileToken;data.language=currentLanguage;const authUser=window.RPC_AUTH?.user;if(authUser){const meta=authUser.user_metadata||{};data.accountId=authUser.id||"";data.accountEmail=authUser.email||"";data.accountVerified=Boolean(authUser.email_confirmed_at);data.accountName=meta.display_name||meta.full_name||meta.name||"";data.accountAvatar=meta.rpc_avatar_url||meta.avatar_url||meta.picture||"";}try{const response=await fetch(`${API_BASE}/api/reviews`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await readJsonResponse(response);reviewStatus.className="form-status success";reviewStatus.textContent=result.published?t("reviewPublished"):t("reviewModeration");reviewForm.reset();if(reviewStartedAt)reviewStartedAt.value=String(Date.now());reviewTurnstileToken="";if(window.turnstile&&reviewTurnstileWidget!==null)window.turnstile.reset(reviewTurnstileWidget);reviewsLoaded=false;if(result.published)await loadReviews(true);loadStats();}catch(error){console.error(error);reviewStatus.className="form-status error";reviewStatus.textContent=error.message||t("reviewSendError");}finally{reviewSubmit.textContent=t("submitReview");updateReviewSubmitState();}});
-loadReviews();
+const reviewFilesInput=document.getElementById("reviewFiles"),reviewMediaPreview=document.getElementById("reviewMediaPreview"),reviewMediaHint=document.getElementById("reviewMediaHint");
+const worksGrid=document.getElementById("worksGrid"),portfolioStatus=document.getElementById("portfolioStatus");
+const REVIEW_MEDIA_BUCKET="review-media",PORTFOLIO_MEDIA_BUCKET="portfolio-media";
+const MAX_REVIEW_FILES=5,MAX_REVIEW_FILE_BYTES=8*1024*1024;
+let reviewsLoaded=false,latestReviews=[],reviewMediaMap=new Map(),selectedReviewFiles=[],portfolioLoaded=false,rpcDataClient=null;
 
-const galleryModal=document.getElementById("galleryModal"),galleryImage=document.getElementById("galleryImage"),galleryTitle=document.getElementById("galleryTitle"),galleryCounter=document.getElementById("galleryCounter"),galleryPrev=document.querySelector(".gallery-prev"),galleryNext=document.querySelector(".gallery-next");let galleryItems=[],galleryIndex=0,touchStartX=0,lastWheelAt=0;
-function updateGallery(){if(!galleryItems.length||!galleryImage)return;galleryIndex=(galleryIndex+galleryItems.length)%galleryItems.length;galleryImage.classList.add("changing");setTimeout(()=>{galleryImage.src=galleryItems[galleryIndex];galleryImage.alt=t("workImageAlt",{title:galleryTitle?.textContent||t("galleryWork"),index:galleryIndex+1});galleryCounter.textContent=`${galleryIndex+1} / ${galleryItems.length}`;galleryPrev.hidden=galleryItems.length<2;galleryNext.hidden=galleryItems.length<2;galleryImage.classList.remove("changing");},80);}
-function openGallery(card){const images=(card.dataset.images||"").split("|").map(value=>value.trim()).filter(Boolean);if(!images.length)return;galleryItems=images;galleryIndex=0;galleryTitle.textContent=card.dataset.workTitle||card.querySelector("h2")?.textContent||t("galleryWork");galleryModal.classList.add("open");galleryModal.setAttribute("aria-hidden","false");document.body.classList.add("gallery-open");updateGallery();document.querySelector(".gallery-close")?.focus();}
-function closeGallery(){galleryModal?.classList.remove("open");galleryModal?.setAttribute("aria-hidden","true");document.body.classList.remove("gallery-open");if(galleryImage)galleryImage.src="";}
+function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
+async function getDataClient({authenticated=false}={}){
+  const started=Date.now();
+  while(Date.now()-started<4500){
+    if(window.RPC_AUTH?.client){rpcDataClient=window.RPC_AUTH.client;return rpcDataClient;}
+    if(!authenticated&&rpcDataClient)return rpcDataClient;
+    await wait(60);
+  }
+  if(authenticated)return null;
+  if(rpcDataClient)return rpcDataClient;
+  const config=window.RPC_AUTH_CONFIG;
+  if(window.supabase?.createClient&&config?.supabaseUrl&&config?.supabasePublishableKey){
+    rpcDataClient=window.supabase.createClient(config.supabaseUrl,config.supabasePublishableKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
+    return rpcDataClient;
+  }
+  return null;
+}
+function normalizeReviewPart(value){return String(value??"").trim().replace(/\s+/g," ").toLowerCase();}
+function reviewMatchKey(review){
+  const input=[review.name,review.project_type??review.projectType,review.rating,review.body].map(normalizeReviewPart).join("|");
+  let h1=0x811c9dc5,h2=0x9e3779b9;
+  for(let i=0;i<input.length;i++){const c=input.charCodeAt(i);h1=Math.imul(h1^c,0x01000193)>>>0;h2=(Math.imul(h2^c,0x85ebca6b)+(i+1))>>>0;}
+  return `${h1.toString(16).padStart(8,"0")}${h2.toString(16).padStart(8,"0")}`;
+}
+function safeDate(value){const parsed=new Date(value);return Number.isNaN(parsed.getTime())?null:parsed;}
+function mediaForReview(review){
+  const byId=review?.id!=null?reviewMediaMap.get(`id:${String(review.id)}`):null;
+  return byId||reviewMediaMap.get(`key:${reviewMatchKey(review)}`)||[];
+}
+async function loadReviewMediaMap(){
+  reviewMediaMap=new Map();
+  const client=await getDataClient(); if(!client)return;
+  const {data,error}=await client.rpc("rpc_public_review_media");
+  if(error){console.debug("Review media unavailable:",error.message);return;}
+  for(const row of data||[]){
+    const media={type:"image",url:row.public_url,poster:null,title:row.file_name||"Review image"};
+    for(const key of [row.review_id?`id:${row.review_id}`:null,row.review_match_key?`key:${row.review_match_key}`:null].filter(Boolean)){
+      if(!reviewMediaMap.has(key))reviewMediaMap.set(key,[]);
+      reviewMediaMap.get(key).push(media);
+    }
+  }
+}
+function makeReviewCard(review){
+  const card=document.createElement("article");card.className="review-card";
+  const top=document.createElement("div");top.className="review-card-top";
+  const identity=document.createElement("div"),avatar=document.createElement("span");avatar.className="review-avatar";avatar.textContent=(review.name||"R").trim().charAt(0).toUpperCase();
+  const person=document.createElement("div"),name=document.createElement("strong"),type=document.createElement("small");name.textContent=review.name||"RPC";type.textContent=categoryLabels[currentLanguage][review.project_type]||t("categoryFallback");person.append(name,type);identity.append(avatar,person);
+  const rating=Math.max(1,Math.min(5,Number(review.rating)||5)),stars=document.createElement("span");stars.className="review-stars";stars.setAttribute("aria-label",`${rating} / 5`);stars.textContent="★".repeat(rating)+"☆".repeat(5-rating);
+  const text=document.createElement("p");text.textContent=review.body||"";top.append(identity,stars);card.append(top,text);
+  const media=mediaForReview(review);
+  if(media.length){card.classList.add("has-media");const strip=document.createElement("div");strip.className="review-card-media";media.slice(0,5).forEach((item,index)=>{const button=document.createElement("button");button.type="button";button.setAttribute("aria-label",`${t("galleryWork")} ${index+1}`);const image=document.createElement("img");image.loading="lazy";image.src=item.url;image.alt="";button.append(image);button.addEventListener("click",()=>openMediaViewer(media,review.name||t("galleryWork"),index));strip.append(button);});card.append(strip);}
+  const date=document.createElement("time"),parsed=safeDate(review.created_at);if(parsed){date.dateTime=parsed.toISOString();date.textContent=parsed.toLocaleDateString(uiText[currentLanguage].onlineLocale,{day:"2-digit",month:"long",year:"numeric"});}else date.textContent="—";card.append(date);return card;
+}
+function renderReviewsFromCache(){if(!reviewsList)return;reviewsList.replaceChildren();if(!latestReviews.length){const empty=document.createElement("div");empty.className="review-empty";empty.textContent=t("noReviews");reviewsList.append(empty);if(reviewAverage)reviewAverage.textContent="—";}else{latestReviews.forEach(review=>reviewsList.append(makeReviewCard(review)));const average=latestReviews.reduce((sum,review)=>sum+Number(review.rating||0),0)/latestReviews.length;if(reviewAverage)reviewAverage.textContent=`${average.toFixed(1)} / 5`;}}
+async function loadReviews(force=false){if(reviewsLoaded&&!force)return;if(!reviewsList)return;reviewsList.innerHTML=`<div class="review-empty">${t("reviewsLoading")}</div>`;try{const response=await fetch(`${API_BASE}/api/reviews`,{cache:"no-store"});const result=await readJsonResponse(response);latestReviews=Array.isArray(result.reviews)?result.reviews:[];await loadReviewMediaMap();renderReviewsFromCache();reviewsLoaded=true;if(totalReviews)totalReviews.textContent=Number(result.count||latestReviews.length).toLocaleString(uiText[currentLanguage].onlineLocale);}catch(error){console.error(error);reviewsList.innerHTML=`<div class="review-empty error">${t("reviewsLoadError")}</div>`;}}
+refreshReviews?.addEventListener("click",()=>{reviewsLoaded=false;loadReviews(true);loadStats();});
+
+function reviewMimeFromBytes(bytes){
+  if(bytes.length>=8&&bytes[0]===0x89&&bytes[1]===0x50&&bytes[2]===0x4e&&bytes[3]===0x47&&bytes[4]===0x0d&&bytes[5]===0x0a&&bytes[6]===0x1a&&bytes[7]===0x0a)return "image/png";
+  if(bytes.length>=3&&bytes[0]===0xff&&bytes[1]===0xd8&&bytes[2]===0xff)return "image/jpeg";
+  if(bytes.length>=12&&String.fromCharCode(...bytes.slice(0,4))==="RIFF"&&String.fromCharCode(...bytes.slice(8,12))==="WEBP")return "image/webp";
+  return null;
+}
+async function validateReviewImage(file){const bytes=new Uint8Array(await file.slice(0,16).arrayBuffer());const detected=reviewMimeFromBytes(bytes);if(!detected||file.size<=0||file.size>MAX_REVIEW_FILE_BYTES)return null;return detected;}
+function clearReviewFiles(){selectedReviewFiles.forEach(item=>URL.revokeObjectURL(item.preview));selectedReviewFiles=[];if(reviewFilesInput)reviewFilesInput.value="";renderReviewFilePreviews();}
+function renderReviewFilePreviews(){
+  if(!reviewMediaPreview)return;reviewMediaPreview.replaceChildren();
+  if(!selectedReviewFiles.length){const empty=document.createElement("span");empty.textContent=t("reviewMediaEmpty");reviewMediaPreview.append(empty);}else selectedReviewFiles.forEach((item,index)=>{const box=document.createElement("div");box.className="review-media-thumb";const img=document.createElement("img");img.src=item.preview;img.alt=item.file.name;const remove=document.createElement("button");remove.type="button";remove.textContent="×";remove.setAttribute("aria-label",t("removeFile",{name:item.file.name}));remove.addEventListener("click",()=>{URL.revokeObjectURL(item.preview);selectedReviewFiles.splice(index,1);renderReviewFilePreviews();});box.append(img,remove);reviewMediaPreview.append(box);});
+  if(reviewMediaHint)reviewMediaHint.textContent=window.RPC_AUTH?.user?`${selectedReviewFiles.length} / ${MAX_REVIEW_FILES}`:t("reviewMediaLogin");
+}
+reviewFilesInput?.addEventListener("change",async()=>{
+  const files=[...(reviewFilesInput.files||[])];
+  if(files.length>MAX_REVIEW_FILES){reviewStatus.className="form-status error";reviewStatus.textContent=t("reviewMediaTooMany");reviewFilesInput.value="";return;}
+  const next=[];
+  for(const file of files){
+    if(file.size>MAX_REVIEW_FILE_BYTES){reviewStatus.className="form-status error";reviewStatus.textContent=t("reviewMediaTooLarge",{name:file.name});next.forEach(item=>URL.revokeObjectURL(item.preview));reviewFilesInput.value="";return;}
+    const mime=await validateReviewImage(file);if(!mime){reviewStatus.className="form-status error";reviewStatus.textContent=t("reviewMediaInvalid",{name:file.name});next.forEach(item=>URL.revokeObjectURL(item.preview));reviewFilesInput.value="";return;}
+    next.push({file,mime,preview:URL.createObjectURL(file)});
+  }
+  selectedReviewFiles.forEach(item=>URL.revokeObjectURL(item.preview));selectedReviewFiles=next;reviewStatus.textContent="";renderReviewFilePreviews();
+});
+function fileExtensionForMime(mime){return mime==="image/png"?"png":mime==="image/webp"?"webp":"jpg";}
+async function createReviewMediaDraft(data){
+  if(!selectedReviewFiles.length)return null;
+  const client=await getDataClient({authenticated:true}),user=window.RPC_AUTH?.user;
+  if(!client||!user){window.RPC_AUTH?.open?.();throw new Error(t("reviewMediaLogin"));}
+  const submissionRef=crypto.randomUUID(),matchKey=reviewMatchKey({name:data.name,projectType:data.projectType,rating:data.rating,body:data.body}),uploaded=[];
+  try{
+    for(const item of selectedReviewFiles){
+      const path=`${user.id}/${submissionRef}/${crypto.randomUUID()}.${fileExtensionForMime(item.mime)}`;
+      const {error}=await client.storage.from(REVIEW_MEDIA_BUCKET).upload(path,item.file,{contentType:item.mime,cacheControl:"31536000",upsert:false});if(error)throw error;
+      const {data:publicData}=client.storage.from(REVIEW_MEDIA_BUCKET).getPublicUrl(path);uploaded.push({path,url:publicData.publicUrl,file:item.file,mime:item.mime});
+    }
+    const rows=uploaded.map(item=>({review_match_key:matchKey,submission_ref:submissionRef,owner_id:user.id,review_name:String(data.name||""),review_body:String(data.body||""),review_rating:Number(data.rating)||null,review_project_type:String(data.projectType||""),storage_path:item.path,public_url:item.url,file_name:item.file.name,mime_type:item.mime,size_bytes:item.file.size,published:false}));
+    const {error}=await client.from("rpc_review_media").insert(rows);if(error)throw error;
+    return {client,user,submissionRef,matchKey,uploaded};
+  }catch(error){if(uploaded.length)await client.storage.from(REVIEW_MEDIA_BUCKET).remove(uploaded.map(item=>item.path)).catch(()=>{});throw error;}
+}
+async function cleanupReviewMediaDraft(draft){if(!draft)return;try{await draft.client.from("rpc_review_media").delete().eq("submission_ref",draft.submissionRef).eq("owner_id",draft.user.id);}catch{}if(draft.uploaded.length)try{await draft.client.storage.from(REVIEW_MEDIA_BUCKET).remove(draft.uploaded.map(item=>item.path));}catch{}}
+reviewForm?.addEventListener("submit",async event=>{
+  event.preventDefault();reviewStatus.className="form-status";reviewStatus.textContent="";if(reviewForm.elements.website.value)return;if(!reviewForm.checkValidity())return reviewForm.reportValidity();if(!reviewTurnstileToken){reviewStatus.className="form-status error";reviewStatus.textContent=t("securityRequired");return;}
+  reviewSubmit.disabled=true;reviewSubmit.textContent=t("sending");const data=Object.fromEntries(new FormData(reviewForm).entries());data.turnstileToken=reviewTurnstileToken;data.language=currentLanguage;const authUser=window.RPC_AUTH?.user;if(authUser){const meta=authUser.user_metadata||{};data.accountId=authUser.id||"";data.accountEmail=authUser.email||"";data.accountVerified=Boolean(authUser.email_confirmed_at);data.accountName=meta.display_name||meta.full_name||meta.name||"";data.accountAvatar=meta.rpc_avatar_url||meta.avatar_url||meta.picture||"";}
+  let mediaDraft=null;
+  try{
+    mediaDraft=await createReviewMediaDraft(data);
+    if(mediaDraft){data.clientSubmissionId=mediaDraft.submissionRef;data.media=mediaDraft.uploaded.map(item=>({type:"image",url:item.url,path:item.path,mimeType:item.mime,size:item.file.size,name:item.file.name}));}
+    const response=await fetch(`${API_BASE}/api/reviews`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await readJsonResponse(response);
+    if(mediaDraft&&result.published){const reviewId=result.reviewId??result.id??result.review?.id??null;const {data:finalized,error}=await mediaDraft.client.rpc("rpc_finalize_review_media",{p_submission_ref:mediaDraft.submissionRef,p_review_id:reviewId==null?null:String(reviewId)});if(error||!Number(finalized||0))console.warn("Review media remains pending for admin moderation:",error?.message||"review link was not verifiable");}
+    reviewStatus.className="form-status success";reviewStatus.textContent=result.published?t("reviewPublished"):t("reviewModeration");reviewForm.reset();clearReviewFiles();if(reviewStartedAt)reviewStartedAt.value=String(Date.now());reviewTurnstileToken="";if(window.turnstile&&reviewTurnstileWidget!==null)window.turnstile.reset(reviewTurnstileWidget);reviewsLoaded=false;if(result.published)await loadReviews(true);loadStats();
+  }catch(error){console.error(error);if(mediaDraft)await cleanupReviewMediaDraft(mediaDraft);reviewStatus.className="form-status error";reviewStatus.textContent=error.message||t("reviewSendError");}
+  finally{reviewSubmit.textContent=t("submitReview");updateReviewSubmitState();renderReviewFilePreviews();}
+});
+
+const portfolioMediaByCard=new WeakMap();
+function normalizeMediaType(value,url=""){const type=String(value||"").toLowerCase();if(type==="video"||/\.(mp4|webm)(?:$|\?)/i.test(url))return "video";return "image";}
+function registerPortfolioCard(card,items){portfolioMediaByCard.set(card,items);card.querySelector(".work-image-button")?.addEventListener("click",()=>openMediaViewer(items,card.dataset.workTitle||card.querySelector("h2")?.textContent||t("galleryWork"),0));}
+function bindLegacyGalleryCards(){document.querySelectorAll(".gallery-work").forEach(card=>{if(portfolioMediaByCard.has(card))return;const items=(card.dataset.images||"").split("|").map(value=>value.trim()).filter(Boolean).map(url=>({type:"image",url,poster:null}));if(items.length)registerPortfolioCard(card,items);});}
+function buildPortfolioCard(item,index){
+  const media=[...(item.rpc_portfolio_media||[])].sort((a,b)=>(a.sort_order||0)-(b.sort_order||0));const gallery=media.map(row=>({type:normalizeMediaType(row.media_type,row.public_url),url:row.public_url,poster:row.poster_url||null,title:row.file_name||item.title}));
+  const card=document.createElement("article");card.className=`work-card gallery-work${index===0?" wide":""}${gallery[0]?.type==="video"?" is-video":""}`;card.dataset.workTitle=item.title||t("galleryWork");
+  const button=document.createElement("button");button.type="button";button.className="work-image-button";button.setAttribute("aria-label",`${t("galleryWork")}: ${item.title||"RPC"}`);
+  const cover=document.createElement("img");cover.className="protected-image";cover.draggable=false;cover.loading="lazy";cover.alt=item.title||"RPC";cover.src=gallery[0]?.type==="video"?(gallery[0].poster||"rpc-avatar.png"):(gallery[0]?.url||"rpc-avatar.png");button.append(cover);
+  if(gallery.length){const badge=document.createElement("span");badge.className="gallery-badge";badge.textContent=gallery.length===1&&gallery[0].type==="video"?t("videoBadge"):t("mediaCount",{count:gallery.length});button.append(badge);}
+  const info=document.createElement("div"),category=document.createElement("b"),title=document.createElement("h2"),desc=document.createElement("p");category.textContent=item.category||"RPC";title.textContent=item.title||"RPC";desc.textContent=item.description||"";info.append(category,title,desc);card.append(button,info);if(gallery.length)registerPortfolioCard(card,gallery);return card;
+}
+async function loadPortfolio(force=false){
+  if(portfolioLoaded&&!force)return;if(!worksGrid)return;if(portfolioStatus){portfolioStatus.className="portfolio-status";portfolioStatus.textContent=t("portfolioLoading");}
+  const client=await getDataClient();if(!client){if(portfolioStatus){portfolioStatus.classList.add("error");portfolioStatus.textContent=t("portfolioUnavailable");}bindLegacyGalleryCards();return;}
+  try{
+    const {data,error}=await client.from("rpc_portfolio_items").select("id,title,description,category,sort_order,published,rpc_portfolio_media(id,media_type,public_url,poster_url,file_name,sort_order)").eq("published",true).order("sort_order",{ascending:true}).order("created_at",{ascending:false});if(error)throw error;
+    worksGrid.replaceChildren();if(!data?.length){const empty=document.createElement("div");empty.className="review-empty";empty.textContent=t("portfolioEmpty");worksGrid.append(empty);}else data.forEach((item,index)=>worksGrid.append(buildPortfolioCard(item,index)));portfolioLoaded=true;if(portfolioStatus)portfolioStatus.textContent="";
+  }catch(error){console.debug("Portfolio fallback:",error?.message||error);if(portfolioStatus){portfolioStatus.classList.add("error");portfolioStatus.textContent=t("portfolioUnavailable");}bindLegacyGalleryCards();}
+}
+
+const galleryModal=document.getElementById("galleryModal"),galleryImage=document.getElementById("galleryImage"),galleryVideo=document.getElementById("galleryVideo"),galleryTitle=document.getElementById("galleryTitle"),galleryCounter=document.getElementById("galleryCounter"),galleryPrev=document.querySelector(".gallery-prev"),galleryNext=document.querySelector(".gallery-next"),galleryFullscreen=document.getElementById("galleryFullscreen");
+let galleryItems=[],galleryIndex=0,touchStartX=0,lastWheelAt=0,galleryRestoreFocus=null,galleryScrollY=0,galleryUpdateToken=0;
+function stopGalleryVideo(){if(!galleryVideo)return;galleryVideo.pause();galleryVideo.removeAttribute("src");galleryVideo.removeAttribute("poster");galleryVideo.load();}
+function updateGallery(){
+  if(!galleryItems.length)return;galleryIndex=(galleryIndex+galleryItems.length)%galleryItems.length;const item=galleryItems[galleryIndex],isVideo=item.type==="video",token=++galleryUpdateToken,currentIndex=galleryIndex,currentCount=galleryItems.length;if(galleryImage)galleryImage.classList.add("changing");if(galleryVideo)galleryVideo.classList.add("changing");
+  setTimeout(()=>{if(token!==galleryUpdateToken||!galleryModal?.classList.contains("open"))return;stopGalleryVideo();if(isVideo&&galleryVideo){galleryImage.hidden=true;galleryVideo.hidden=false;galleryVideo.src=item.url;galleryVideo.poster=item.poster||"";galleryVideo.load();galleryFullscreen.hidden=false;}else if(galleryImage){galleryVideo.hidden=true;galleryImage.hidden=false;galleryImage.src=item.url;galleryImage.alt=t("workImageAlt",{title:galleryTitle?.textContent||t("galleryWork"),index:currentIndex+1});galleryFullscreen.hidden=true;}if(galleryCounter)galleryCounter.textContent=`${currentIndex+1} / ${currentCount}`;if(galleryPrev)galleryPrev.hidden=currentCount<2;if(galleryNext)galleryNext.hidden=currentCount<2;galleryImage?.classList.remove("changing");galleryVideo?.classList.remove("changing");},70);
+}
+function openMediaViewer(items,title,index=0){galleryItems=(items||[]).filter(item=>item?.url).map(item=>({type:normalizeMediaType(item.type,item.url),url:item.url,poster:item.poster||null,title:item.title||title}));if(!galleryItems.length)return;galleryIndex=Math.max(0,Math.min(Number(index)||0,galleryItems.length-1));galleryRestoreFocus=document.activeElement;galleryScrollY=window.scrollY;galleryTitle.textContent=title||t("galleryWork");galleryModal.classList.add("open");galleryModal.setAttribute("aria-hidden","false");document.body.classList.add("gallery-open");updateGallery();document.querySelector(".gallery-close")?.focus();}
+function closeGallery(){if(!galleryModal?.classList.contains("open"))return;galleryUpdateToken++;galleryModal.classList.remove("open");galleryModal.setAttribute("aria-hidden","true");document.body.classList.remove("gallery-open");stopGalleryVideo();if(galleryImage){galleryImage.src="";galleryImage.hidden=false;}if(galleryFullscreen)galleryFullscreen.hidden=true;galleryItems=[];requestAnimationFrame(()=>{window.scrollTo(0,galleryScrollY);if(galleryRestoreFocus instanceof HTMLElement)galleryRestoreFocus.focus({preventScroll:true});});}
 function moveGallery(step){if(galleryItems.length<2)return;galleryIndex+=step;updateGallery();}
-document.querySelectorAll(".gallery-work").forEach(card=>card.querySelector(".work-image-button")?.addEventListener("click",()=>openGallery(card)));document.querySelectorAll("[data-gallery-close]").forEach(button=>button.addEventListener("click",closeGallery));galleryPrev?.addEventListener("click",()=>moveGallery(-1));galleryNext?.addEventListener("click",()=>moveGallery(1));document.addEventListener("keydown",event=>{if(!galleryModal?.classList.contains("open"))return;if(event.key==="Escape")closeGallery();if(event.key==="ArrowLeft")moveGallery(-1);if(event.key==="ArrowRight")moveGallery(1);});galleryModal?.addEventListener("touchstart",event=>{touchStartX=event.changedTouches[0]?.clientX||0;},{passive:true});galleryModal?.addEventListener("touchend",event=>{const endX=event.changedTouches[0]?.clientX||0,delta=endX-touchStartX;if(Math.abs(delta)>45)moveGallery(delta>0?-1:1);},{passive:true});galleryModal?.addEventListener("wheel",event=>{if(galleryItems.length<2||Math.abs(event.deltaY)<8)return;const now=Date.now();if(now-lastWheelAt<450)return;lastWheelAt=now;moveGallery(event.deltaY>0?1:-1);},{passive:true});
+bindLegacyGalleryCards();
+document.querySelectorAll("[data-gallery-close]").forEach(button=>button.addEventListener("click",closeGallery));galleryPrev?.addEventListener("click",()=>moveGallery(-1));galleryNext?.addEventListener("click",()=>moveGallery(1));galleryFullscreen?.addEventListener("click",()=>{if(!galleryVideo?.hidden&&galleryVideo.requestFullscreen)galleryVideo.requestFullscreen().catch(()=>{});});
+document.addEventListener("keydown",event=>{if(!galleryModal?.classList.contains("open"))return;if(event.key==="Escape")closeGallery();else if(event.key==="ArrowLeft")moveGallery(-1);else if(event.key==="ArrowRight")moveGallery(1);});galleryModal?.addEventListener("touchstart",event=>{touchStartX=event.changedTouches[0]?.clientX||0;},{passive:true});galleryModal?.addEventListener("touchend",event=>{const endX=event.changedTouches[0]?.clientX||0,delta=endX-touchStartX;if(Math.abs(delta)>45)moveGallery(delta>0?-1:1);},{passive:true});galleryModal?.addEventListener("wheel",event=>{if(galleryItems.length<2||Math.abs(event.deltaY)<8)return;const now=Date.now();if(now-lastWheelAt<450)return;lastWheelAt=now;moveGallery(event.deltaY>0?1:-1);},{passive:true});
+
+loadReviews();
+if(location.hash.replace("#","").split("?")[0]==="works")loadPortfolio();
+renderReviewFilePreviews();
 
 function updateDynamicLanguage(){
   renderFiles();
   renderCurrencyUI();
   if (statsStatus && !statsStatus.textContent.includes("—")) loadStats();
   if (reviewsLoaded) renderReviewsFromCache();
+  renderReviewFilePreviews();
+  if (portfolioLoaded) loadPortfolio(true);
   if (orderSecurityStatus) orderSecurityStatus.textContent = orderTurnstileToken ? t("securityReady") : (turnstileConfig?.turnstileConfigured ? t("securityRequired") : t("orderSecurityLoading"));
   if (reviewSecurityStatus) reviewSecurityStatus.textContent = reviewTurnstileToken ? t("securityReady") : (turnstileConfig?.turnstileConfigured ? t("securityRequired") : t("reviewSecurityLoading"));
   if (submitButton && !submitButton.disabled) submitButton.textContent=t("submitTicket");

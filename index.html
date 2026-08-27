@@ -37,73 +37,15 @@
 <meta content="RPC • RedPad Creator — VRChat-проекты на заказ" name="twitter:image:alt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://rpc-order-website.onrender.com/#organization","name":"RPC • RedPad Creator","alternateName":"RPC","url":"https://rpc-order-website.onrender.com/","description":"Команда по созданию VRChat-аватаров, миров, Udon-систем, оптимизации и Quest-версий.","logo":{"@type":"ImageObject","@id":"https://rpc-order-website.onrender.com/#logo","url":"https://rpc-order-website.onrender.com/rpc-avatar.png","contentUrl":"https://rpc-order-website.onrender.com/rpc-avatar.png","width":1024,"height":1024},"image":{"@id":"https://rpc-order-website.onrender.com/#logo"},"sameAs":["https://t.me/ViNter294","https://discord.gg/25dXRyrw5a"]},{"@type":"WebSite","@id":"https://rpc-order-website.onrender.com/#website","url":"https://rpc-order-website.onrender.com/","name":"RPC • RedPad Creator","alternateName":"RPC Orders","publisher":{"@id":"https://rpc-order-website.onrender.com/#organization"},"inLanguage":["ru","en"]},{"@type":"ImageObject","@id":"https://rpc-order-website.onrender.com/#primaryimage","url":"https://rpc-order-website.onrender.com/og-image.png","contentUrl":"https://rpc-order-website.onrender.com/og-image.png","width":1200,"height":630},{"@type":"ItemList","@id":"https://rpc-order-website.onrender.com/#services","name":"Услуги RPC","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Service","name":"VRChat-аватары","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":2,"item":{"@type":"Service","name":"VRChat-миры","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":3,"item":{"@type":"Service","name":"Quest-портирование","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":4,"item":{"@type":"Service","name":"Оптимизация VRChat-проектов","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}}]}]}</script>
 <script id="rpc-page-schema" type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://rpc-order-website.onrender.com/#webpage","url":"https://rpc-order-website.onrender.com/","name":"RPC • RedPad Creator — VRChat-аватары и миры на заказ","description":"Заказ VRChat-аватаров и миров, Udon-систем, оптимизации и Quest-версий от команды RPC • RedPad Creator.","isPartOf":{"@id":"https://rpc-order-website.onrender.com/#website"},"about":{"@id":"https://rpc-order-website.onrender.com/#organization"},"primaryImageOfPage":{"@id":"https://rpc-order-website.onrender.com/#primaryimage"},"inLanguage":"ru"}</script>
-<link href="styles.css?v=12" rel="stylesheet"/>
+<link href="styles.css?v=14" rel="stylesheet"/>
 <script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
-<script defer src="loader.js"></script>
 <script defer charset="utf-8" data-rpc-seo="v9" src="./seo.js?v=9"></script>
-<script defer src="app.js?v=12"></script>
+<script defer src="app.js?v=14"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="auth-config.js?v=12"></script>
-<script defer src="auth.js?v=12"></script>
+<script defer src="auth-config.js?v=14"></script>
+<script defer src="auth.js?v=14"></script>
 </head>
-<body class="cinematic-site is-loading">
-<div class="rpc-loader" id="rpcLoader" role="status" aria-live="polite" aria-label="Загрузка сайта">
-  <canvas class="rpc-loader__particles" id="rpcLoaderParticles" aria-hidden="true"></canvas>
-  <div class="rpc-loader__background" aria-hidden="true"></div>
-  <div class="rpc-loader__bloom" aria-hidden="true"></div>
-  <div class="rpc-loader__fog" aria-hidden="true"></div>
-  <div class="rpc-loader__vignette" aria-hidden="true"></div>
-  <div class="rpc-loader__scanlines" aria-hidden="true"></div>
-  <div class="rpc-loader__scanner" aria-hidden="true"></div>
-  <div class="rpc-loader__glitches" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-
-  <div class="rpc-loader__topbar" aria-hidden="true">
-    <span><b></b> RPC NETWORK</span>
-    <span>RPC ORDERS · V4.0</span>
-  </div>
-
-  <div class="rpc-loader__stage">
-    <div class="rpc-loader__reactor" aria-hidden="true">
-      <span class="rpc-loader__ring rpc-loader__ring--outer"></span>
-      <span class="rpc-loader__ring rpc-loader__ring--middle"></span>
-      <span class="rpc-loader__ring rpc-loader__ring--inner"></span>
-      <span class="rpc-loader__orbit rpc-loader__orbit--one"><i></i></span>
-      <span class="rpc-loader__orbit rpc-loader__orbit--two"><i></i></span>
-      <span class="rpc-loader__core"></span>
-      <div class="rpc-loader__emblem">
-        <img class="rpc-loader__logo rpc-loader__logo--cyan protected-image" src="rpc-avatar.png" alt="" draggable="false"/>
-        <img class="rpc-loader__logo rpc-loader__logo--pink protected-image" src="rpc-avatar.png" alt="" draggable="false"/>
-        <img class="rpc-loader__logo rpc-loader__logo--main protected-image" src="rpc-avatar.png" alt="" draggable="false"/>
-      </div>
-    </div>
-
-    <div class="rpc-loader__brand" data-text="RPC">RPC</div>
-    <div class="rpc-loader__subtitle">REDPAD CREATOR <span>／</span> ORDERS</div>
-
-    <div class="rpc-loader__status">
-      <span class="rpc-loader__status-dot"></span>
-      <h1>ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ</h1>
-    </div>
-    <p id="rpcLoaderMessage">Подготовка интерфейса</p>
-
-    <div class="rpc-loader__progress-wrap">
-      <div class="rpc-loader__progress" aria-hidden="true">
-        <i id="rpcLoaderBar"><b></b></i>
-      </div>
-      <div class="rpc-loader__meta">
-        <span id="rpcLoaderPercent">0%</span>
-        <span id="rpcLoaderModule">CORE 01/05</span>
-        <button type="button" id="rpcLoaderSkip">ПРОПУСТИТЬ</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="rpc-loader__footer" aria-hidden="true">
-    <span>AVATARS · WORLDS · QUEST</span>
-    <span><b></b> SECURE CONNECTION</span>
-  </div>
-  <div class="rpc-loader__flash" aria-hidden="true"></div>
-</div>
+<body class="cinematic-site">
 <div class="rpc-global-bg" aria-hidden="true"></div>
 <div class="rpc-global-overlay" aria-hidden="true"></div>
 
@@ -214,29 +156,22 @@
 <div class="avatar-stage avatar-stage-works" aria-hidden="true">
   <img src="chibi_controller.png" alt="" class="site-avatar site-avatar-works protected-image" draggable="false">
 </div>
-<div class="page-intro reveal"><span>RPC PORTFOLIO</span><h1>Наши работы</h1><p>Примеры оформления и визуального направления. Здесь можно заменить изображения на собственные работы.</p></div>
-<div class="works-grid reveal delay-1">
-<!--
-          В data-images укажите все изображения одной работы через символ |.
-          Первое изображение используется как обложка карточки.
-          Пример: data-images="world-01.jpg|world-02.jpg|world-03.jpg"
-        -->
+<div class="page-intro reveal"><span>RPC PORTFOLIO</span><h1>Наши работы</h1><p>Аватары, миры, интерфейсы и другие проекты RPC.</p></div>
+<div class="portfolio-status" id="portfolioStatus" aria-live="polite"></div>
+<div class="works-grid reveal delay-1" id="worksGrid">
 <article class="work-card wide gallery-work" data-images="site-preview.png|rpc-avatar.png" data-work-title="RPC Orders">
 <button aria-label="Открыть галерею RPC Orders" class="work-image-button" type="button">
-<img alt="Интерфейс RPC" class="protected-image" draggable="false" src="site-preview.png"/>
+<img alt="Интерфейс RPC" class="protected-image" draggable="false" loading="lazy" src="site-preview.png"/>
 <span class="gallery-badge">2 фото</span>
 </button>
 <div><b>WEB / DESIGN</b><h2>RPC Orders</h2><p>Система заказов и документации.</p></div>
 </article>
 <article class="work-card gallery-work" data-images="rpc-avatar.png|site-preview.png" data-work-title="RPC Identity">
 <button aria-label="Открыть галерею RPC Identity" class="work-image-button" type="button">
-<img alt="RPC Avatar" class="protected-image contain" draggable="false" src="rpc-avatar.png"/>
+<img alt="RPC Avatar" class="protected-image contain" draggable="false" loading="lazy" src="rpc-avatar.png"/>
 <span class="gallery-badge">2 фото</span>
 </button>
 <div><b>BRANDING</b><h2>RPC Identity</h2><p>Фирменный визуальный стиль.</p></div>
-</article>
-<article class="work-card empty-work">
-<div class="plus">+</div><div><b>NEW WORK</b><h2>Добавьте проект</h2><p>Укажите несколько файлов в data-images.</p></div>
 </article>
 </div>
 </section>
@@ -288,6 +223,12 @@
 <label>Текст отзыва
             <textarea maxlength="1200" minlength="20" name="body" placeholder="Что заказывали и как прошла работа?" required=""></textarea>
 </label>
+<div class="review-media-upload">
+  <div class="review-media-head"><div><span>ФОТО К ОТЗЫВУ</span><p>До 5 изображений PNG, JPG или WEBP. До 8 МБ каждое.</p></div><label class="upload-button" for="reviewFiles">Выбрать фото</label></div>
+  <input accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" id="reviewFiles" multiple type="file"/>
+  <div class="review-media-preview" id="reviewMediaPreview"><span>Фотографии не выбраны</span></div>
+  <small id="reviewMediaHint">Для прикрепления фотографий требуется вход в аккаунт RPC.</small>
+</div>
 <input aria-hidden="true" autocomplete="off" class="honeypot" name="website" tabindex="-1"/>
 <div class="security-check"><span class="security-label">ЗАЩИТА ОТ СПАМА</span><div class="turnstile-box" id="reviewTurnstile"></div><p class="security-status" id="reviewSecurityStatus">Загрузка проверки безопасности…</p></div><button class="button primary submit" disabled="" id="reviewSubmit" type="submit">Отправить отзыв →</button>
 <p aria-live="polite" class="form-status" id="reviewStatus"></p>
@@ -361,11 +302,13 @@
 <button aria-label="Закрыть" class="gallery-close" data-gallery-close="" type="button">×</button>
 </div>
 <div class="gallery-stage">
-<button aria-label="Предыдущее изображение" class="gallery-arrow gallery-prev" type="button">‹</button>
-<img alt="" class="protected-image" draggable="false" id="galleryImage" src=""/>
-<button aria-label="Следующее изображение" class="gallery-arrow gallery-next" type="button">›</button>
+<button aria-label="Предыдущее медиа" class="gallery-arrow gallery-prev" type="button">‹</button>
+<img alt="" class="gallery-media gallery-media-image protected-image" draggable="false" id="galleryImage" src=""/>
+<video class="gallery-media gallery-media-video" controls playsinline preload="metadata" id="galleryVideo" hidden></video>
+<button aria-label="Следующее медиа" class="gallery-arrow gallery-next" type="button">›</button>
+<button aria-label="Полноэкранное видео" class="gallery-fullscreen" id="galleryFullscreen" type="button" hidden>⛶</button>
 </div>
-<div class="gallery-hint">Листайте стрелками, колёсиком или свайпом</div>
+<div class="gallery-hint">Стрелки ← → · Esc — закрыть · свайп на телефоне</div>
 </div>
 </div>
 
