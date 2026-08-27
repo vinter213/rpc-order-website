@@ -1056,3 +1056,49 @@ body.rpc-auth-open{overflow:hidden}
   .gallery-fullscreen{right:8px;bottom:8px}.review-media-head{align-items:flex-start;flex-direction:column}.review-media-preview{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 @media(max-width:430px){.review-media-preview{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* FIX 2026-08-27: unified Media Viewer must always show the complete image/video. */
+.gallery-stage{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+}
+.gallery-stage>.gallery-media{
+  flex:0 1 auto;
+  width:100%;
+  height:100%;
+  max-width:100%;
+  max-height:100%;
+  min-width:0;
+  min-height:0;
+  object-fit:contain!important;
+  object-position:center center!important;
+  margin:auto;
+}
+.gallery-stage>.gallery-media-image{
+  display:block;
+}
+.gallery-stage>.gallery-media-video{
+  display:block;
+  background:#000;
+}
+.gallery-stage>.gallery-media[hidden]{
+  display:none!important;
+}
+@media (min-width:761px){
+  .gallery-dialog{
+    width:min(96vw,1680px);
+    height:min(calc(100dvh - 32px),1050px);
+  }
+  .gallery-stage{
+    padding:14px 78px;
+  }
+}
+@media (max-width:760px){
+  .gallery-stage{
+    padding:8px 46px;
+  }
+}
