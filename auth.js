@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "2.1.1";
+  const VERSION = "2.2.0";
   const REMEMBER_KEY = "rpc_auth_remember_v2";
   const PENDING_EMAIL_KEY = "rpc_auth_pending_email_v2";
   const PENDING_NAME_KEY = "rpc_auth_pending_name_v2";
@@ -42,6 +42,9 @@
   const intro = $("#rpcAuthIntro");
   const modeHint = $("#rpcAuthModeHint");
   const socialTitle = $("#rpcAuthSocialTitle");
+  const rememberRow = $(".rpc-auth-remember");
+  const socialDivider = $(".rpc-auth-divider");
+  const socialGrid = $(".rpc-auth-social-grid");
   const configWarning = $("#rpcAuthConfigWarning");
   const otpInputs = $$('[data-rpc-otp]');
   const modeButtons = $$('[data-rpc-auth-mode]');
@@ -70,23 +73,23 @@
     ru: {
       openGuest: "Войти",
       openAccount: "Кабинет",
-      guestSubtitle: "Вход или регистрация",
+      guestSubtitle: "Вход или заявка",
       accountSubtitle: "Аккаунт подтверждён",
       title: "Аккаунт RPC",
       loginTab: "Вход",
-      registerTab: "Регистрация",
+      registerTab: "Заявка",
       loginIntro: "Введите почту от существующего аккаунта — мы отправим код для входа.",
-      registerIntro: "Создайте аккаунт RPC. На почту придёт одноразовый код подтверждения.",
-      loginHint: "Нет аккаунта? Перейдите во вкладку «Регистрация».",
-      registerHint: "Аккаунт уже есть? Перейдите во вкладку «Вход».",
+      registerIntro: "Отправьте заявку на аккаунт RPC. После одобрения администратором вы сможете войти по коду из письма.",
+      loginHint: "Нет аккаунта? Отправьте заявку во вкладке «Заявка».",
+      registerHint: "Уже получили одобрение? Перейдите во вкладку «Вход».",
       name: "Имя / никнейм",
       namePlaceholder: "Как к вам обращаться",
       email: "Электронная почта",
       emailPlaceholder: "name@example.com",
       remember: "Оставаться в аккаунте на этом устройстве",
       loginSend: "Получить код для входа",
-      registerSend: "Создать аккаунт",
-      sending: "Отправляем код…",
+      registerSend: "Отправить заявку",
+      sending: "Отправляем…",
       codeTitleLogin: "Код для входа",
       codeTitleRegister: "Подтвердите регистрацию",
       codeIntro: "Код отправлен на",
@@ -99,24 +102,27 @@
       invalidEmail: "Введите корректный адрес электронной почты.",
       invalidName: "Никнейм должен содержать от 2 до 32 символов.",
       codeSent: "Код отправлен. Проверьте папку «Спам», если письма нет.",
-      loginSendFailed: "Не удалось отправить код. Проверьте, что аккаунт существует, либо откройте регистрацию.",
-      registerSendFailed: "Не удалось создать аккаунт. Подождите и попробуйте ещё раз.",
+      loginSendFailed: "Не удалось отправить код. Проверьте, что аккаунт уже одобрен, либо отправьте заявку.",
+      registerSendFailed: "Не удалось отправить заявку. Подождите и попробуйте ещё раз.",
+      requestSubmitted: "Заявка отправлена. После одобрения откройте «Вход» и получите код на эту почту.",
+      requestPending: "Заявка с этой почтой уже ожидает решения администратора.",
+      requestExists: "Аккаунт с этой почтой уже существует. Перейдите во вкладку «Вход».",
       emailNotAuthorized: "Эта почта пока не может получить код: для проекта не подключён публичный SMTP. Администратору RPC нужно подключить Custom SMTP в Supabase.",
       emailRateLimit: "Слишком много писем отправлено. Подождите немного и запросите новый код позже.",
       requestRateLimit: "Слишком много запросов с этого устройства или сети. Подождите несколько минут и попробуйте снова.",
       invalidCode: "Неверный или истёкший код. Проверьте цифры и попробуйте ещё раз.",
       sixDigits: "Введите все 6 цифр кода.",
       signedIn: "Вход выполнен.",
-      registered: "Аккаунт создан и подтверждён.",
+      registered: "Аккаунт подтверждён.",
       verified: "Подтверждённый аккаунт",
       logout: "Выйти из аккаунта",
       logoutFailed: "Не удалось завершить сеанс. Перезагрузите страницу.",
-      setup: "Регистрация не подключена. Укажите Supabase URL и Publishable Key в auth-config.js.",
+      setup: "Аккаунты не подключены. Укажите Supabase URL и Publishable Key в auth-config.js.",
       connectionFailed: "Не удалось подключиться к системе аккаунтов.",
       accountSince: "Аккаунт сохранён в RPC",
       close: "Закрыть",
       socialLogin: "Или войдите через",
-      socialRegister: "Или зарегистрируйтесь через",
+      socialRegister: "",
       google: "Google",
       discord: "Discord",
       oauthStarting: "Открываем {provider}…",
@@ -155,23 +161,23 @@
     en: {
       openGuest: "Sign in",
       openAccount: "Dashboard",
-      guestSubtitle: "Sign in or register",
+      guestSubtitle: "Sign in or request access",
       accountSubtitle: "Verified account",
       title: "RPC account",
       loginTab: "Sign in",
-      registerTab: "Register",
+      registerTab: "Request",
       loginIntro: "Enter the email of an existing account and we will send a sign-in code.",
-      registerIntro: "Create an RPC account. A one-time verification code will be sent by email.",
-      loginHint: "No account? Open the Register tab.",
-      registerHint: "Already registered? Open the Sign in tab.",
+      registerIntro: "Request an RPC account. After admin approval, you can sign in with an email OTP code.",
+      loginHint: "No account? Send a request from the Request tab.",
+      registerHint: "Already approved? Open the Sign in tab.",
       name: "Name / nickname",
       namePlaceholder: "How should we address you?",
       email: "Email address",
       emailPlaceholder: "name@example.com",
       remember: "Keep me signed in on this device",
       loginSend: "Send sign-in code",
-      registerSend: "Create account",
-      sending: "Sending code…",
+      registerSend: "Send request",
+      sending: "Sending…",
       codeTitleLogin: "Sign-in code",
       codeTitleRegister: "Confirm registration",
       codeIntro: "The code was sent to",
@@ -184,15 +190,18 @@
       invalidEmail: "Enter a valid email address.",
       invalidName: "Nickname must be between 2 and 32 characters.",
       codeSent: "Code sent. Check Spam if the email is missing.",
-      loginSendFailed: "Could not send a code. Check that the account exists or open registration.",
-      registerSendFailed: "Could not create the account. Wait and try again.",
+      loginSendFailed: "Could not send a code. Check that the account is approved or send an access request.",
+      registerSendFailed: "Could not send the account request. Wait and try again.",
+      requestSubmitted: "Request sent. After approval, open Sign in and request a code for this email.",
+      requestPending: "A request for this email is already waiting for admin review.",
+      requestExists: "An account with this email already exists. Open the Sign in tab.",
       emailNotAuthorized: "This email cannot receive a code yet because public SMTP is not configured for this project. The RPC administrator must enable Custom SMTP in Supabase.",
       emailRateLimit: "Too many emails were sent. Wait a little and request a new code later.",
       requestRateLimit: "Too many requests were sent from this device or network. Wait a few minutes and try again.",
       invalidCode: "The code is invalid or expired. Check the digits and try again.",
       sixDigits: "Enter all 6 digits.",
       signedIn: "Signed in successfully.",
-      registered: "Account created and verified.",
+      registered: "Account verified.",
       verified: "Verified account",
       logout: "Sign out",
       logoutFailed: "Could not end the session. Reload the page.",
@@ -201,7 +210,7 @@
       accountSince: "Account saved in RPC",
       close: "Close",
       socialLogin: "Or sign in with",
-      socialRegister: "Or register with",
+      socialRegister: "",
       google: "Google",
       discord: "Discord",
       oauthStarting: "Opening {provider}…",
@@ -405,7 +414,11 @@
     if (intro) intro.textContent = text(currentMode === "register" ? "registerIntro" : "loginIntro");
     if (modeHint) modeHint.textContent = text(currentMode === "register" ? "registerHint" : "loginHint");
     if (socialTitle) socialTitle.textContent = text(currentMode === "register" ? "socialRegister" : "socialLogin");
-    if (sendButton && !sendButton.disabled) sendButton.textContent = text(currentMode === "register" ? "registerSend" : "loginSend");
+    const requestMode = currentMode === "register";
+    rememberRow?.toggleAttribute("hidden", requestMode);
+    socialDivider?.toggleAttribute("hidden", requestMode);
+    socialGrid?.toggleAttribute("hidden", requestMode);
+    if (sendButton && !sendButton.disabled) sendButton.textContent = text(requestMode ? "registerSend" : "loginSend");
     if (verifyButton && !verifyButton.disabled) verifyButton.textContent = text(currentMode === "register" ? "verifyRegister" : "verifyLogin");
     const codeTitle = $("#rpcAuthCodeTitle");
     if (codeTitle) codeTitle.textContent = text(currentMode === "register" ? "codeTitleRegister" : "codeTitleLogin");
@@ -609,9 +622,24 @@
     setStatus(codeStatus, "");
 
     try {
-      const options = { shouldCreateUser: currentMode === "register" };
-      if (currentMode === "register" && pendingName) options.data = { display_name: pendingName };
-      const { error } = await client.auth.signInWithOtp({ email, options });
+      if (currentMode === "register") {
+        const { data, error } = await client.rpc("rpc_submit_account_request", {
+          p_email: email,
+          p_display_name: name
+        });
+        if (error) throw error;
+        const status = String(data?.status || "submitted");
+        if (status === "exists") setStatus(emailStatus, text("requestExists"), "success");
+        else if (status === "pending") setStatus(emailStatus, text("requestPending"), "success");
+        else setStatus(emailStatus, text("requestSubmitted"), "success");
+        clearPendingAuth();
+        return true;
+      }
+
+      const { error } = await client.auth.signInWithOtp({
+        email,
+        options: { shouldCreateUser: false }
+      });
       if (error) throw error;
       setStep("code");
       resetOtpInputs();
@@ -967,11 +995,11 @@
 
   if (rememberInput) rememberInput.checked = rememberEnabled();
   setMode(currentMode, { clear: false });
-  if (pendingEmail) {
+  if (pendingEmail && currentMode === "login") {
     if (emailInput) emailInput.value = pendingEmail;
-    if (nameInput) nameInput.value = pendingName;
     setStep("code");
   } else {
+    if (currentMode === "register") clearPendingAuth();
     setStep("email");
   }
 

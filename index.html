@@ -37,13 +37,13 @@
 <meta content="RPC • RedPad Creator — VRChat-проекты на заказ" name="twitter:image:alt"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://rpc-order-website.onrender.com/#organization","name":"RPC • RedPad Creator","alternateName":"RPC","url":"https://rpc-order-website.onrender.com/","description":"Команда по созданию VRChat-аватаров, миров, Udon-систем, оптимизации и Quest-версий.","logo":{"@type":"ImageObject","@id":"https://rpc-order-website.onrender.com/#logo","url":"https://rpc-order-website.onrender.com/rpc-avatar.png","contentUrl":"https://rpc-order-website.onrender.com/rpc-avatar.png","width":1024,"height":1024},"image":{"@id":"https://rpc-order-website.onrender.com/#logo"},"sameAs":["https://t.me/ViNter294","https://discord.gg/25dXRyrw5a"]},{"@type":"WebSite","@id":"https://rpc-order-website.onrender.com/#website","url":"https://rpc-order-website.onrender.com/","name":"RPC • RedPad Creator","alternateName":"RPC Orders","publisher":{"@id":"https://rpc-order-website.onrender.com/#organization"},"inLanguage":["ru","en"]},{"@type":"ImageObject","@id":"https://rpc-order-website.onrender.com/#primaryimage","url":"https://rpc-order-website.onrender.com/og-image.png","contentUrl":"https://rpc-order-website.onrender.com/og-image.png","width":1200,"height":630},{"@type":"ItemList","@id":"https://rpc-order-website.onrender.com/#services","name":"Услуги RPC","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Service","name":"VRChat-аватары","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":2,"item":{"@type":"Service","name":"VRChat-миры","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":3,"item":{"@type":"Service","name":"Quest-портирование","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}},{"@type":"ListItem","position":4,"item":{"@type":"Service","name":"Оптимизация VRChat-проектов","provider":{"@id":"https://rpc-order-website.onrender.com/#organization"},"areaServed":"Worldwide"}}]}]}</script>
 <script id="rpc-page-schema" type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://rpc-order-website.onrender.com/#webpage","url":"https://rpc-order-website.onrender.com/","name":"RPC • RedPad Creator — VRChat-аватары и миры на заказ","description":"Заказ VRChat-аватаров и миров, Udon-систем, оптимизации и Quest-версий от команды RPC • RedPad Creator.","isPartOf":{"@id":"https://rpc-order-website.onrender.com/#website"},"about":{"@id":"https://rpc-order-website.onrender.com/#organization"},"primaryImageOfPage":{"@id":"https://rpc-order-website.onrender.com/#primaryimage"},"inLanguage":"ru"}</script>
-<link href="styles.css?v=14" rel="stylesheet"/>
+<link href="styles.css?v=16" rel="stylesheet"/>
 <script async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"></script>
 <script defer charset="utf-8" data-rpc-seo="v9" src="./seo.js?v=9"></script>
-<script defer src="app.js?v=14"></script>
+<script defer src="app.js?v=16"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="auth-config.js?v=14"></script>
-<script defer src="auth.js?v=14"></script>
+<script defer src="auth.js?v=16"></script>
 </head>
 <body class="cinematic-site">
 <div class="rpc-global-bg" aria-hidden="true"></div>
@@ -64,7 +64,7 @@
 </div>
 <button class="account-entry sidebar-account" data-rpc-auth-open type="button" aria-label="Открыть аккаунт RPC">
 <span class="account-entry__avatar" aria-hidden="true"><img data-rpc-auth-mini-avatar hidden alt=""/><span data-rpc-auth-mini-fallback>◎</span></span>
-<span class="account-entry__copy"><b data-rpc-auth-label>Войти</b><small data-rpc-auth-subtitle>Регистрация по почте</small></span>
+<span class="account-entry__copy"><b data-rpc-auth-label>Войти</b><small data-rpc-auth-subtitle>Вход или заявка</small></span>
 <span class="account-entry__arrow" aria-hidden="true">›</span>
 </button>
 <nav class="nav">
@@ -323,14 +323,14 @@
 
     <div class="rpc-auth-config-warning" id="rpcAuthConfigWarning" hidden>
       <strong>AUTH SETUP</strong>
-      <p data-auth-i18n="setup">Регистрация не подключена. Укажите Supabase URL и Publishable Key в auth-config.js.</p>
+      <p data-auth-i18n="setup">Аккаунты не подключены. Укажите Supabase URL и Publishable Key в auth-config.js.</p>
     </div>
 
     <div id="rpcAuthLoggedOut">
       <div id="rpcAuthEmailStep">
-        <div class="rpc-auth-tabs" role="tablist" aria-label="Вход или регистрация">
+        <div class="rpc-auth-tabs" role="tablist" aria-label="Вход или заявка">
           <button class="active" data-rpc-auth-mode="login" role="tab" aria-selected="true" type="button" data-auth-i18n="loginTab">Вход</button>
-          <button data-rpc-auth-mode="register" role="tab" aria-selected="false" type="button" data-auth-i18n="registerTab">Регистрация</button>
+          <button data-rpc-auth-mode="register" role="tab" aria-selected="false" type="button" data-auth-i18n="registerTab">Заявка</button>
         </div>
         <p class="rpc-auth-intro" id="rpcAuthIntro">Введите почту от существующего аккаунта — мы отправим код для входа.</p>
         <form id="rpcAuthEmailForm" novalidate>
@@ -353,7 +353,7 @@
         <div class="rpc-auth-social-grid">
           <button class="rpc-auth-social rpc-auth-social--discord" data-rpc-social-login="discord" type="button"><span>◉</span><b>Discord</b></button>
         </div>
-        <p class="rpc-auth-mode-hint" id="rpcAuthModeHint">Нет аккаунта? Перейдите во вкладку «Регистрация».</p>
+        <p class="rpc-auth-mode-hint" id="rpcAuthModeHint">Нет аккаунта? Отправьте заявку во вкладке «Заявка».</p>
       </div>
 
       <div id="rpcAuthCodeStep" hidden>
