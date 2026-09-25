@@ -1,0 +1,33 @@
+RPC RECRUITMENT — НАСТРОЙКА DISCORD
+===================================
+
+Фронтенд уже подключен:
+- recruitment.js
+- index.html уже содержит <script defer src="recruitment.js?v=2"></script>
+
+Серверная функция уже развернута в Supabase проекте rpc-website:
+https://kltlmugbsyavyauexxyv.supabase.co/functions/v1/rpc-recruitment
+
+Чтобы заявки начали приходить в Discord, открой Supabase Dashboard -> rpc-website -> Edge Functions -> Secrets и добавь:
+
+DISCORD_BOT_TOKEN=токен_бота
+DISCORD_PUBLIC_KEY=public_key_приложения
+DISCORD_RECRUITMENT_CHANNEL_ID=id_канала_для_заявок
+DISCORD_STAFF_ROLE_IDS=id_роли1,id_роли2,id_роли3
+
+Токен Discord НЕ добавляй в GitHub и НЕ вставляй в recruitment.js.
+
+В Discord Developer Portal -> Application -> General Information:
+Interactions Endpoint URL:
+https://kltlmugbsyavyauexxyv.supabase.co/functions/v1/rpc-recruitment
+
+Права бота в канале заявок:
+- View Channel
+- Send Messages
+- Embed Links
+- Read Message History
+
+После настройки новая заявка приходит с кнопками:
+✅ Принять на рассмотрение
+❌ Отклонить
+💬 Связаться
