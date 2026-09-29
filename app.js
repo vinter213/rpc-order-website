@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 
 const API_BASE = "https://rpc-telegrambot.onrender.com";
 const TICKET_API_URL = `${API_BASE}/api/tickets`;
@@ -107,7 +107,6 @@ Object.assign(uiText.ru, {
   reviewMediaTooMany: "К отзыву можно прикрепить не более 5 фотографий.",
   reviewMediaTooLarge: "Файл «{name}» больше 8 МБ.",
   reviewMediaInvalid: "Файл «{name}» не является допустимым PNG, JPG или WEBP.",
-  reviewMediaLogin: "Для прикрепления фотографий войдите в аккаунт RPC.",
   reviewMediaUploadFailed: "Не удалось загрузить фотографии отзыва.",
   reviewMediaEmpty: "Фотографии не выбраны",
   portfolioLoading: "Загрузка портфолио…",
@@ -120,7 +119,6 @@ Object.assign(uiText.en, {
   reviewMediaTooMany: "You can attach up to 5 review photos.",
   reviewMediaTooLarge: "The file “{name}” is larger than 8 MB.",
   reviewMediaInvalid: "The file “{name}” is not a valid PNG, JPG, or WEBP image.",
-  reviewMediaLogin: "Sign in to your RPC account to attach photos.",
   reviewMediaUploadFailed: "Could not upload review photos.",
   reviewMediaEmpty: "No photos selected",
   portfolioLoading: "Loading portfolio…",
@@ -150,7 +148,6 @@ Object.assign(staticEnglish, {
   "До 5 изображений PNG, JPG или WEBP. До 8 МБ каждое.": "Up to 5 PNG, JPG, or WEBP images. Up to 8 MB each.",
   "Выбрать фото": "Select photos",
   "Фотографии не выбраны": "No photos selected",
-  "Для прикрепления фотографий требуется вход в аккаунт RPC.": "Sign in to your RPC account to attach photos.",
   "Стрелки ← → · Esc — закрыть · свайп на телефоне": "Arrow keys ← → · Esc to close · swipe on mobile"
 });
 
@@ -592,7 +589,7 @@ orderForm?.addEventListener("submit", async event => {
   if (!orderForm.checkValidity()) { orderForm.reportValidity(); formStatus.className="form-status error"; formStatus.textContent=t("fillRequired"); return; }
   if (!validTelegram(orderForm.elements.clientTelegram.value)) { formStatus.className="form-status error"; formStatus.textContent=t("telegramInvalid"); orderForm.elements.clientTelegram.focus(); return; }
   if (!orderTurnstileToken) { formStatus.className="form-status error"; formStatus.textContent=t("securityRequired"); return; }
-  const payload=new FormData(orderForm); payload.set("agreement",String(Boolean(agreement?.checked))); payload.set("source",location.href); payload.set("turnstileToken",orderTurnstileToken); payload.set("language",currentLanguage); payload.set("displayCurrency",currentCurrency); payload.set("currencyCountry",currencyState.countryCode||""); payload.set("currencySelection",currencyState.manual?"manual":(currencyState.autoDetected?"auto":"default")); payload.set("currencyRateUpdatedAt",currencyState.updatedAt||""); const authUser=window.RPC_AUTH?.user; if(authUser){const meta=authUser.user_metadata||{};payload.set("accountId",authUser.id||"");payload.set("accountEmail",authUser.email||"");payload.set("accountVerified",String(Boolean(authUser.email_confirmed_at)));payload.set("accountName",meta.display_name||meta.full_name||meta.name||"");payload.set("accountAvatar",meta.rpc_avatar_url||meta.avatar_url||meta.picture||"");}
+  const payload=new FormData(orderForm); payload.set("agreement",String(Boolean(agreement?.checked))); payload.set("source",location.href); payload.set("turnstileToken",orderTurnstileToken); payload.set("language",currentLanguage); payload.set("displayCurrency",currentCurrency); payload.set("currencyCountry",currencyState.countryCode||""); payload.set("currencySelection",currencyState.manual?"manual":(currencyState.autoDetected?"auto":"default")); payload.set("currencyRateUpdatedAt",currencyState.updatedAt||"");
   submitButton.disabled=true; submitButton.textContent=selectedFiles.length?t("sendingFiles"):t("sending");
   try {
     const response=await fetch(TICKET_API_URL,{method:"POST",body:payload}); const result=await response.json().catch(()=>({})); if(!response.ok||!result.ok) throw new Error(result.error||t("ticketFallbackError"));
@@ -614,21 +611,12 @@ async function sendPresence(){if(document.visibilityState!=="visible")return;try
 registerVisit(); setInterval(loadStats,30000); setInterval(sendPresence,55000); document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")sendPresence();});
 
 const reviewsList=document.getElementById("reviewsList"),reviewAverage=document.getElementById("reviewAverage"),reviewForm=document.getElementById("reviewForm"),reviewStatus=document.getElementById("reviewStatus"),refreshReviews=document.getElementById("refreshReviews");
-const reviewFilesInput=document.getElementById("reviewFiles"),reviewMediaPreview=document.getElementById("reviewMediaPreview"),reviewMediaHint=document.getElementById("reviewMediaHint");
 const worksGrid=document.getElementById("worksGrid"),portfolioStatus=document.getElementById("portfolioStatus");
 const REVIEW_MEDIA_BUCKET="review-media",PORTFOLIO_MEDIA_BUCKET="portfolio-media";
 const MAX_REVIEW_FILES=5,MAX_REVIEW_FILE_BYTES=8*1024*1024;
-let reviewsLoaded=false,latestReviews=[],reviewMediaMap=new Map(),selectedReviewFiles=[],portfolioLoaded=false,rpcDataClient=null;
+let reviewsLoaded=false,latestReviews=[],reviewMediaMap=new Map(),portfolioLoaded=false,rpcDataClient=null;
 
-function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms));}
-async function getDataClient({authenticated=false}={}){
-  const started=Date.now();
-  while(Date.now()-started<4500){
-    if(window.RPC_AUTH?.client){rpcDataClient=window.RPC_AUTH.client;return rpcDataClient;}
-    if(!authenticated&&rpcDataClient)return rpcDataClient;
-    await wait(60);
-  }
-  if(authenticated)return null;
+async function getDataClient(){
   if(rpcDataClient)return rpcDataClient;
   const config=window.RPC_AUTH_CONFIG;
   if(window.supabase?.createClient&&config?.supabaseUrl&&config?.supabasePublishableKey){
@@ -677,60 +665,14 @@ function renderReviewsFromCache(){if(!reviewsList)return;reviewsList.replaceChil
 async function loadReviews(force=false){if(reviewsLoaded&&!force)return;if(!reviewsList)return;reviewsList.innerHTML=`<div class="review-empty">${t("reviewsLoading")}</div>`;try{const response=await fetch(`${API_BASE}/api/reviews`,{cache:"no-store"});const result=await readJsonResponse(response);latestReviews=Array.isArray(result.reviews)?result.reviews:[];await loadReviewMediaMap();renderReviewsFromCache();reviewsLoaded=true;if(totalReviews)totalReviews.textContent=Number(result.count||latestReviews.length).toLocaleString(uiText[currentLanguage].onlineLocale);}catch(error){console.error(error);reviewsList.innerHTML=`<div class="review-empty error">${t("reviewsLoadError")}</div>`;}}
 refreshReviews?.addEventListener("click",()=>{reviewsLoaded=false;loadReviews(true);loadStats();});
 
-function reviewMimeFromBytes(bytes){
-  if(bytes.length>=8&&bytes[0]===0x89&&bytes[1]===0x50&&bytes[2]===0x4e&&bytes[3]===0x47&&bytes[4]===0x0d&&bytes[5]===0x0a&&bytes[6]===0x1a&&bytes[7]===0x0a)return "image/png";
-  if(bytes.length>=3&&bytes[0]===0xff&&bytes[1]===0xd8&&bytes[2]===0xff)return "image/jpeg";
-  if(bytes.length>=12&&String.fromCharCode(...bytes.slice(0,4))==="RIFF"&&String.fromCharCode(...bytes.slice(8,12))==="WEBP")return "image/webp";
-  return null;
-}
-async function validateReviewImage(file){const bytes=new Uint8Array(await file.slice(0,16).arrayBuffer());const detected=reviewMimeFromBytes(bytes);if(!detected||file.size<=0||file.size>MAX_REVIEW_FILE_BYTES)return null;return detected;}
-function clearReviewFiles(){selectedReviewFiles.forEach(item=>URL.revokeObjectURL(item.preview));selectedReviewFiles=[];if(reviewFilesInput)reviewFilesInput.value="";renderReviewFilePreviews();}
-function renderReviewFilePreviews(){
-  if(!reviewMediaPreview)return;reviewMediaPreview.replaceChildren();
-  if(!selectedReviewFiles.length){const empty=document.createElement("span");empty.textContent=t("reviewMediaEmpty");reviewMediaPreview.append(empty);}else selectedReviewFiles.forEach((item,index)=>{const box=document.createElement("div");box.className="review-media-thumb";const img=document.createElement("img");img.src=item.preview;img.alt=item.file.name;const remove=document.createElement("button");remove.type="button";remove.textContent="×";remove.setAttribute("aria-label",t("removeFile",{name:item.file.name}));remove.addEventListener("click",()=>{URL.revokeObjectURL(item.preview);selectedReviewFiles.splice(index,1);renderReviewFilePreviews();});box.append(img,remove);reviewMediaPreview.append(box);});
-  if(reviewMediaHint)reviewMediaHint.textContent=window.RPC_AUTH?.user?`${selectedReviewFiles.length} / ${MAX_REVIEW_FILES}`:t("reviewMediaLogin");
-}
-reviewFilesInput?.addEventListener("change",async()=>{
-  const files=[...(reviewFilesInput.files||[])];
-  if(files.length>MAX_REVIEW_FILES){reviewStatus.className="form-status error";reviewStatus.textContent=t("reviewMediaTooMany");reviewFilesInput.value="";return;}
-  const next=[];
-  for(const file of files){
-    if(file.size>MAX_REVIEW_FILE_BYTES){reviewStatus.className="form-status error";reviewStatus.textContent=t("reviewMediaTooLarge",{name:file.name});next.forEach(item=>URL.revokeObjectURL(item.preview));reviewFilesInput.value="";return;}
-    const mime=await validateReviewImage(file);if(!mime){reviewStatus.className="form-status error";reviewStatus.textContent=t("reviewMediaInvalid",{name:file.name});next.forEach(item=>URL.revokeObjectURL(item.preview));reviewFilesInput.value="";return;}
-    next.push({file,mime,preview:URL.createObjectURL(file)});
-  }
-  selectedReviewFiles.forEach(item=>URL.revokeObjectURL(item.preview));selectedReviewFiles=next;reviewStatus.textContent="";renderReviewFilePreviews();
-});
-function fileExtensionForMime(mime){return mime==="image/png"?"png":mime==="image/webp"?"webp":"jpg";}
-async function createReviewMediaDraft(data){
-  if(!selectedReviewFiles.length)return null;
-  const client=await getDataClient({authenticated:true}),user=window.RPC_AUTH?.user;
-  if(!client||!user){window.RPC_AUTH?.open?.();throw new Error(t("reviewMediaLogin"));}
-  const submissionRef=crypto.randomUUID(),matchKey=reviewMatchKey({name:data.name,projectType:data.projectType,rating:data.rating,body:data.body}),uploaded=[];
-  try{
-    for(const item of selectedReviewFiles){
-      const path=`${user.id}/${submissionRef}/${crypto.randomUUID()}.${fileExtensionForMime(item.mime)}`;
-      const {error}=await client.storage.from(REVIEW_MEDIA_BUCKET).upload(path,item.file,{contentType:item.mime,cacheControl:"31536000",upsert:false});if(error)throw error;
-      const {data:publicData}=client.storage.from(REVIEW_MEDIA_BUCKET).getPublicUrl(path);uploaded.push({path,url:publicData.publicUrl,file:item.file,mime:item.mime});
-    }
-    const rows=uploaded.map(item=>({review_match_key:matchKey,submission_ref:submissionRef,owner_id:user.id,review_name:String(data.name||""),review_body:String(data.body||""),review_rating:Number(data.rating)||null,review_project_type:String(data.projectType||""),storage_path:item.path,public_url:item.url,file_name:item.file.name,mime_type:item.mime,size_bytes:item.file.size,published:false}));
-    const {error}=await client.from("rpc_review_media").insert(rows);if(error)throw error;
-    return {client,user,submissionRef,matchKey,uploaded};
-  }catch(error){if(uploaded.length)await client.storage.from(REVIEW_MEDIA_BUCKET).remove(uploaded.map(item=>item.path)).catch(()=>{});throw error;}
-}
-async function cleanupReviewMediaDraft(draft){if(!draft)return;try{await draft.client.from("rpc_review_media").delete().eq("submission_ref",draft.submissionRef).eq("owner_id",draft.user.id);}catch{}if(draft.uploaded.length)try{await draft.client.storage.from(REVIEW_MEDIA_BUCKET).remove(draft.uploaded.map(item=>item.path));}catch{}}
 reviewForm?.addEventListener("submit",async event=>{
   event.preventDefault();reviewStatus.className="form-status";reviewStatus.textContent="";if(reviewForm.elements.website.value)return;if(!reviewForm.checkValidity())return reviewForm.reportValidity();if(!reviewTurnstileToken){reviewStatus.className="form-status error";reviewStatus.textContent=t("securityRequired");return;}
-  reviewSubmit.disabled=true;reviewSubmit.textContent=t("sending");const data=Object.fromEntries(new FormData(reviewForm).entries());data.turnstileToken=reviewTurnstileToken;data.language=currentLanguage;const authUser=window.RPC_AUTH?.user;if(authUser){const meta=authUser.user_metadata||{};data.accountId=authUser.id||"";data.accountEmail=authUser.email||"";data.accountVerified=Boolean(authUser.email_confirmed_at);data.accountName=meta.display_name||meta.full_name||meta.name||"";data.accountAvatar=meta.rpc_avatar_url||meta.avatar_url||meta.picture||"";}
-  let mediaDraft=null;
+  reviewSubmit.disabled=true;reviewSubmit.textContent=t("sending");const data=Object.fromEntries(new FormData(reviewForm).entries());data.turnstileToken=reviewTurnstileToken;data.language=currentLanguage;
   try{
-    mediaDraft=await createReviewMediaDraft(data);
-    if(mediaDraft){data.clientSubmissionId=mediaDraft.submissionRef;data.media=mediaDraft.uploaded.map(item=>({type:"image",url:item.url,path:item.path,mimeType:item.mime,size:item.file.size,name:item.file.name}));}
     const response=await fetch(`${API_BASE}/api/reviews`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await readJsonResponse(response);
-    if(mediaDraft&&result.published){const reviewId=result.reviewId??result.id??result.review?.id??null;const {data:finalized,error}=await mediaDraft.client.rpc("rpc_finalize_review_media",{p_submission_ref:mediaDraft.submissionRef,p_review_id:reviewId==null?null:String(reviewId)});if(error||!Number(finalized||0))console.warn("Review media remains pending for admin moderation:",error?.message||"review link was not verifiable");}
-    reviewStatus.className="form-status success";reviewStatus.textContent=result.published?t("reviewPublished"):t("reviewModeration");reviewForm.reset();clearReviewFiles();if(reviewStartedAt)reviewStartedAt.value=String(Date.now());reviewTurnstileToken="";if(window.turnstile&&reviewTurnstileWidget!==null)window.turnstile.reset(reviewTurnstileWidget);reviewsLoaded=false;if(result.published)await loadReviews(true);loadStats();
-  }catch(error){console.error(error);if(mediaDraft)await cleanupReviewMediaDraft(mediaDraft);reviewStatus.className="form-status error";reviewStatus.textContent=error.message||t("reviewSendError");}
-  finally{reviewSubmit.textContent=t("submitReview");updateReviewSubmitState();renderReviewFilePreviews();}
+    reviewStatus.className="form-status success";reviewStatus.textContent=result.published?t("reviewPublished"):t("reviewModeration");reviewForm.reset();if(reviewStartedAt)reviewStartedAt.value=String(Date.now());reviewTurnstileToken="";if(window.turnstile&&reviewTurnstileWidget!==null)window.turnstile.reset(reviewTurnstileWidget);reviewsLoaded=false;if(result.published)await loadReviews(true);loadStats();
+  }catch(error){console.error(error);reviewStatus.className="form-status error";reviewStatus.textContent=error.message||t("reviewSendError");}
+  finally{reviewSubmit.textContent=t("submitReview");updateReviewSubmitState();}
 });
 
 const portfolioMediaByCard=new WeakMap();
@@ -770,14 +712,11 @@ document.addEventListener("keydown",event=>{if(!galleryModal?.classList.contains
 
 loadReviews();
 if(location.hash.replace("#","").split("?")[0]==="works")loadPortfolio();
-renderReviewFilePreviews();
-
 function updateDynamicLanguage(){
   renderFiles();
   renderCurrencyUI();
   if (statsStatus && !statsStatus.textContent.includes("—")) loadStats();
   if (reviewsLoaded) renderReviewsFromCache();
-  renderReviewFilePreviews();
   if (portfolioLoaded) loadPortfolio(true);
   if (orderSecurityStatus) orderSecurityStatus.textContent = orderTurnstileToken ? t("securityReady") : (turnstileConfig?.turnstileConfigured ? t("securityRequired") : t("orderSecurityLoading"));
   if (reviewSecurityStatus) reviewSecurityStatus.textContent = reviewTurnstileToken ? t("securityReady") : (turnstileConfig?.turnstileConfigured ? t("securityRequired") : t("reviewSecurityLoading"));
@@ -790,3 +729,4 @@ const initialLanguage=getQueryLanguage()||localStorage.getItem(LANGUAGE_KEY)||((
 applyLanguage(initialLanguage,false);
 loadCurrencyConfiguration();
 renderTurnstileWidgets();
+
