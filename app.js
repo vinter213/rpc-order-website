@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-const API_BASE = "https://rpc-telegrambot.onrender.com";
+const API_BASE = "https://rpc-telegrambott.onrender.com";
 const TICKET_API_URL = `${API_BASE}/api/tickets`;
 const RULES_BASE_URL = "https://rpc-rules.onrender.com/";
 const LANGUAGE_KEY = "rpc_language_v1";
