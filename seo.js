@@ -7,15 +7,17 @@
  */
 (() => {
   const config = {
-    version: "10.0.0",
+    version: "11.0.0",
     siteUrl: "https://rpc-order-website.onrender.com",
     siteName: "RPC • RedPad Creator",
-    image: "/og-image.png",
+    image: "/rpc-og-20261110-v2.jpg",
     defaultRoute: "home",
     pages: {
       ru: {
         home: {
           title: "RPC • RedPad Creator — VRChat-аватары и миры на заказ",
+          socialTitle: "RPC • RedPad Creator | VRChat-аватары и миры",
+          socialDescription: "VRChat-аватары и миры на заказ: PC и Quest, Udon, кастомизация и оптимизация. Проекты от команды RPC.",
           description: "RPC • RedPad Creator — создание и настройка VRChat-аватаров и миров на заказ. Кастомизация, PhysBone, Udon, оптимизация и Quest-версии. Заказы через Telegram."
         },
         prices: {
@@ -101,12 +103,12 @@
 
     document.title = page.title;
     setMeta('meta[name="description"]', "content", page.description);
-    setMeta('meta[property="og:title"]', "content", page.title);
-    setMeta('meta[property="og:description"]', "content", page.description);
+    setMeta('meta[property="og:title"]', "content", page.socialTitle || page.title);
+    setMeta('meta[property="og:description"]', "content", page.socialDescription || page.description);
     setMeta('meta[property="og:url"]', "content", canonical);
     setMeta('meta[property="og:locale"]', "content", locale);
-    setMeta('meta[name="twitter:title"]', "content", page.title);
-    setMeta('meta[name="twitter:description"]', "content", page.description);
+    setMeta('meta[name="twitter:title"]', "content", page.socialTitle || page.title);
+    setMeta('meta[name="twitter:description"]', "content", page.socialDescription || page.description);
     setMeta('link[rel="canonical"]', "href", canonical);
 
     const structuredPage = document.getElementById("rpc-page-schema");
