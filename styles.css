@@ -726,3 +726,10 @@ body.cinematic-site .price-card.accent{background:var(--red)!important;backgroun
 .price-card.accent>div b{color:var(--gold)}
 .price-note,.rate-attribution{color:var(--muted)}
 .price-card.accent li:before{color:var(--gold)}
+
+/* Lightweight crawlable links to service landing pages. */
+.service-learn-more{display:flex;flex-wrap:wrap;gap:10px 22px;margin:14px 0 8px;padding:0 2px}
+.service-learn-more a{color:var(--gold);font-weight:700;font-size:13px;text-decoration:underline;text-underline-offset:4px}
+.service-learn-more a:hover,.footer-services a:hover{color:#fff}
+.footer-services{display:flex;flex-wrap:wrap;gap:10px 20px;font-size:12px;color:#d5b77b}
+@media(max-width:760px){.service-learn-more{flex-direction:column;gap:12px}.footer-services{margin:10px 0;gap:8px 16px}}

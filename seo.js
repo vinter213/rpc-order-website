@@ -7,7 +7,7 @@
  */
 (() => {
   const config = {
-    version: "9.0.0",
+    version: "10.0.0",
     siteUrl: "https://rpc-order-website.onrender.com",
     siteName: "RPC • RedPad Creator",
     image: "/og-image.png",
@@ -16,7 +16,7 @@
       ru: {
         home: {
           title: "RPC • RedPad Creator — VRChat-аватары и миры на заказ",
-          description: "Заказ VRChat-аватаров и миров, Udon-систем, оптимизации и Quest-версий от команды RPC • RedPad Creator."
+          description: "RPC • RedPad Creator — создание и настройка VRChat-аватаров и миров на заказ. Кастомизация, PhysBone, Udon, оптимизация и Quest-версии. Заказы через Telegram."
         },
         prices: {
           title: "Цены на VRChat-аватары и миры — RPC",

@@ -143,6 +143,10 @@ const staticEnglish = {
 };
 
 Object.assign(staticEnglish, {
+  "Подробнее о VRChat-аватарах ↗":"Explore VRChat avatars ↗",
+  "Подробнее о VRChat-мирах ↗":"Explore VRChat worlds ↗",
+  "VRChat-аватары на заказ":"VRChat avatar commissions",
+  "VRChat-миры на заказ":"VRChat world commissions",
   "Аватары, миры, интерфейсы и другие проекты RPC.": "Avatars, worlds, interfaces, and other RPC projects.",
   "ФОТО К ОТЗЫВУ": "REVIEW PHOTOS",
   "До 5 изображений PNG, JPG или WEBP. До 8 МБ каждое.": "Up to 5 PNG, JPG, or WEBP images. Up to 8 MB each.",
