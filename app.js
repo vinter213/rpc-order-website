@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 const API_BASE = "https://rpc-telegrambott.onrender.com";
 const TICKET_API_URL = `${API_BASE}/api/tickets`;
@@ -129,7 +129,7 @@ Object.assign(uiText.en, {
 });
 
 const staticEnglish = {
-  "Главная":"Home","Прайс-лист":"Pricing","Валюта":"Currency","Определяем страну…":"Detecting country…","Наши работы":"Our work","Отзывы":"Reviews","Создать заказ":"Create order","Правила":"Rules","Создать тикет":"Create ticket","Онлайн":"Online",
+  "Главная":"Home","Прайс-лист":"Pricing","Валюта":"Currency","Определяем страну…":"Detecting country…","Наши работы":"Our work","Отзывы":"Reviews","Создать заказ":"Create order","Правила":"Rules","Создать тикет":"Create ticket",
   "Принимаем заказы":"Commissions open","Ответ обычно в Telegram":"We usually reply on Telegram","VRCHAT · АВАТАРЫ · МИРЫ":"VRCHAT · AVATARS · WORLDS","Создаём проекты,":"We create projects","которые выделяются":"that stand out",
   "Аватары, миры, Udon-системы, оптимизация и Quest-версии. Опишите задачу — заявка попадёт напрямую команде RPC.":"Avatars, worlds, Udon systems, optimization, and Quest versions. Describe your task and the request will go directly to the RPC team.",
   "Открыть правила":"Open rules","Правила хранятся на отдельном сайте документации":"The rules are stored on a separate documentation website","уникальных посетителей":"unique visitors","сейчас на сайте":"online now","опубликованных отзывов":"published reviews","Синхронизация статистики…":"Synchronizing statistics…",
@@ -404,7 +404,6 @@ function openOrder(category) {
 }
 document.querySelectorAll("[data-category]").forEach(button => button.addEventListener("click", () => openOrder(button.dataset.category)));
 
-document.addEventListener("contextmenu", event => { if (event.target.closest(".protected-image")) event.preventDefault(); });
 document.querySelectorAll(".protected-image").forEach(image => image.addEventListener("dragstart", event => event.preventDefault()));
 window.addEventListener("pointermove", event => {
   document.documentElement.style.setProperty("--pointer-x", `${event.clientX}px`);
@@ -413,44 +412,6 @@ window.addEventListener("pointermove", event => {
   document.documentElement.style.setProperty("--decor-shift-y", `${(event.clientY / innerHeight - .5) * 6}px`);
 }, { passive:true });
 
-// Decorative avatars are intentionally empty for now. Add transparent PNG files later.
-// Example:
-// { page:"home", src:"decor-home-right.png", side:"right", top:"8%", width:"390px", opacity:.86, animation:"float-slow", mobile:"hide" }
-const DECORATIVE_CHARACTERS = [];
-function renderDecorativeCharacters() {
-  document.querySelectorAll(".site-character-layer").forEach(layer => layer.remove());
-  const grouped = new Map();
-  DECORATIVE_CHARACTERS.forEach(item => {
-    if (!item.src || !item.page) return;
-    if (!grouped.has(item.page)) grouped.set(item.page, []);
-    grouped.get(item.page).push(item);
-  });
-  grouped.forEach((items, pageName) => {
-    const page = document.querySelector(`[data-page="${CSS.escape(pageName)}"]`);
-    if (!page) return;
-    const layer = document.createElement("div");
-    layer.className = "site-character-layer";
-    items.forEach((item, index) => {
-      const image = document.createElement("img");
-      image.src = item.src;
-      image.alt = "";
-      image.draggable = false;
-      image.className = `site-character ${item.animation || "float-slow"} ${item.mobile === "hide" ? "hide-mobile" : ""}`;
-      image.style.setProperty("--character-top", item.top || "auto");
-      image.style.setProperty("--character-bottom", item.bottom || "auto");
-      image.style.setProperty("--character-left", item.side === "left" ? (item.offset || "-30px") : "auto");
-      image.style.setProperty("--character-right", item.side === "right" ? (item.offset || "-30px") : "auto");
-      image.style.setProperty("--character-width", item.width || "320px");
-      image.style.setProperty("--character-opacity", String(item.opacity ?? .78));
-      image.style.setProperty("--character-delay", `${item.delay ?? index * -.8}s`);
-      image.style.setProperty("--character-rotate", `${item.rotate ?? 0}deg`);
-      image.style.setProperty("--character-depth", String(item.depth ?? 1));
-      layer.append(image);
-    });
-    page.append(layer);
-  });
-}
-renderDecorativeCharacters();
 
 const description = document.getElementById("description");
 const counter = document.getElementById("counter");

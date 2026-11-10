@@ -12,7 +12,7 @@
     "https://kltlmugbsyavyauexxyv.supabase.co/functions/v1/rpc-recruitment";
 
   const PUBLIC_CONFIG_ENDPOINT =
-    "https://rpc-telegrambot.onrender.com/api/public-config";
+    "https://rpc-telegrambott.onrender.com/api/public-config";
 
   const NOTICE_DELAY_MS = 1300;
   const LATER_HIDE_MS = 24 * 60 * 60 * 1000;
@@ -139,11 +139,11 @@
     .rpc-recruitment-toast{
       position:fixed;right:28px;bottom:28px;z-index:9000;
       width:min(440px,calc(100vw - 32px));padding:20px;
-      border:1px solid rgba(138,92,255,.45);border-radius:22px;
+      border:1px solid rgba(255,90,95,.45);border-radius:22px;
       background:
-        radial-gradient(circle at 100% 0%,rgba(128,77,255,.16),transparent 38%),
+        radial-gradient(circle at 100% 0%,rgba(255,90,95,.16),transparent 38%),
         linear-gradient(160deg,rgba(15,17,30,.98),rgba(8,10,18,.985));
-      box-shadow:0 24px 70px rgba(0,0,0,.5),0 0 42px rgba(120,70,255,.14);
+      box-shadow:0 24px 70px rgba(0,0,0,.5),0 0 42px rgba(255,90,95,.14);
       backdrop-filter:blur(18px);
       animation:rpcRecruitIn .45s cubic-bezier(.2,.8,.2,1) both
     }
@@ -151,24 +151,24 @@
     .rpc-recruitment-toast p{margin:0;color:#b8bfd3;line-height:1.55}
     .rpc-recruitment-kicker{
       display:block;margin-bottom:8px;font-size:11px;font-weight:800;
-      letter-spacing:.16em;color:#a486ff
+      letter-spacing:.16em;color:#ff5a5f
     }
     .rpc-recruitment-live{
       display:inline-flex;align-items:center;gap:7px;margin-bottom:11px;
-      padding:5px 9px;border-radius:999px;background:rgba(103,76,255,.11);
-      border:1px solid rgba(133,102,255,.18);font-size:11px;color:#c7baff
+      padding:5px 9px;border-radius:999px;background:rgba(255,90,95,.11);
+      border:1px solid rgba(255,90,95,.18);font-size:11px;color:#ff5a5f
     }
     .rpc-recruitment-live::before{
-      content:"";width:7px;height:7px;border-radius:50%;background:#8f6cff;
-      box-shadow:0 0 13px rgba(143,108,255,.8)
+      content:"";width:7px;height:7px;border-radius:50%;background:#ff5a5f;
+      box-shadow:0 0 13px rgba(255,90,95,.8)
     }
     .rpc-recruitment-actions{display:flex;gap:10px;margin-top:17px}
     .rpc-recruitment-actions button{
       border:0;border-radius:12px;padding:11px 14px;font-weight:800;cursor:pointer
     }
     .rpc-recruitment-primary{
-      flex:1;background:linear-gradient(135deg,#7452ff,#a879ff);color:#fff;
-      box-shadow:0 8px 28px rgba(117,80,255,.2)
+      flex:1;background:linear-gradient(135deg,#ff5a5f,#ff5a5f);color:#fff;
+      box-shadow:0 8px 28px rgba(255,90,95,.2)
     }
     .rpc-recruitment-secondary{
       background:#171a27;color:#cdd3e4;border:1px solid #292d3d!important
@@ -181,9 +181,9 @@
     .rpc-recruitment-modal.open{display:grid}
     .rpc-recruitment-card{
       width:min(780px,100%);max-height:92vh;overflow:auto;
-      border:1px solid rgba(138,92,255,.4);border-radius:24px;
+      border:1px solid rgba(255,90,95,.4);border-radius:24px;
       background:
-        radial-gradient(circle at 90% -10%,rgba(127,78,255,.13),transparent 34%),
+        radial-gradient(circle at 90% -10%,rgba(255,90,95,.13),transparent 34%),
         #0d101a;
       box-shadow:0 28px 90px rgba(0,0,0,.62);padding:26px
     }
@@ -212,20 +212,20 @@
     .rpc-recruitment-field input:focus,
     .rpc-recruitment-field select:focus,
     .rpc-recruitment-field textarea:focus{
-      border-color:#805cff;box-shadow:0 0 0 3px rgba(128,92,255,.12)
+      border-color:#ff5a5f;box-shadow:0 0 0 3px rgba(255,90,95,.12)
     }
     .rpc-recruitment-security{
       margin-top:15px;padding:13px;border:1px solid #252a3b;border-radius:14px;background:#10141f
     }
     .rpc-recruitment-security strong{
-      display:block;margin-bottom:8px;font-size:10px;letter-spacing:.14em;color:#8f79e9
+      display:block;margin-bottom:8px;font-size:10px;letter-spacing:.14em;color:#ff5a5f
     }
     .rpc-recruitment-security p{margin:7px 0 0;font-size:12px;color:#8f98ad}
     .rpc-recruitment-turnstile{min-height:0}
     .rpc-recruitment-submit{
       width:100%;margin-top:16px;border:0;border-radius:13px;padding:13px 16px;
-      background:linear-gradient(135deg,#7452ff,#a879ff);color:#fff;font-weight:900;
-      cursor:pointer;box-shadow:0 10px 30px rgba(117,80,255,.2)
+      background:linear-gradient(135deg,#ff5a5f,#ff5a5f);color:#fff;font-weight:900;
+      cursor:pointer;box-shadow:0 10px 30px rgba(255,90,95,.2)
     }
     .rpc-recruitment-submit:disabled{opacity:.55;cursor:wait}
     .rpc-recruitment-status{min-height:24px;margin-top:12px;font-size:13px;color:#adb4ca}
